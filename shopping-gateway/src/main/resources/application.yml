@@ -1,0 +1,66 @@
+server:
+  port: 8201
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true #使用小写service-id
+      routes: #配置路由路径
+        - id: shopping-auth
+          uri: lb://shopping-auth
+          predicates:
+            - Path=/shopping-auth/**
+          filters:
+            - StripPrefix=1
+        - id: shopping-admin
+          uri: lb://shopping-admin
+          predicates:
+            - Path=/shopping-admin/**
+          filters:
+            - StripPrefix=1
+        - id: shopping-portal
+          uri: lb://shopping-portal
+          predicates:
+            - Path=/shopping-portal/**
+          filters:
+            - StripPrefix=1
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: 'http://localhost:8201/shopping-auth/rsa/publicKey' #配置RSA的公钥访问地址
+  redis:
+    database: 0
+    port: 6379
+    host: localhost
+    password: 123456
+secure:
+  ignore:
+    urls: #配置白名单路径
+      - "/doc.html"
+      - "/swagger-resources/**"
+      - "/swagger/**"
+      - "/*/v2/api-docs"
+      - "/*/*.js"
+      - "/*/*.css"
+      - "/*/*.png"
+      - "/*/*.ico"
+      - "/webjars/**"
+      - "/actuator/**"
+      - "/shopping-auth/oauth/token"
+      - "/shopping-auth/rsa/publicKey"
+      - "/shopping-search/**"
+      - "/shopping-portal/sso/login"
+      - "/shopping-portal/sso/register"
+      - "/shopping-portal/sso/getAuthCode"
+      - "/shopping-portal/home/**"
+      - "/shopping-portal/product/**"
+      - "/shopping-portal/brand/**"
+      - "/shopping-admin/admin/login"
+      - "/shopping-admin/admin/register"
+      - "/shopping-admin/minio/upload"

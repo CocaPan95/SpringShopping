@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.coca.shoppingmbg.mapper.OmsOrderMapper">
+  <resultMap id="BaseResultMap" type="com.coca.shoppingmbg.model.OmsOrder">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="OrderNo" jdbcType="VARCHAR" property="orderno" />
+    <result column="UserId" jdbcType="INTEGER" property="userid" />
+    <result column="OrderStatus" jdbcType="INTEGER" property="orderstatus" />
+    <result column="Order_Price" jdbcType="DECIMAL" property="orderPrice" />
+    <result column="IsPay" jdbcType="BIT" property="ispay" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="CreateBy" jdbcType="VARCHAR" property="createby" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="UpdateBy" jdbcType="TIMESTAMP" property="updateby" />
+    <result column="IsDelete" jdbcType="BIT" property="isdelete" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, OrderNo, UserId, OrderStatus, Order_Price, IsPay, CreateTime, CreateBy, UpdateTime, 
+    UpdateBy, IsDelete
+  </sql>
+  <select id="selectByExample" parameterType="com.coca.shoppingmbg.model.OmsOrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from oms_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from oms_order
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from oms_order
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.coca.shoppingmbg.model.OmsOrderExample">
+    delete from oms_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.coca.shoppingmbg.model.OmsOrder">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into oms_order (OrderNo, UserId, OrderStatus, 
+      Order_Price, IsPay, CreateTime, 
+      CreateBy, UpdateTime, UpdateBy, 
+      IsDelete)
+    values (#{orderno,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, #{orderstatus,jdbcType=INTEGER}, 
+      #{orderPrice,jdbcType=DECIMAL}, #{ispay,jdbcType=BIT}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{createby,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{updateby,jdbcType=TIMESTAMP}, 
+      #{isdelete,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.coca.shoppingmbg.model.OmsOrder">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into oms_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderno != null">
+        OrderNo,
+      </if>
+      <if test="userid != null">
+        UserId,
+      </if>
+      <if test="orderstatus != null">
+        OrderStatus,
+      </if>
+      <if test="orderPrice != null">
+        Order_Price,
+      </if>
+      <if test="ispay != null">
+        IsPay,
+      </if>
+      <if test="createtime != null">
+        CreateTime,
+      </if>
+      <if test="createby != null">
+        CreateBy,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="updateby != null">
+        UpdateBy,
+      </if>
+      <if test="isdelete != null">
+        IsDelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderno != null">
+        #{orderno,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="orderstatus != null">
+        #{orderstatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderPrice != null">
+        #{orderPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="ispay != null">
+        #{ispay,jdbcType=BIT},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createby != null">
+        #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null">
+        #{updateby,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdelete != null">
+        #{isdelete,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.coca.shoppingmbg.model.OmsOrderExample" resultType="java.lang.Long">
+    select count(*) from oms_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update oms_order
+    <set>
+      <if test="row.id != null">
+        Id = #{row.id,jdbcType=INTEGER},
+      </if>
+      <if test="row.orderno != null">
+        OrderNo = #{row.orderno,jdbcType=VARCHAR},
+      </if>
+      <if test="row.userid != null">
+        UserId = #{row.userid,jdbcType=INTEGER},
+      </if>
+      <if test="row.orderstatus != null">
+        OrderStatus = #{row.orderstatus,jdbcType=INTEGER},
+      </if>
+      <if test="row.orderPrice != null">
+        Order_Price = #{row.orderPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="row.ispay != null">
+        IsPay = #{row.ispay,jdbcType=BIT},
+      </if>
+      <if test="row.createtime != null">
+        CreateTime = #{row.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.createby != null">
+        CreateBy = #{row.createby,jdbcType=VARCHAR},
+      </if>
+      <if test="row.updatetime != null">
+        UpdateTime = #{row.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.updateby != null">
+        UpdateBy = #{row.updateby,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.isdelete != null">
+        IsDelete = #{row.isdelete,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update oms_order
+    set Id = #{row.id,jdbcType=INTEGER},
+      OrderNo = #{row.orderno,jdbcType=VARCHAR},
+      UserId = #{row.userid,jdbcType=INTEGER},
+      OrderStatus = #{row.orderstatus,jdbcType=INTEGER},
+      Order_Price = #{row.orderPrice,jdbcType=DECIMAL},
+      IsPay = #{row.ispay,jdbcType=BIT},
+      CreateTime = #{row.createtime,jdbcType=TIMESTAMP},
+      CreateBy = #{row.createby,jdbcType=VARCHAR},
+      UpdateTime = #{row.updatetime,jdbcType=TIMESTAMP},
+      UpdateBy = #{row.updateby,jdbcType=TIMESTAMP},
+      IsDelete = #{row.isdelete,jdbcType=BIT}
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.coca.shoppingmbg.model.OmsOrder">
+    update oms_order
+    <set>
+      <if test="orderno != null">
+        OrderNo = #{orderno,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        UserId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="orderstatus != null">
+        OrderStatus = #{orderstatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderPrice != null">
+        Order_Price = #{orderPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="ispay != null">
+        IsPay = #{ispay,jdbcType=BIT},
+      </if>
+      <if test="createtime != null">
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createby != null">
+        CreateBy = #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null">
+        UpdateBy = #{updateby,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdelete != null">
+        IsDelete = #{isdelete,jdbcType=BIT},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.coca.shoppingmbg.model.OmsOrder">
+    update oms_order
+    set OrderNo = #{orderno,jdbcType=VARCHAR},
+      UserId = #{userid,jdbcType=INTEGER},
+      OrderStatus = #{orderstatus,jdbcType=INTEGER},
+      Order_Price = #{orderPrice,jdbcType=DECIMAL},
+      IsPay = #{ispay,jdbcType=BIT},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      CreateBy = #{createby,jdbcType=VARCHAR},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      UpdateBy = #{updateby,jdbcType=TIMESTAMP},
+      IsDelete = #{isdelete,jdbcType=BIT}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

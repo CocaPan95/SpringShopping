@@ -1,0 +1,8 @@
+dubbo:
+  application:
+    name: shopping-order-service
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: zookeeper://${zookeeper.address:localhost}:2181
