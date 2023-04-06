@@ -9,7 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ShoppingUserServiceApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(ShoppingUserServiceApplication.class, args);
+
     }
 
 }

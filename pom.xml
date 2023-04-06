@@ -45,6 +45,7 @@
         <jjwt.version>0.9.1</jjwt.version>
         <nimbus-jose-jwt.version>9.23</nimbus-jose-jwt.version>
         <hutool.version>5.8.0</hutool.version>
+        <logstash.version>5.3</logstash.version>
     </properties>
 
     <dependencies>
@@ -175,6 +176,12 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+            <!--集成logstash-->
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logstash.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
