@@ -3,18 +3,18 @@ package com.coca.shoppingmbg.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class PmsProductVertifyRecord implements Serializable {
+public class UmsResource implements Serializable {
     private Long id;
-
-    private Long productId;
 
     private Date createTime;
 
-    private String vertifyMan;
+    private String name;
 
-    private Integer status;
+    private String url;
 
-    private String detail;
+    private String description;
+
+    private Long categoryId;
 
     private static final long serialVersionUID = 1L;
 
@@ -26,14 +26,6 @@ public class PmsProductVertifyRecord implements Serializable {
         this.id = id;
     }
 
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
@@ -42,28 +34,36 @@ public class PmsProductVertifyRecord implements Serializable {
         this.createTime = createTime;
     }
 
-    public String getVertifyMan() {
-        return vertifyMan;
+    public String getName() {
+        return name;
     }
 
-    public void setVertifyMan(String vertifyMan) {
-        this.vertifyMan = vertifyMan;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Integer getStatus() {
-        return status;
+    public String getUrl() {
+        return url;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public String getDetail() {
-        return detail;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     @Override
@@ -73,11 +73,11 @@ public class PmsProductVertifyRecord implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", productId=").append(productId);
         sb.append(", createTime=").append(createTime);
-        sb.append(", vertifyMan=").append(vertifyMan);
-        sb.append(", status=").append(status);
-        sb.append(", detail=").append(detail);
+        sb.append(", name=").append(name);
+        sb.append(", url=").append(url);
+        sb.append(", description=").append(description);
+        sb.append(", categoryId=").append(categoryId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

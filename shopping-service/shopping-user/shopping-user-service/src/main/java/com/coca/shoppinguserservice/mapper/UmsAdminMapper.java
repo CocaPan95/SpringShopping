@@ -1,7 +1,6 @@
 package com.coca.shoppinguserservice.mapper;
 
 
-
 import com.coca.shoppingmodel.domain.user.UmsAdmin;
 import com.coca.shoppingmodel.domain.user.UmsAdminExample;
 import org.apache.ibatis.annotations.Param;

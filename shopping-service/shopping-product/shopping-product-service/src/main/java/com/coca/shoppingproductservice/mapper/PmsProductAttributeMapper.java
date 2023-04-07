@@ -1,7 +1,5 @@
 package com.coca.shoppingproductservice.mapper;
 
-import com.coca.shoppingmodel.domain.product.PmsProductAttribute;
-import com.coca.shoppingmodel.domain.product.PmsProductAttributeExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
