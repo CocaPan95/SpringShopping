@@ -1,5 +1,7 @@
 package com.coca.shoppingproductservice.mapper;
 
+import com.coca.shoppingmodel.domain.product.PmsProductVertifyRecord;
+import com.coca.shoppingmodel.domain.product.PmsProductVertifyRecordExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
