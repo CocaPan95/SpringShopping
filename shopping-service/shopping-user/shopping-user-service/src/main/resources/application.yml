@@ -43,3 +43,9 @@ spring:
 mybatis:
   mapper-locations:
     - classpath:dao/*.xml
+redis:
+  database: mall
+  key:
+    admin: 'ums:admin'
+  expire:
+    common: 86400 # 24小时

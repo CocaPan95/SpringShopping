@@ -6,6 +6,7 @@ import cn.hutool.crypto.digest.BCrypt;
 import cn.hutool.json.JSONUtil;
 import com.coca.shoppingcommon.constant.AuthConstant;
 import com.coca.shoppingcommon.exception.Asserts;
+import com.coca.shoppingcommon.service.RedisService;
 import com.coca.shoppingmodel.api.CommonResult;
 import com.coca.shoppingmodel.api.ResultCode;
 import com.coca.shoppingmodel.domain.user.*;
@@ -21,6 +22,7 @@ import com.github.pagehelper.PageHelper;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -42,6 +44,15 @@ public class UmsAdminImpl implements UmsAdminService {
     private UmsAdminRoleRelationMapper umsAdminRoleRelationMapper;
     @Autowired
     private HttpServletRequest request;
+    @Autowired
+    private RedisService redisService;
+    @Value("${redis.database}")
+    private String REDIS_DATABASE;
+    @Value("${redis.expire.common}")
+    private Long REDIS_EXPIRE;
+    @Value("${redis.key.admin}")
+    private String REDIS_KEY_ADMIN;
+
 
     @Override
     public UmsAdmin getAdminByUsername(String username) {
@@ -71,6 +82,9 @@ public class UmsAdminImpl implements UmsAdminService {
         String encodePassword = BCrypt.hashpw(umsAdmin.getPassword());
         umsAdmin.setPassword(encodePassword);
         umsAdminMapper.insert(umsAdmin);
+        //存缓存
+        String key = REDIS_DATABASE + ":" + REDIS_KEY_ADMIN + ":" + umsAdmin.getId();
+        redisService.set(key, umsAdmin, REDIS_EXPIRE);
         return umsAdmin;
     }
 
@@ -125,12 +139,18 @@ public class UmsAdminImpl implements UmsAdminService {
             }
         }
         int count = umsAdminMapper.updateByPrimaryKeySelective(admin);
+        //删缓存
+        String key = REDIS_DATABASE + ":" + REDIS_KEY_ADMIN + ":" + admin.getId();
+        redisService.del(key);
         return count;
     }
 
     @Override
     public int delete(Long id) {
         int count = umsAdminMapper.deleteByPrimaryKey(id);
+        //删缓存
+        String key = REDIS_DATABASE + ":" + REDIS_KEY_ADMIN + ":" + id;
+        redisService.del(key);
         return count;
     }
 
@@ -194,7 +214,13 @@ public class UmsAdminImpl implements UmsAdminService {
             Asserts.fail(ResultCode.UNAUTHORIZED);
         }
         UserDto userDto = JSONUtil.toBean(userStr, UserDto.class);
-        UmsAdmin admin = umsAdminMapper.selectByPrimaryKey(userDto.getId());
+        String key = REDIS_DATABASE + ":" + REDIS_KEY_ADMIN + ":" + userDto.getId();
+
+        UmsAdmin admin = (UmsAdmin) redisService.get(key);
+        if (admin == null || admin.getId() == 0) {
+            admin = umsAdminMapper.selectByPrimaryKey(userDto.getId());
+            redisService.set(key, admin, REDIS_EXPIRE);
+        }
         return admin;
     }
 
