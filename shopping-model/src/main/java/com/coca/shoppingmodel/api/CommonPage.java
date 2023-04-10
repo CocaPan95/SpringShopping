@@ -3,13 +3,14 @@ package com.coca.shoppingmodel.api;
 import com.github.pagehelper.PageInfo;
 import org.springframework.data.domain.Page;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 分页数据封装类
  * Created by macro on 2019/4/19.
  */
-public class CommonPage<T> {
+public class CommonPage<T> implements Serializable {
     private Integer pageNum;
     private Integer pageSize;
     private Integer totalPage;

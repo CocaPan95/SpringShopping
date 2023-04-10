@@ -7,7 +7,7 @@ dubbo:
   registry:
     address: zookeeper://${zookeeper.address:127.0.0.1}:2181
 server:
-  port: 8080
+  port: 8081
 spring:
   mvc:
     pathmatch:

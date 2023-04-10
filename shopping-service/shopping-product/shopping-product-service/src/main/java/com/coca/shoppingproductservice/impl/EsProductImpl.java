@@ -1,5 +1,6 @@
 package com.coca.shoppingproductservice.impl;
 
+import com.coca.shoppingmodel.api.CommonPage;
 import com.coca.shoppingmodel.es.EsProduct;
 import com.coca.shoppingproductapi.EsProductService;
 import com.coca.shoppingproductservice.mapper.EsProductDao;
@@ -56,13 +57,14 @@ public class EsProductImpl implements EsProductService {
     }
 
     @Override
-    public Page<EsProduct> search(String keyword,Integer pageNum,Integer pageSize){
+    public CommonPage<EsProduct> search(String keyword, Integer pageNum, Integer pageSize){
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        return productRepository.findByNameOrSubTitleOrKeywords(keyword, keyword, keyword, pageable);
+        Page<EsProduct> result= productRepository.findByNameOrSubTitleOrKeywords(keyword, keyword, keyword, pageable);
+        return CommonPage.restPage(result);
     }
 
     @Override
-    public Page<EsProduct> search(String keyword, Long brandId, Long productCategoryId, Integer pageNum, Integer pageSize,Integer sort) {
+    public CommonPage<EsProduct> search(String keyword, Long brandId, Long productCategoryId, Integer pageNum, Integer pageSize,Integer sort) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
         NativeSearchQueryBuilder nativeSearchQueryBuilder=new NativeSearchQueryBuilder();
         nativeSearchQueryBuilder.withPageable(pageable);
@@ -117,9 +119,9 @@ public class EsProductImpl implements EsProductService {
         LOGGER.info("DSL:{}", searchQuery.getQuery().toString());
         SearchHits<EsProduct> searchHits = elasticsearchRestTemplate.search(searchQuery, EsProduct.class);
         if(searchHits.getTotalHits()<=0){
-            return new PageImpl<>(null,pageable,0);
+            return CommonPage.restPage(new PageImpl<>(null,pageable,0));
         }
         List<EsProduct> searchProductList = searchHits.stream().map(SearchHit::getContent).collect(Collectors.toList());
-        return new PageImpl<>(searchProductList,pageable,searchHits.getTotalHits());
+        return CommonPage.restPage(new PageImpl<>(searchProductList,pageable,searchHits.getTotalHits()));
     }
 }

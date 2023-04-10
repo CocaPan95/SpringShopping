@@ -1,5 +1,6 @@
 package com.coca.shoppingadmin.controller;
 
+import com.coca.shoppingmodel.api.CommonResult;
 import com.coca.shoppingmodel.dto.PmsProductParam;
 import com.coca.shoppingmodel.es.EsProduct;
 import com.coca.shoppingproductapi.EsProductService;
@@ -7,9 +8,7 @@ import com.coca.shoppingproductapi.PmsProductService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,21 +22,36 @@ public class ProductController {
     //新增
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    public int create(PmsProductParam productParam) {
-        return productService.create(productParam);
+    public CommonResult create(@RequestBody PmsProductParam productParam) {
+        int count = productService.create(productParam);
+        if (count > 0) {
+            return CommonResult.success(count);
+        } else {
+            return CommonResult.failed();
+        }
     }
 
     //修改
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public int update(Long id, PmsProductParam productParam) {
-        return productService.update(id, productParam);
+    public CommonResult update(@PathVariable Long id, @RequestBody PmsProductParam productParam) {
+        int count =  productService.update(id, productParam);
+        if (count > 0) {
+            return CommonResult.success(count);
+        } else {
+            return CommonResult.failed();
+        }
     }
 
     //删除
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/updateDeleteStatus", method = RequestMethod.POST)
     @ResponseBody
-    public int updateDeleteStatus(List<Long> ids, Integer deleteStatus) {
-        return productService.updateDeleteStatus(ids, deleteStatus);
+    public CommonResult updateDeleteStatus(@RequestParam("ids") List<Long> ids, @RequestParam("deleteStatus") Integer deleteStatus) {
+        int count =  productService.updateDeleteStatus(ids, deleteStatus);
+        if (count > 0) {
+            return CommonResult.success(count);
+        } else {
+            return CommonResult.failed();
+        }
     }
 }
