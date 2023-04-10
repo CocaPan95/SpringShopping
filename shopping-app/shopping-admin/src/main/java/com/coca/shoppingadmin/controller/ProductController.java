@@ -31,7 +31,6 @@ public class ProductController {
         }
     }
 
-    //修改
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult update(@PathVariable Long id, @RequestBody PmsProductParam productParam) {
@@ -43,7 +42,6 @@ public class ProductController {
         }
     }
 
-    //删除
     @RequestMapping(value = "/updateDeleteStatus", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult updateDeleteStatus(@RequestParam("ids") List<Long> ids, @RequestParam("deleteStatus") Integer deleteStatus) {

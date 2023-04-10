@@ -46,7 +46,6 @@
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-okhttp</artifactId>
         </dependency>
-
         <dependency>
             <groupId>com.coca</groupId>
             <artifactId>shopping-user-api</artifactId>

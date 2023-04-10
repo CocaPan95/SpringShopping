@@ -1,5 +1,7 @@
 package com.coca.shoppingcommon.config;
 
+import com.coca.shoppingcommon.service.RedisService;
+import com.coca.shoppingcommon.service.impl.RedisServiceImpl;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -53,5 +55,9 @@ public class BaseRedisConfig {
         //设置Redis缓存有效期为1天
         RedisCacheConfiguration redisCacheConfiguration=RedisCacheConfiguration.defaultCacheConfig().serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer())).entryTtl(Duration.ofDays(1));
         return new RedisCacheManager(redisCacheWriter, redisCacheConfiguration);
+    }
+    @Bean
+    public RedisService redisService(){
+        return new RedisServiceImpl();
     }
 }
