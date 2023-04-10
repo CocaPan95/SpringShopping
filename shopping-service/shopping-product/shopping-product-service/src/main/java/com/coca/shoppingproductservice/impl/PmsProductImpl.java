@@ -7,6 +7,7 @@ import com.coca.shoppingmodel.es.EsProduct;
 import com.coca.shoppingproductapi.PmsProductService;
 import com.coca.shoppingproductservice.mapper.*;
 import com.coca.shoppingproductservice.repository.EsProductRepository;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@DubboService
 public class PmsProductImpl implements PmsProductService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PmsProductImpl.class);
     @Autowired
