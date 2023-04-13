@@ -47,5 +47,6 @@ redis:
   database: mall
   key:
     admin: 'ums:admin'
+    member: 'ums:member'
   expire:
     common: 86400 # 24小时

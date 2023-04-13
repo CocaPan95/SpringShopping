@@ -6,4 +6,8 @@ import com.coca.shoppingmodel.dto.UserDto;
 public interface UmsMemberService {
     UserDto loadUserByUsername(String username);
     UmsMember getByUsername(String username);
+    //获取当前登录用户
+    UmsMember getCurrentMember();
+    //根据Id获取用户
+    UmsMember getById(Long id);
 }

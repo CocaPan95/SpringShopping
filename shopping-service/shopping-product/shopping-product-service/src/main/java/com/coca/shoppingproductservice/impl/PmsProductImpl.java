@@ -1,8 +1,10 @@
 package com.coca.shoppingproductservice.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import com.coca.shoppingmodel.domain.order.OmsCartItem;
 import com.coca.shoppingmodel.domain.product.*;
 import com.coca.shoppingmodel.dto.PmsProductParam;
+import com.coca.shoppingmodel.dto.PromotionProduct;
 import com.coca.shoppingmodel.es.EsProduct;
 import com.coca.shoppingproductapi.PmsProductService;
 import com.coca.shoppingproductservice.mapper.*;
@@ -50,6 +52,8 @@ public class PmsProductImpl implements PmsProductService {
     private EsProductRepository productRepository;
     @Autowired
     private EsProductDao productDao;
+    @Autowired
+    private PortalProductDao portalProductDao;
 
     @Override
     public int create(PmsProductParam productParam){
@@ -159,6 +163,14 @@ public class PmsProductImpl implements PmsProductService {
         PmsProductExample example = new PmsProductExample();
         example.createCriteria().andIdIn(ids);
         return productMapper.updateByExampleSelective(record, example);
+    }
+
+    /**
+     * 查询所有商品的优惠相关信息
+     */
+    @Override
+    public List<PromotionProduct> getPromotionProductList(List<Long> productIdList) {
+        return portalProductDao.getPromotionProductList(productIdList);
     }
     private void handleUpdateSkuStockList(Long id, PmsProductParam productParam) {
         //当前的sku信息
