@@ -19,7 +19,6 @@ public interface PmsProductService {
     int updateRecommendStatus(List<Long> ids, Integer recommendStatus);
     int updateNewStatus(List<Long> ids, Integer newStatus);
     int updateDeleteStatus(List<Long> ids, Integer deleteStatus);
-
     List<PromotionProduct> getPromotionProductList(List<Long> productIdList);
 
 }

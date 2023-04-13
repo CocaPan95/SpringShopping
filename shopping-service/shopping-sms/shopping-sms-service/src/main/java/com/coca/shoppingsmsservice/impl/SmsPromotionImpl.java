@@ -104,6 +104,7 @@ public class SmsPromotionImpl implements SmsPromotionService {
         }
         return cartPromotionItemList;
     }
+
     /**
      * 获取满减促销消息
      */

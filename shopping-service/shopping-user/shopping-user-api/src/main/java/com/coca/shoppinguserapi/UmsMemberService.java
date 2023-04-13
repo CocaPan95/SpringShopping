@@ -10,4 +10,8 @@ public interface UmsMemberService {
     UmsMember getCurrentMember();
     //根据Id获取用户
     UmsMember getById(Long id);
+    /**
+     * 根据会员id修改会员积分
+     */
+    void updateIntegration(Long id,Integer integration);
 }

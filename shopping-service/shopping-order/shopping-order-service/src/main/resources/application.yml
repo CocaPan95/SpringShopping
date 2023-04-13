@@ -45,3 +45,14 @@ spring:
 mybatis:
   mapper-locations:
     - classpath:dao/*.xml
+
+# 自定义redis key
+redis:
+  database: mall
+  key:
+    authCode: 'ums:authCode'
+    orderId: 'oms:orderId'
+    member: 'ums:member'
+  expire:
+    authCode: 90 # 验证码超期时间
+    common: 86400 # 24小时

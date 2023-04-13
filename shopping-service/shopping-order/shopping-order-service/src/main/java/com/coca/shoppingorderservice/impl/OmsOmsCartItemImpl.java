@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.coca.shoppingmodel.domain.order.OmsCartItem;
 import com.coca.shoppingmodel.domain.order.OmsCartItemExample;
 import com.coca.shoppingmodel.dto.CartPromotionItem;
-import com.coca.shoppingorderapi.CartItemService;
+import com.coca.shoppingorderapi.OmsCartItemService;
 import com.coca.shoppingorderservice.mapper.OmsCartItemMapper;
 import com.coca.shoppingsmsapi.SmsPromotionService;
 import org.apache.dubbo.config.annotation.DubboReference;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @DubboService
 @Service
-public class CartItemImpl implements CartItemService {
+public class OmsOmsCartItemImpl implements OmsCartItemService {
     @Autowired
     private OmsCartItemMapper omsCartItemMapper;
 
@@ -46,5 +46,13 @@ public class CartItemImpl implements CartItemService {
         OmsCartItemExample example = new OmsCartItemExample();
         example.createCriteria().andMemberIdEqualTo(memberId);
         return omsCartItemMapper.selectByExample(example);
+    }
+    @Override
+    public int delete(Long memberId, List<Long> ids) {
+        OmsCartItem record = new OmsCartItem();
+        record.setDeleteStatus(1);
+        OmsCartItemExample example = new OmsCartItemExample();
+        example.createCriteria().andIdIn(ids).andMemberIdEqualTo(memberId);
+        return omsCartItemMapper.updateByExampleSelective(record, example);
     }
 }

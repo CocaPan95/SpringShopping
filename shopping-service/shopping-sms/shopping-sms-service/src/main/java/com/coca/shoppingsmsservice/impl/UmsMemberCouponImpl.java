@@ -1,5 +1,7 @@
 package com.coca.shoppingsmsservice.impl;
 
+import com.coca.shoppingmodel.domain.sms.SmsCouponHistory;
+import com.coca.shoppingmodel.domain.sms.SmsCouponHistoryExample;
 import com.coca.shoppingmodel.domain.sms.SmsCouponProductCategoryRelation;
 import com.coca.shoppingmodel.domain.sms.SmsCouponProductRelation;
 import com.coca.shoppingmodel.domain.user.UmsMember;
@@ -7,10 +9,12 @@ import com.coca.shoppingmodel.dto.CartPromotionItem;
 import com.coca.shoppingmodel.dto.SmsCouponHistoryDetail;
 import com.coca.shoppingsmsapi.UmsMemberCouponService;
 import com.coca.shoppingsmsservice.mapper.SmsCouponHistoryDao;
+import com.coca.shoppingsmsservice.mapper.SmsCouponHistoryMapper;
 import com.coca.shoppinguserapi.UmsMemberService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -21,7 +25,8 @@ import java.util.List;
 public class UmsMemberCouponImpl implements UmsMemberCouponService {
     @DubboReference
     private UmsMemberService umsMemberService;
-
+    @Autowired
+    private SmsCouponHistoryMapper couponHistoryMapper;
     @Autowired
     private SmsCouponHistoryDao smsCouponHistoryDao;
 
@@ -83,6 +88,20 @@ public class UmsMemberCouponImpl implements UmsMemberCouponService {
         }
     }
 
+    public void UpdateCouponStatus(Long couponId, Long memberId, Integer useStatus){
+        if (couponId == null) return;
+        //查询第一张优惠券
+        SmsCouponHistoryExample example = new SmsCouponHistoryExample();
+        example.createCriteria().andMemberIdEqualTo(memberId)
+                .andCouponIdEqualTo(couponId).andUseStatusEqualTo(useStatus == 0 ? 1 : 0);
+        List<SmsCouponHistory> couponHistoryList = couponHistoryMapper.selectByExample(example);
+        if (!CollectionUtils.isEmpty(couponHistoryList)) {
+            SmsCouponHistory couponHistory = couponHistoryList.get(0);
+            couponHistory.setUseTime(new Date());
+            couponHistory.setUseStatus(useStatus);
+            couponHistoryMapper.updateByPrimaryKeySelective(couponHistory);
+        }
+    }
     private BigDecimal calcTotalAmount(List<CartPromotionItem> cartItemList){
         BigDecimal total = new BigDecimal("0");
         for (CartPromotionItem item : cartItemList) {

@@ -81,4 +81,14 @@ public class UmsMemberImpl implements UmsMemberService {
     public UmsMember getById(Long id) {
         return umsMemberMapper.selectByPrimaryKey(id);
     }
+    @Override
+    public void updateIntegration(Long id, Integer integration) {
+        UmsMember record=new UmsMember();
+        record.setId(id);
+        record.setIntegration(integration);
+        umsMemberMapper.updateByPrimaryKeySelective(record);
+        String key = REDIS_DATABASE + ":" + REDIS_KEY_MEMBER + ":" + id;
+        redisService.del(key);
+    }
+
 }
