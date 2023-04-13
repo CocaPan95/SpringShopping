@@ -1,8 +1,10 @@
 package com.coca.shoppingorderservice.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import com.coca.shoppingcommon.exception.Asserts;
 import com.coca.shoppingcommon.service.RedisService;
+import com.coca.shoppingmodel.api.CommonPage;
 import com.coca.shoppingmodel.domain.order.*;
 import com.coca.shoppingmodel.domain.product.PmsSkuStock;
 import com.coca.shoppingmodel.domain.sms.*;
@@ -20,6 +22,7 @@ import com.coca.shoppingsmsapi.UmsMemberCouponService;
 import com.coca.shoppinguserapi.UmsIntegrationConsumeSettingService;
 import com.coca.shoppinguserapi.UmsMemberReceiveAddressService;
 import com.coca.shoppinguserapi.UmsMemberService;
+import com.github.pagehelper.PageHelper;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @DubboService
 public class OmsOmsOrderImpl implements OmsOrderService {
@@ -45,7 +49,6 @@ public class OmsOmsOrderImpl implements OmsOrderService {
     private UmsIntegrationConsumeSettingService integrationConsumeSettingService;
     @DubboReference
     private PmsSkuStockService skuStockService;
-
     @DubboReference
     private SmsCouponHistoryService couponHistoryService;
     @Autowired
@@ -321,6 +324,94 @@ public class OmsOmsOrderImpl implements OmsOrderService {
         }
         return timeOutOrders.size();
     }
+
+    @Override
+    public void confirmReceiveOrder(Long orderId) {
+        UmsMember member = umsMemberService.getCurrentMember();
+        OmsOrder order = orderMapper.selectByPrimaryKey(orderId);
+        if(!member.getId().equals(order.getMemberId())){
+            Asserts.fail("不能确认他人订单！");
+        }
+        if(order.getStatus()!=2){
+            Asserts.fail("该订单还未发货！");
+        }
+        order.setStatus(3);
+        order.setConfirmStatus(1);
+        order.setReceiveTime(new Date());
+        orderMapper.updateByPrimaryKey(order);
+    }
+
+    @Override
+    public CommonPage<OmsOrderDetail> list(Integer status, Integer pageNum, Integer pageSize) {
+        if(status==-1){
+            status = null;
+        }
+        UmsMember member = umsMemberService.getCurrentMember();
+        PageHelper.startPage(pageNum,pageSize);
+        OmsOrderExample orderExample = new OmsOrderExample();
+        OmsOrderExample.Criteria criteria = orderExample.createCriteria();
+        criteria.andDeleteStatusEqualTo(0)
+                .andMemberIdEqualTo(member.getId());
+        if(status!=null){
+            criteria.andStatusEqualTo(status);
+        }
+        orderExample.setOrderByClause("create_time desc");
+        List<OmsOrder> orderList = orderMapper.selectByExample(orderExample);
+        CommonPage<OmsOrder> orderPage = CommonPage.restPage(orderList);
+        //设置分页信息
+        CommonPage<OmsOrderDetail> resultPage = new CommonPage<>();
+        resultPage.setPageNum(orderPage.getPageNum());
+        resultPage.setPageSize(orderPage.getPageSize());
+        resultPage.setTotal(orderPage.getTotal());
+        resultPage.setTotalPage(orderPage.getTotalPage());
+        if(CollUtil.isEmpty(orderList)){
+            return resultPage;
+        }
+        //设置数据信息
+        List<Long> orderIds = orderList.stream().map(OmsOrder::getId).collect(Collectors.toList());
+        OmsOrderItemExample orderItemExample = new OmsOrderItemExample();
+        orderItemExample.createCriteria().andOrderIdIn(orderIds);
+        List<OmsOrderItem> orderItemList = orderItemMapper.selectByExample(orderItemExample);
+        List<OmsOrderDetail> orderDetailList = new ArrayList<>();
+        for (OmsOrder omsOrder : orderList) {
+            OmsOrderDetail orderDetail = new OmsOrderDetail();
+            BeanUtil.copyProperties(omsOrder,orderDetail);
+            List<OmsOrderItem> relatedItemList = orderItemList.stream().filter(item -> item.getOrderId().equals(orderDetail.getId())).collect(Collectors.toList());
+            orderDetail.setOrderItemList(relatedItemList);
+            orderDetailList.add(orderDetail);
+        }
+        resultPage.setList(orderDetailList);
+        return resultPage;
+    }
+
+    @Override
+    public OmsOrderDetail detail(Long orderId) {
+        OmsOrder omsOrder = orderMapper.selectByPrimaryKey(orderId);
+        OmsOrderItemExample example = new OmsOrderItemExample();
+        example.createCriteria().andOrderIdEqualTo(orderId);
+        List<OmsOrderItem> orderItemList = orderItemMapper.selectByExample(example);
+        OmsOrderDetail orderDetail = new OmsOrderDetail();
+        BeanUtil.copyProperties(omsOrder,orderDetail);
+        orderDetail.setOrderItemList(orderItemList);
+        return orderDetail;
+    }
+
+    @Override
+    public void deleteOrder(Long orderId) {
+        UmsMember member = umsMemberService.getCurrentMember();
+        OmsOrder order = orderMapper.selectByPrimaryKey(orderId);
+        if(!member.getId().equals(order.getMemberId())){
+            Asserts.fail("不能删除他人订单！");
+        }
+        if(order.getStatus()==3||order.getStatus()==4){
+            order.setDeleteStatus(1);
+            orderMapper.updateByPrimaryKey(order);
+        }else{
+            Asserts.fail("只能删除已完成或已关闭的订单！");
+        }
+    }
+
+    @Override
     public void sendDelayMessageCancelOrder(Long orderId) {
         //获取订单超时时间
         OmsOrderSetting orderSetting = orderSettingMapper.selectByPrimaryKey(1L);
