@@ -27,6 +27,7 @@ import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
@@ -37,7 +38,7 @@ import java.util.stream.Collectors;
 
 @DubboService
 public class OmsOmsOrderImpl implements OmsOrderService {
-    @Autowired
+    @DubboReference
     private OmsCartItemService omsCartItemService;
     @DubboReference
     private UmsMemberService umsMemberService;

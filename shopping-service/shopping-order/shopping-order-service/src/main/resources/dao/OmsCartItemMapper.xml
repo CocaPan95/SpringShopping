@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.coca.shoppingorderservice.mapper.OmsCartItemMapper">
-  <resultMap id="BaseResultMap" type="com.coca.shoppingmodel.domain.order.model.OmsCartItem">
+  <resultMap id="BaseResultMap" type="com.coca.shoppingmodel.domain.order.OmsCartItem">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="product_id" jdbcType="BIGINT" property="productId" />
     <result column="product_sku_id" jdbcType="BIGINT" property="productSkuId" />

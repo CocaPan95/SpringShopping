@@ -10,6 +10,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan({"com.coca.shoppingproductservice.mapper"})
+@MapperScan({"com.coca.shoppingorderservice.mapper"})
 public class MyBatisConfig {
 }
