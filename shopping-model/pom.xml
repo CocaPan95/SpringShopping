@@ -14,7 +14,6 @@
         <groupId>com.coca</groupId>
         <artifactId>Spring-Shopping</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <dependencies>
 

@@ -14,5 +14,8 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-
+    <modules>
+        <module>shopping-product-api</module>
+        <module>shopping-product-service</module>
+    </modules>
 </project>

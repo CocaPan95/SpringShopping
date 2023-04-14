@@ -15,5 +15,10 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-
+    <modules>
+        <module>shopping-product</module>
+        <module>shopping-user</module>
+        <module>shopping-sms</module>
+        <module>shopping-order</module>
+    </modules>
 </project>

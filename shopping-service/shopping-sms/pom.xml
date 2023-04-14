@@ -13,5 +13,8 @@
         <artifactId>shopping-service</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-
+    <modules>
+        <module>shopping-sms-api</module>
+        <module>shopping-sms-service</module>
+    </modules>
 </project>

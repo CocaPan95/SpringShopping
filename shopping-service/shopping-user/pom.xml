@@ -14,6 +14,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-
+    <modules>
+        <module>shopping-user-api</module>
+        <module>shopping-user-service</module>
+    </modules>
 
 </project>
