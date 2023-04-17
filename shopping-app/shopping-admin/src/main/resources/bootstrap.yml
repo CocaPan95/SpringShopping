@@ -3,3 +3,8 @@ spring:
     active: dev
   application:
     name: shopping-admin
+server:
+  port: 8001
+dubbo:
+  application:
+    name: shopping-admin

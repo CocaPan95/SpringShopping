@@ -2,9 +2,9 @@ spring:
   profiles:
     active: dev
   application:
-    name: shopping-portal
+    name: shopping-user-service
 server:
-  port: 8002
+  port: 8081
 dubbo:
   application:
-    name: shopping-portal
+    name: shopping-sms-service

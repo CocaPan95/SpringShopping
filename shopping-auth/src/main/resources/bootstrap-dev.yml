@@ -6,6 +6,8 @@ spring:
       config:
         server-addr: http://localhost:8848
         file-extension: yaml
+        refresh: true
+        prefix: app-service
 logging:
   level:
     root: debug

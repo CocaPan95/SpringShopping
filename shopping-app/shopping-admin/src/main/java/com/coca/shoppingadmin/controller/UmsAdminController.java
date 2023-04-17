@@ -17,14 +17,15 @@ import org.springframework.web.bind.annotation.*;
 public class UmsAdminController {
     @DubboReference
     private UmsAdminService umsAdminService;
-//    @Value("${config.info}")
-//    private String configInfo;
+
     @Autowired
     private AdminService adminService;
 
     @RequestMapping(value = "/loadByUsername", method = RequestMethod.GET)
     @ResponseBody
     public UserDto loadUserByUsername(@RequestParam String username) {
+
+
         UserDto userDTO = umsAdminService.loadUserByUsername(username);
         return userDTO;
     }

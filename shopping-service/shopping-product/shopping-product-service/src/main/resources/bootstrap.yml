@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: shopping-product-service
+server:
+  port: 8082
+dubbo:
+  application:
+    name: shopping-product-service
