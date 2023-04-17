@@ -31,11 +31,10 @@ public class UmsMemberCouponImpl implements UmsMemberCouponService {
     private SmsCouponHistoryDao smsCouponHistoryDao;
 
     @Override
-    public List<SmsCouponHistoryDetail> listCart(List<CartPromotionItem> cartItemList, Integer type) {
-        UmsMember member=umsMemberService.getCurrentMember();
+    public List<SmsCouponHistoryDetail> listCart(Long MemberId, List<CartPromotionItem> cartItemList, Integer type) {
         Date now=new Date();
         //获取该用户所有优惠券
-        List<SmsCouponHistoryDetail> allList=smsCouponHistoryDao.getDetailList(member.getId());
+        List<SmsCouponHistoryDetail> allList=smsCouponHistoryDao.getDetailList(MemberId);
         //根据优惠券使用类型来判断优惠券是否可用
         List<SmsCouponHistoryDetail> enableList = new ArrayList<>();
         List<SmsCouponHistoryDetail> disableList = new ArrayList<>();

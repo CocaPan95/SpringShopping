@@ -4,7 +4,7 @@ spring:
   application:
     name: shopping-user-service
 server:
-  port: 8081
+  port: 8085
 dubbo:
   application:
-    name: shopping-sms-service
+    name: shopping-user-service

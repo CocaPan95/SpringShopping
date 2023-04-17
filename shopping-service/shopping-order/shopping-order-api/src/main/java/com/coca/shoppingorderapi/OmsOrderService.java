@@ -10,10 +10,10 @@ import java.util.Map;
 
 public interface OmsOrderService {
     //购物车生成确认单
-    ConfirmOrderResult generateConfirmOrder(List<Long> ids);
+    ConfirmOrderResult generateConfirmOrder(Long MemberId,List<Long> ids);
 
     //下单流程
-    Map<String, Object> generateOrder(OrderParam orderParam);
+    Map<String, Object> generateOrder(Long MemberId,OrderParam orderParam);
 
     //支付成功回调
     Integer paySuccess(Long orderId, Integer payType);
@@ -27,14 +27,14 @@ public interface OmsOrderService {
     Integer cancelTimeOutOrder();
 
     //确认收货
-    void confirmReceiveOrder(Long orderId);
+    void confirmReceiveOrder(Long MemberId,Long orderId);
 
     //根据状态查询订单列表
-    CommonPage<OmsOrderDetail> list(Integer status, Integer pageNum, Integer pageSize);
+    CommonPage<OmsOrderDetail> list(Long MemberId,Integer status, Integer pageNum, Integer pageSize);
 
     //查询订单详情
     OmsOrderDetail detail(Long orderId);
 
     //查询订单
-    void deleteOrder(Long orderId);
+    void deleteOrder(Long MemberId,Long orderId);
 }

@@ -28,10 +28,10 @@ public class UmsMemberReceiveAddressImpl implements UmsMemberReceiveAddressServi
     }
 
     @Override
-    public UmsMemberReceiveAddress getItem(Long id) {
-        UmsMember currentMember = umsMemberService.getCurrentMember();
+    public UmsMemberReceiveAddress getItem(Long MemberId,Long id) {
+
         UmsMemberReceiveAddressExample example = new UmsMemberReceiveAddressExample();
-        example.createCriteria().andMemberIdEqualTo(currentMember.getId()).andIdEqualTo(id);
+        example.createCriteria().andMemberIdEqualTo(MemberId).andIdEqualTo(id);
         List<UmsMemberReceiveAddress> addressList = memberReceiveAddressMapper.selectByExample(example);
         if(!CollectionUtils.isEmpty(addressList)){
             return addressList.get(0);

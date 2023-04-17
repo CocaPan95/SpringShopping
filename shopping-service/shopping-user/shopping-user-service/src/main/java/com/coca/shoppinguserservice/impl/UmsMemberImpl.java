@@ -29,8 +29,6 @@ public class UmsMemberImpl implements UmsMemberService {
     @Autowired
     private UmsMemberMapper umsMemberMapper;
     @Autowired
-    private HttpServletRequest request;
-    @Autowired
     private RedisService redisService;
     @Value("${redis.database}")
     private String REDIS_DATABASE;
@@ -42,9 +40,9 @@ public class UmsMemberImpl implements UmsMemberService {
     @Override
     public UserDto loadUserByUsername(String username) {
         UmsMember member = getByUsername(username);
-        if(member!=null){
+        if (member != null) {
             UserDto userDto = new UserDto();
-            BeanUtil.copyProperties(member,userDto);
+            BeanUtil.copyProperties(member, userDto);
             userDto.setRoles(CollUtil.toList("前台会员"));
             return userDto;
         }
@@ -63,29 +61,22 @@ public class UmsMemberImpl implements UmsMemberService {
     }
 
     @Override
-    public UmsMember getCurrentMember() {
-        String userStr = request.getHeader(AuthConstant.USER_TOKEN_HEADER);
-        if(StrUtil.isEmpty(userStr)){
-            Asserts.fail(ResultCode.UNAUTHORIZED);
-        }
-        UserDto userDto = JSONUtil.toBean(userStr, UserDto.class);
-        String key = REDIS_DATABASE + ":" + REDIS_KEY_MEMBER + ":" + userDto.getId();
-        UmsMember member =(UmsMember)redisService.get(key) ;
-        if(member!=null){
-            return member;
-        }else{
-            member = getById(userDto.getId());
-            redisService.set(key,member,REDIS_EXPIRE);
-            return member;
-        }
-    }
-    @Override
     public UmsMember getById(Long id) {
-        return umsMemberMapper.selectByPrimaryKey(id);
+        String key = REDIS_DATABASE + ":" + REDIS_KEY_MEMBER + ":" + id;
+        UmsMember member = (UmsMember) redisService.get(key);
+        if (member != null) {
+            return member;
+        }
+        member = umsMemberMapper.selectByPrimaryKey(id);
+        if (member != null) {
+            redisService.set(key, member, REDIS_EXPIRE);
+        }
+        return member;
     }
+
     @Override
     public void updateIntegration(Long id, Integer integration) {
-        UmsMember record=new UmsMember();
+        UmsMember record = new UmsMember();
         record.setId(id);
         record.setIntegration(integration);
         umsMemberMapper.updateByPrimaryKeySelective(record);

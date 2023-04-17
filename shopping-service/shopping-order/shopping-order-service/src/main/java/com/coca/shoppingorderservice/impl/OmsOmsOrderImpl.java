@@ -74,10 +74,10 @@ public class OmsOmsOrderImpl implements OmsOrderService {
 
     @Override
     //购物车信息生成确认订单
-    public ConfirmOrderResult generateConfirmOrder(List<Long> ids) {
+    public ConfirmOrderResult generateConfirmOrder(Long MemberId, List<Long> ids) {
         ConfirmOrderResult result = new ConfirmOrderResult();
         //获取当前登录用户
-        UmsMember member = umsMemberService.getCurrentMember();
+        UmsMember member = umsMemberService.getById(MemberId);
         //根据购物车信息取到购物车列表
         OmsCartItemExample cartItemExample = new OmsCartItemExample();
         cartItemExample.createCriteria().andIdIn(ids);
@@ -86,7 +86,7 @@ public class OmsOmsOrderImpl implements OmsOrderService {
         //获取收货地址信息
         result.setMemberReceiveAddressList(umsMemberReceiveAddressService.GetMemberReceiveAddressList(member.getId()));
         //获取用户可用优惠券
-        result.setCouponHistoryDetailList(umsMemberCouponService.listCart(cartPromotionItemList, 1));
+        result.setCouponHistoryDetailList(umsMemberCouponService.listCart(MemberId,cartPromotionItemList, 1));
         //获取用户积分
         result.setMemberIntegration(member.getIntegration());
         //获取积分使用规则
@@ -100,10 +100,10 @@ public class OmsOmsOrderImpl implements OmsOrderService {
 
     @Override
     //确认单下单
-    public Map<String, Object> generateOrder(OrderParam orderParam) {
+    public Map<String, Object> generateOrder(Long MemberId,OrderParam orderParam) {
         List<OmsOrderItem> orderItemList = new ArrayList<>();
         //获取购物车及优惠信息
-        UmsMember currentMember = umsMemberService.getCurrentMember();
+        UmsMember currentMember = umsMemberService.getById(MemberId);
         List<CartPromotionItem> cartPromotionItemList = omsCartItemService.GetCartPromotionItemList(currentMember.getId(), orderParam.getCartIds());
         for (CartPromotionItem cartPromotionItem : cartPromotionItemList) {
             //生成下单商品信息
@@ -135,7 +135,7 @@ public class OmsOmsOrderImpl implements OmsOrderService {
             }
         } else {
             //使用优惠券
-            SmsCouponHistoryDetail couponHistoryDetail = getUseCoupon(cartPromotionItemList, orderParam.getCouponId());
+            SmsCouponHistoryDetail couponHistoryDetail = getUseCoupon(MemberId,cartPromotionItemList, orderParam.getCouponId());
             if (couponHistoryDetail == null) {
                 Asserts.fail("该优惠券不可用");
             }
@@ -201,7 +201,7 @@ public class OmsOmsOrderImpl implements OmsOrderService {
         //订单类型：0->正常订单；1->秒杀订单
         order.setOrderType(0);
         //收货人信息：姓名、电话、邮编、地址
-        UmsMemberReceiveAddress address = umsMemberReceiveAddressService.getItem(orderParam.getMemberReceiveAddressId());
+        UmsMemberReceiveAddress address = umsMemberReceiveAddressService.getItem(currentMember.getId(), orderParam.getMemberReceiveAddressId());
         order.setReceiverName(address.getName());
         order.setReceiverPhone(address.getPhoneNumber());
         order.setReceiverPostCode(address.getPostCode());
@@ -327,8 +327,8 @@ public class OmsOmsOrderImpl implements OmsOrderService {
     }
 
     @Override
-    public void confirmReceiveOrder(Long orderId) {
-        UmsMember member = umsMemberService.getCurrentMember();
+    public void confirmReceiveOrder(Long MemberId,Long orderId) {
+        UmsMember member = umsMemberService.getById(MemberId);
         OmsOrder order = orderMapper.selectByPrimaryKey(orderId);
         if(!member.getId().equals(order.getMemberId())){
             Asserts.fail("不能确认他人订单！");
@@ -343,16 +343,15 @@ public class OmsOmsOrderImpl implements OmsOrderService {
     }
 
     @Override
-    public CommonPage<OmsOrderDetail> list(Integer status, Integer pageNum, Integer pageSize) {
+    public CommonPage<OmsOrderDetail> list(Long MemberId, Integer status, Integer pageNum, Integer pageSize) {
         if(status==-1){
             status = null;
         }
-        UmsMember member = umsMemberService.getCurrentMember();
         PageHelper.startPage(pageNum,pageSize);
         OmsOrderExample orderExample = new OmsOrderExample();
         OmsOrderExample.Criteria criteria = orderExample.createCriteria();
         criteria.andDeleteStatusEqualTo(0)
-                .andMemberIdEqualTo(member.getId());
+                .andMemberIdEqualTo(MemberId);
         if(status!=null){
             criteria.andStatusEqualTo(status);
         }
@@ -398,10 +397,9 @@ public class OmsOmsOrderImpl implements OmsOrderService {
     }
 
     @Override
-    public void deleteOrder(Long orderId) {
-        UmsMember member = umsMemberService.getCurrentMember();
+    public void deleteOrder(Long MemberId,Long orderId) {
         OmsOrder order = orderMapper.selectByPrimaryKey(orderId);
-        if(!member.getId().equals(order.getMemberId())){
+        if(!MemberId.equals(order.getMemberId())){
             Asserts.fail("不能删除他人订单！");
         }
         if(order.getStatus()==3||order.getStatus()==4){
@@ -677,8 +675,8 @@ public class OmsOmsOrderImpl implements OmsOrderService {
      * @param cartPromotionItemList 购物车优惠列表
      * @param couponId              使用优惠券id
      */
-    private SmsCouponHistoryDetail getUseCoupon(List<CartPromotionItem> cartPromotionItemList, Long couponId) {
-        List<SmsCouponHistoryDetail> couponHistoryDetailList = umsMemberCouponService.listCart(cartPromotionItemList, 1);
+    private SmsCouponHistoryDetail getUseCoupon(Long memberId, List<CartPromotionItem> cartPromotionItemList, Long couponId) {
+        List<SmsCouponHistoryDetail> couponHistoryDetailList = umsMemberCouponService.listCart(memberId,cartPromotionItemList, 1);
         for (SmsCouponHistoryDetail couponHistoryDetail : couponHistoryDetailList) {
             if (couponHistoryDetail.getCoupon().getId().equals(couponId)) {
                 return couponHistoryDetail;

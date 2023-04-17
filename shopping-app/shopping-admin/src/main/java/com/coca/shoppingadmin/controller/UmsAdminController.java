@@ -24,8 +24,6 @@ public class UmsAdminController {
     @RequestMapping(value = "/loadByUsername", method = RequestMethod.GET)
     @ResponseBody
     public UserDto loadUserByUsername(@RequestParam String username) {
-
-
         UserDto userDTO = umsAdminService.loadUserByUsername(username);
         return userDTO;
     }
