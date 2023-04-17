@@ -7,6 +7,7 @@ import cn.hutool.json.JSONUtil;
 import com.coca.shoppingcommon.constant.AuthConstant;
 import com.coca.shoppingcommon.exception.Asserts;
 import com.coca.shoppingcommon.service.RedisService;
+import com.coca.shoppingmodel.api.CommonResult;
 import com.coca.shoppingmodel.api.ResultCode;
 import com.coca.shoppingmodel.domain.user.UmsMember;
 import com.coca.shoppingmodel.domain.user.UmsMemberExample;
@@ -19,7 +20,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @DubboService
 public class UmsMemberImpl implements UmsMemberService {
@@ -29,7 +32,6 @@ public class UmsMemberImpl implements UmsMemberService {
     private HttpServletRequest request;
     @Autowired
     private RedisService redisService;
-
     @Value("${redis.database}")
     private String REDIS_DATABASE;
     @Value("${redis.expire.common}")
@@ -90,5 +92,6 @@ public class UmsMemberImpl implements UmsMemberService {
         String key = REDIS_DATABASE + ":" + REDIS_KEY_MEMBER + ":" + id;
         redisService.del(key);
     }
+
 
 }
