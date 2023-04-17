@@ -42,8 +42,7 @@ public class UmsAdminImpl implements UmsAdminService {
     private UmsAdminRoleRelationDao umsAdminRoleRelationDao;
     @Autowired
     private UmsAdminRoleRelationMapper umsAdminRoleRelationMapper;
-    @Autowired
-    private HttpServletRequest request;
+
     @Autowired
     private RedisService redisService;
     @Value("${redis.database}")
@@ -108,7 +107,15 @@ public class UmsAdminImpl implements UmsAdminService {
 
     @Override
     public UmsAdmin getItem(Long id) {
-        return umsAdminMapper.selectByPrimaryKey(id);
+        String key = REDIS_DATABASE + ":" + REDIS_KEY_ADMIN + ":" + id;
+        UmsAdmin admin = (UmsAdmin) redisService.get(key);
+        if (admin == null) {
+            admin = umsAdminMapper.selectByPrimaryKey(id);
+            if (admin != null) {
+                redisService.set(key, admin, REDIS_EXPIRE);
+            }
+        }
+        return admin;
     }
 
     @Override
@@ -207,22 +214,6 @@ public class UmsAdminImpl implements UmsAdminService {
         return 1;
     }
 
-    @Override
-    public UmsAdmin getCurrentAdmin() {
-        String userStr = request.getHeader(AuthConstant.USER_TOKEN_HEADER);
-        if (StrUtil.isEmpty(userStr)) {
-            Asserts.fail(ResultCode.UNAUTHORIZED);
-        }
-        UserDto userDto = JSONUtil.toBean(userStr, UserDto.class);
-        String key = REDIS_DATABASE + ":" + REDIS_KEY_ADMIN + ":" + userDto.getId();
-
-        UmsAdmin admin = (UmsAdmin) redisService.get(key);
-        if (admin == null || admin.getId() == 0) {
-            admin = umsAdminMapper.selectByPrimaryKey(userDto.getId());
-            redisService.set(key, admin, REDIS_EXPIRE);
-        }
-        return admin;
-    }
 
     @Override
     public UserDto loadUserByUsername(String username) {

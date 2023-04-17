@@ -20,7 +20,6 @@ public interface UmsAdminService {
     int update(Long id, UmsAdmin admin);
     int delete(Long id);
     int updateRole(Long adminId, List<Long> roleIds);
-    UmsAdmin getCurrentAdmin();
     List<UmsResource> getResourceList(Long adminId);
     int updatePassword(UpdateAdminPasswordParam param);
 }
