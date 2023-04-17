@@ -30,7 +30,7 @@ public class OmsOrderController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<CommonPage<OmsOrderDetail>> list(@RequestParam(required = false) Integer status,
-                                                         @RequestParam(required = false, defaultValue = "0") Integer pageNum,
+                                                         @RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                                          @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
         UmsMember member = memberService.getCurrentMember();
         CommonPage<OmsOrderDetail> result = omsOrderService.list(member.getId(), status, pageNum, pageSize);
