@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.coca.shoppingproductservice.mapper.PortalProductDao">
-    <resultMap id="promotionProductMap" type="com.coca.shoppingmodel.dto.PromotionProduct" extends="com.coca.shoppingmodel.domain.product.PmsProduct">
+    <resultMap id="promotionProductMap" type="com.coca.shoppingmodel.dto.PromotionProduct" extends="com.coca.shoppingproductservice.mapper.PmsProductMapper.BaseResultMap">
         <id column="id" jdbcType="BIGINT" property="id" />
         <collection property="skuStockList" columnPrefix="sku_" resultMap="com.coca.shoppingproductservice.mapper.PmsSkuStockMapper.BaseResultMap">
         </collection>

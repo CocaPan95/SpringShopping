@@ -230,11 +230,11 @@ public class SmsPromotionImpl implements SmsPromotionService {
     private Map<Long, List<OmsCartItem>> groupCartItemBySpu(List<OmsCartItem> cartItemList) {
         Map<Long, List<OmsCartItem>> productCartMap = new TreeMap<>();
         for (OmsCartItem cartItem : cartItemList) {
-            List<OmsCartItem> productCartItemList = productCartMap.get(cartItem.getId());
+            List<OmsCartItem> productCartItemList = productCartMap.get(cartItem.getProductId());
             if (productCartItemList == null) {
                 productCartItemList = new ArrayList<>();
                 productCartItemList.add(cartItem);
-                productCartMap.put(cartItem.getId(), productCartItemList);
+                productCartMap.put(cartItem.getProductId(), productCartItemList);
             } else {
                 productCartItemList.add(cartItem);
             }

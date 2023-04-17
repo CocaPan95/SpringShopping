@@ -73,7 +73,7 @@ public class ConfirmOrderResult implements Serializable {
         this.calcAmount = calcAmount;
     }
 
-    public static class CalcAmount{
+    public static class CalcAmount implements Serializable{
         //订单商品总金额
         private BigDecimal totalAmount;
         //运费
