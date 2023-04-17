@@ -7,6 +7,7 @@ import com.coca.shoppingmodel.dto.UserDto;
 import com.coca.shoppinguserapi.UmsAdminService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,8 @@ import org.springframework.web.bind.annotation.*;
 public class UmsAdminController {
     @DubboReference
     private UmsAdminService umsAdminService;
-
+//    @Value("${config.info}")
+//    private String configInfo;
     @Autowired
     private AdminService adminService;
 
@@ -31,6 +33,7 @@ public class UmsAdminController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult login(@Validated @RequestBody UmsAdminLoginParam umsAdminLoginParam) {
+//        String s=configInfo;
         return adminService.login(umsAdminLoginParam.getUsername(),umsAdminLoginParam.getPassword());
     }
 
