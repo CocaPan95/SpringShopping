@@ -1,11 +1,12 @@
 package com.coca.shoppingmodel.domain.order;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class OmsCartItemExample {
+public class OmsCartItemExample implements Serializable {
     protected String orderByClause;
 
     protected boolean distinct;

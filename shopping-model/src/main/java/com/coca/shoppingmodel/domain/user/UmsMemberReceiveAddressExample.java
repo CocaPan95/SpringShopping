@@ -1,9 +1,10 @@
 package com.coca.shoppingmodel.domain.user;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UmsMemberReceiveAddressExample {
+public class UmsMemberReceiveAddressExample implements Serializable {
     protected String orderByClause;
 
     protected boolean distinct;

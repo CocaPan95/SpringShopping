@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 
 /**
  * 修改用户名密码参数
@@ -11,7 +12,7 @@ import javax.validation.constraints.NotEmpty;
  */
 @Getter
 @Setter
-public class UpdateAdminPasswordParam {
+public class UpdateAdminPasswordParam implements Serializable {
     @NotEmpty
     //@ApiModelProperty(value = "用户名", required = true)
     private String username;

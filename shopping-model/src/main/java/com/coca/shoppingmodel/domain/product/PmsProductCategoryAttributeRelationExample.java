@@ -1,9 +1,10 @@
 package com.coca.shoppingmodel.domain.product;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PmsProductCategoryAttributeRelationExample {
+public class PmsProductCategoryAttributeRelationExample implements Serializable {
     protected String orderByClause;
 
     protected boolean distinct;

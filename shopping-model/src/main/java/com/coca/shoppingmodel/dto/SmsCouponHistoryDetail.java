@@ -5,13 +5,14 @@ import com.coca.shoppingmodel.domain.sms.SmsCouponHistory;
 import com.coca.shoppingmodel.domain.sms.SmsCouponProductCategoryRelation;
 import com.coca.shoppingmodel.domain.sms.SmsCouponProductRelation;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 优惠券领取历史详情封装
  * Created by macro on 2018/8/29.
  */
-public class SmsCouponHistoryDetail extends SmsCouponHistory {
+public class SmsCouponHistoryDetail extends SmsCouponHistory implements Serializable {
     //相关优惠券信息
     private SmsCoupon coupon;
     //优惠券关联商品

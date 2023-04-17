@@ -1,10 +1,11 @@
 package com.coca.shoppingmodel.domain.sms;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SmsFlashPromotionProductRelationExample {
+public class SmsFlashPromotionProductRelationExample implements Serializable {
     protected String orderByClause;
 
     protected boolean distinct;

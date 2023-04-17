@@ -3,11 +3,12 @@ package com.coca.shoppingmodel.dto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class OrderParam {
+public class OrderParam implements Serializable {
     //@ApiModelProperty("收货地址ID")
     private Long memberReceiveAddressId;
     //@ApiModelProperty("优惠券ID")

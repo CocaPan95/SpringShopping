@@ -3,13 +3,14 @@ package com.coca.shoppingmodel.dto;
 import com.coca.shoppingmodel.domain.order.OmsOrder;
 import com.coca.shoppingmodel.domain.order.OmsOrderItem;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 包含订单商品信息的订单详情
  * Created by macro on 2018/9/4.
  */
-public class OmsOrderDetail extends OmsOrder {
+public class OmsOrderDetail extends OmsOrder implements Serializable {
     private List<OmsOrderItem> orderItemList;
 
     public List<OmsOrderItem> getOrderItemList() {

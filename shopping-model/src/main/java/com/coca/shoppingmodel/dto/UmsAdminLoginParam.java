@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 
 /**
  * 用户登录参数
@@ -11,7 +12,7 @@ import javax.validation.constraints.NotEmpty;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class UmsAdminLoginParam {
+public class UmsAdminLoginParam implements Serializable {
     @NotEmpty
     private String username;
     @NotEmpty

@@ -2,13 +2,14 @@ package com.coca.shoppingmodel.dto;
 
 import com.coca.shoppingmodel.domain.order.OmsCartItem;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
  * Created by macro on 2018/8/27.
  * 购物车中促销信息的封装
  */
-public class CartPromotionItem extends OmsCartItem {
+public class CartPromotionItem extends OmsCartItem implements Serializable {
     //促销活动信息
     private String promotionMessage;
     //促销活动减去的金额，针对每个商品

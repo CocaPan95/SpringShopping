@@ -1,10 +1,11 @@
 package com.coca.shoppingmodel.domain.product;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PmsProductLadderExample {
+public class PmsProductLadderExample implements Serializable {
     protected String orderByClause;
 
     protected boolean distinct;

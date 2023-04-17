@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 
 /**
  * 用户登录参数
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotEmpty;
  */
 @Getter
 @Setter
-public class UmsAdminParam {
+public class UmsAdminParam implements Serializable {
     //@ApiModelProperty(value = "用户名", required = true)
     @NotEmpty
     private String username;

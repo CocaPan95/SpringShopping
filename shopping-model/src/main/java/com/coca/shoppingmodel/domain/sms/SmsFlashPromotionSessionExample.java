@@ -1,11 +1,12 @@
 package com.coca.shoppingmodel.domain.sms;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-public class SmsFlashPromotionSessionExample {
+public class SmsFlashPromotionSessionExample implements Serializable {
     protected String orderByClause;
 
     protected boolean distinct;

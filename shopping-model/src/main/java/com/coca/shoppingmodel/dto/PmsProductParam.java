@@ -4,6 +4,7 @@ import com.coca.shoppingmodel.domain.product.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class PmsProductParam extends PmsProduct {
+public class PmsProductParam extends PmsProduct implements Serializable {
     //@ApiModelProperty("商品阶梯价格设置")
     private List<PmsProductLadder> productLadderList;
     //@ApiModelProperty("商品满减价格设置")

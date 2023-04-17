@@ -1,10 +1,11 @@
 package com.coca.shoppingmodel.domain.user;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class UmsAdminExample {
+public class UmsAdminExample implements Serializable {
     protected String orderByClause;
 
     protected boolean distinct;

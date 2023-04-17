@@ -3,6 +3,7 @@ package com.coca.shoppingmodel.dto;
 import com.coca.shoppingmodel.domain.user.UmsIntegrationConsumeSetting;
 import com.coca.shoppingmodel.domain.user.UmsMemberReceiveAddress;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * 确认单信息封装
  * Created by macro on 2018/8/30.
  */
-public class ConfirmOrderResult {
+public class ConfirmOrderResult implements Serializable {
     //包含优惠信息的购物车信息
     private List<CartPromotionItem> cartPromotionItemList;
     //用户收货地址列表
