@@ -10,3 +10,11 @@ server:
 dubbo:
   application:
     name: shopping-order-service
+seata:
+  application:
+    name: shopping-order-service
+logging:
+  level:
+    root: INFO
+  file:
+    name: logback-spring.xml
