@@ -23,6 +23,7 @@ import com.coca.shoppinguserapi.UmsIntegrationConsumeSettingService;
 import com.coca.shoppinguserapi.UmsMemberReceiveAddressService;
 import com.coca.shoppinguserapi.UmsMemberService;
 import com.github.pagehelper.PageHelper;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +100,7 @@ public class OmsOmsOrderImpl implements OmsOrderService {
     }
 
     @Override
+    @GlobalTransactional
     //确认单下单
     public Map<String, Object> generateOrder(Long MemberId,OrderParam orderParam) {
         List<OmsOrderItem> orderItemList = new ArrayList<>();

@@ -16,5 +16,3 @@ seata:
 logging:
   level:
     root: INFO
-  file:
-    name: logback-spring.xml
