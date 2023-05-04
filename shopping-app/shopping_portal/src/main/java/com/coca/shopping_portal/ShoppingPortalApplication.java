@@ -9,6 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDubbo
 @EnableFeignClients
 @SpringBootApplication
+@EnableDiscoveryClient
 public class ShoppingPortalApplication {
     public static void main(String[] args) {
         SpringApplication.run(ShoppingPortalApplication.class, args);
