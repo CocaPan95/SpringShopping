@@ -10,6 +10,7 @@ server:
 dubbo:
   application:
     name: shopping-product-service
+    qos-port: 33333
 seata:
   application:
     name: shopping-product-service

@@ -10,6 +10,7 @@ server:
 dubbo:
   application:
     name: shopping-sms-service
+    qos-port: 33334
 seata:
   application:
     name: shopping-sms-service

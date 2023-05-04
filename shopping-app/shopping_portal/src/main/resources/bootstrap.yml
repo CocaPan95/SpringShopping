@@ -5,6 +5,10 @@ spring:
     name: shopping-portal
 server:
   port: 8002
+
 dubbo:
   application:
     name: shopping-portal
+logging:
+  level:
+    root: INFO

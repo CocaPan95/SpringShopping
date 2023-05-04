@@ -11,6 +11,7 @@ public interface OmsCartItemService {
 
     //获取某个用户的购物车列表
     List<OmsCartItem> GetOmsCartItemList(Long memberId);
+
     int add(Long memberId,OmsCartItem cartItem);
     /**
      * 批量删除购物车中的商品
