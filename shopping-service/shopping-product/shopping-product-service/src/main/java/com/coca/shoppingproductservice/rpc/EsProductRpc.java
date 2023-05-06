@@ -2,13 +2,14 @@ package com.coca.shoppingproductservice.rpc;
 
 import com.coca.shoppingmodel.api.CommonPage;
 import com.coca.shoppingmodel.es.EsProduct;
-import com.coca.shoppingproductapi.EsProductService;
+import com.coca.shoppingproductapi.PmsEsProductService;
+import com.coca.shoppingproductservice.service.EsProductService;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
 @DubboService
-public class EsProductRpc implements EsProductService {
+public class EsProductRpc implements PmsEsProductService {
     @Autowired
     private EsProductService esProductService;
 
