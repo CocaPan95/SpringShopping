@@ -12,6 +12,7 @@ dubbo:
     name: shopping-user-service
 seata:
   application:
+    application-id: shopping-user-service
     name: shopping-user-service
 logging:
   level:

@@ -1,22 +1,22 @@
-package com.coca.shoppingproductservice.impl;
+package com.coca.shoppingproductservice.service.impl;
 
 import com.coca.shoppingmodel.domain.product.PmsSkuStock;
-import com.coca.shoppingproductapi.PmsSkuStockService;
 import com.coca.shoppingproductservice.mapper.PmsSkuStockMapper;
-import org.apache.dubbo.config.annotation.DubboService;
+import com.coca.shoppingproductservice.service.SkuStockService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-@DubboService
-public class PmsSkuStockImpl implements PmsSkuStockService {
-
+@Service
+public class SkuStockImpl implements SkuStockService {
     @Autowired
     private PmsSkuStockMapper skuStockMapper;
 
-
+    @Override
     public PmsSkuStock GetPmsSkuStockById(Long Id){
         return skuStockMapper.selectByPrimaryKey(Id);
     }
 
+    @Override
     public int UpdatePmsSkuStock(PmsSkuStock model){
         return skuStockMapper.updateByPrimaryKeySelective(model);
     }

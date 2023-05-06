@@ -1,11 +1,10 @@
-package com.coca.shoppingproductservice.impl;
+package com.coca.shoppingproductservice.service.impl;
 
 import com.coca.shoppingmodel.api.CommonPage;
 import com.coca.shoppingmodel.es.EsProduct;
-import com.coca.shoppingproductapi.EsProductService;
 import com.coca.shoppingproductservice.mapper.EsProductDao;
 import com.coca.shoppingproductservice.repository.EsProductRepository;
-import org.apache.dubbo.config.annotation.DubboService;
+import com.coca.shoppingproductservice.service.EsProductService;
 import org.elasticsearch.common.lucene.search.function.FunctionScoreQuery;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -25,6 +24,7 @@ import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@DubboService
+@Service
 public class EsProductImpl implements EsProductService {
     private static final Logger LOGGER = LoggerFactory.getLogger(EsProductImpl.class);
 

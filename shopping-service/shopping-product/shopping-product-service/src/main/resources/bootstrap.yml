@@ -13,6 +13,7 @@ dubbo:
     qos-port: 33333
 seata:
   application:
+    application-id: shopping-product-service
     name: shopping-product-service
 logging:
   level:

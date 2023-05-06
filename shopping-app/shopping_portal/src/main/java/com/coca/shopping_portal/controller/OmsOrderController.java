@@ -21,7 +21,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/order")
 public class OmsOrderController {
-    @DubboReference
+    @DubboReference(retries = -1)
     private OmsOrderService omsOrderService;
 
     @Autowired

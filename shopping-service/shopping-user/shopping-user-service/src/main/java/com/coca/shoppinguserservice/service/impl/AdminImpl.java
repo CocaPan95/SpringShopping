@@ -1,39 +1,36 @@
-package com.coca.shoppinguserservice.impl;
+package com.coca.shoppinguserservice.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.BCrypt;
-import cn.hutool.json.JSONUtil;
-import com.coca.shoppingcommon.constant.AuthConstant;
-import com.coca.shoppingcommon.exception.Asserts;
 import com.coca.shoppingcommon.service.RedisService;
-import com.coca.shoppingmodel.api.CommonResult;
-import com.coca.shoppingmodel.api.ResultCode;
 import com.coca.shoppingmodel.domain.user.*;
 import com.coca.shoppingmodel.dto.UmsAdminParam;
 import com.coca.shoppingmodel.dto.UpdateAdminPasswordParam;
 import com.coca.shoppingmodel.dto.UserDto;
-import com.coca.shoppinguserapi.UmsAdminService;
 import com.coca.shoppinguserservice.mapper.UmsAdminLoginLogMapper;
 import com.coca.shoppinguserservice.mapper.UmsAdminMapper;
 import com.coca.shoppinguserservice.mapper.UmsAdminRoleRelationDao;
 import com.coca.shoppinguserservice.mapper.UmsAdminRoleRelationMapper;
+import com.coca.shoppinguserservice.service.AdminService;
 import com.github.pagehelper.PageHelper;
-import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
-@DubboService
-public class UmsAdminImpl implements UmsAdminService {
+@Service
+public class AdminImpl implements AdminService {
     @Autowired
     private UmsAdminMapper umsAdminMapper;
     @Autowired
@@ -231,6 +228,4 @@ public class UmsAdminImpl implements UmsAdminService {
         }
         return null;
     }
-
-
 }

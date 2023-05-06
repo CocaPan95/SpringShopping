@@ -1,4 +1,4 @@
-package com.coca.shoppingsmsservice.impl;
+package com.coca.shoppingsmsservice.service.impl;
 
 import com.coca.shoppingmodel.domain.order.OmsCartItem;
 import com.coca.shoppingmodel.domain.product.PmsProductFullReduction;
@@ -7,19 +7,17 @@ import com.coca.shoppingmodel.domain.product.PmsSkuStock;
 import com.coca.shoppingmodel.dto.CartPromotionItem;
 import com.coca.shoppingmodel.dto.PromotionProduct;
 import com.coca.shoppingproductapi.PmsProductService;
-import com.coca.shoppingsmsapi.SmsPromotionService;
+import com.coca.shoppingsmsservice.service.PromotionService;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
-@DubboService
-public class SmsPromotionImpl implements SmsPromotionService {
-
+@Service
+public class PromotionImpl implements PromotionService {
     @DubboReference
     private PmsProductService pmsProductService;
 

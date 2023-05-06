@@ -1,18 +1,18 @@
-package com.coca.shoppingsmsservice.impl;
+package com.coca.shoppingsmsservice.service.impl;
 
 import com.coca.shoppingmodel.domain.sms.SmsCouponHistory;
 import com.coca.shoppingmodel.domain.sms.SmsCouponHistoryExample;
-import com.coca.shoppingsmsapi.SmsCouponHistoryService;
 import com.coca.shoppingsmsservice.mapper.SmsCouponHistoryMapper;
-import org.apache.dubbo.config.annotation.DubboService;
+import com.coca.shoppingsmsservice.service.CouponHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Date;
 import java.util.List;
 
-@DubboService
-public class SmsCouponHistoryImpl implements SmsCouponHistoryService {
+@Service
+public class CouponHistoryImpl implements CouponHistoryService {
     @Autowired
     private SmsCouponHistoryMapper couponHistoryMapper;
 

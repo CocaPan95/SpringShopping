@@ -1,14 +1,13 @@
-package com.coca.shoppinguserservice.impl;
+package com.coca.shoppinguserservice.service.impl;
 
 import com.coca.shoppingmodel.domain.user.UmsIntegrationConsumeSetting;
-import com.coca.shoppinguserapi.UmsIntegrationConsumeSettingService;
 import com.coca.shoppinguserservice.mapper.UmsIntegrationConsumeSettingMapper;
-import org.apache.dubbo.config.annotation.DubboService;
+import com.coca.shoppinguserservice.service.IntegrationConsumeSettingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-@DubboService
-public class UmsIntegrationConsumeSettingImpl implements UmsIntegrationConsumeSettingService {
-
+@Service
+public class IntegrationConsumeSettingImpl implements IntegrationConsumeSettingService {
     @Autowired
     private UmsIntegrationConsumeSettingMapper integrationConsumeSettingMapper;
 

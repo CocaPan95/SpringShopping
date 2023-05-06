@@ -1,26 +1,26 @@
-package com.coca.shoppingorderservice.impl;
+package com.coca.shoppingorderservice.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.coca.shoppingmodel.domain.order.OmsCartItem;
 import com.coca.shoppingmodel.domain.order.OmsCartItemExample;
 import com.coca.shoppingmodel.domain.user.UmsMember;
 import com.coca.shoppingmodel.dto.CartPromotionItem;
-import com.coca.shoppingorderapi.OmsCartItemService;
 import com.coca.shoppingorderservice.mapper.OmsCartItemMapper;
+import com.coca.shoppingorderservice.service.CartItemService;
 import com.coca.shoppingsmsapi.SmsPromotionService;
 import com.coca.shoppinguserapi.UmsMemberService;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
-@DubboService
 @Service
-public class OmsOmsCartItemImpl implements OmsCartItemService {
+public class CartItemImpl implements CartItemService {
     @Autowired
     private OmsCartItemMapper omsCartItemMapper;
     @Autowired
@@ -29,8 +29,6 @@ public class OmsOmsCartItemImpl implements OmsCartItemService {
     private UmsMemberService umsMemberService;
     @DubboReference
     private SmsPromotionService smsPromotionService;
-
-    //获取包含优惠活动的购物车列表
     @Override
     public List<CartPromotionItem> GetCartPromotionItemList(Long memberId, List<Long> cartItemIds) {
         //获取购物车列表
@@ -52,6 +50,7 @@ public class OmsOmsCartItemImpl implements OmsCartItemService {
         example.createCriteria().andMemberIdEqualTo(memberId);
         return omsCartItemMapper.selectByExample(example);
     }
+
     @Override
     public int add(Long memberId,OmsCartItem cartItem) {
         int count;
@@ -70,11 +69,6 @@ public class OmsOmsCartItemImpl implements OmsCartItemService {
         }
         return count;
     }
-
-
-    /**
-     * 根据会员id,商品id和规格获取购物车中商品
-     */
     private OmsCartItem getCartItem(OmsCartItem cartItem) {
         OmsCartItemExample example = new OmsCartItemExample();
         OmsCartItemExample.Criteria criteria = example.createCriteria().andMemberIdEqualTo(cartItem.getMemberId())
@@ -88,6 +82,7 @@ public class OmsOmsCartItemImpl implements OmsCartItemService {
         }
         return null;
     }
+
     @Override
     public int delete(Long memberId, List<Long> ids) {
         OmsCartItem record = new OmsCartItem();

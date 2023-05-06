@@ -1,21 +1,18 @@
-package com.coca.shoppinguserservice.impl;
+package com.coca.shoppinguserservice.service.impl;
 
-import com.coca.shoppingmodel.domain.user.UmsMember;
-import com.coca.shoppingmodel.domain.user.UmsMemberExample;
 import com.coca.shoppingmodel.domain.user.UmsMemberReceiveAddress;
 import com.coca.shoppingmodel.domain.user.UmsMemberReceiveAddressExample;
-import com.coca.shoppinguserapi.UmsMemberReceiveAddressService;
 import com.coca.shoppinguserapi.UmsMemberService;
 import com.coca.shoppinguserservice.mapper.UmsMemberReceiveAddressMapper;
-import org.apache.dubbo.config.annotation.DubboReference;
-import org.apache.dubbo.config.annotation.DubboService;
+import com.coca.shoppinguserservice.service.MemberReceiveAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
-@DubboService
-public class UmsMemberReceiveAddressImpl implements UmsMemberReceiveAddressService {
+@Service
+public class MemberReceiveAddressImpl implements MemberReceiveAddressService {
     @Autowired
     private UmsMemberReceiveAddressMapper memberReceiveAddressMapper;
 

@@ -1,19 +1,18 @@
-package com.coca.shoppingsmsservice.impl;
+package com.coca.shoppingsmsservice.service.impl;
 
 import com.coca.shoppingmodel.domain.sms.SmsCouponHistory;
 import com.coca.shoppingmodel.domain.sms.SmsCouponHistoryExample;
 import com.coca.shoppingmodel.domain.sms.SmsCouponProductCategoryRelation;
 import com.coca.shoppingmodel.domain.sms.SmsCouponProductRelation;
-import com.coca.shoppingmodel.domain.user.UmsMember;
 import com.coca.shoppingmodel.dto.CartPromotionItem;
 import com.coca.shoppingmodel.dto.SmsCouponHistoryDetail;
-import com.coca.shoppingsmsapi.UmsMemberCouponService;
 import com.coca.shoppingsmsservice.mapper.SmsCouponHistoryDao;
 import com.coca.shoppingsmsservice.mapper.SmsCouponHistoryMapper;
+import com.coca.shoppingsmsservice.service.MemberCouponService;
 import com.coca.shoppinguserapi.UmsMemberService;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
@@ -21,8 +20,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@DubboService
-public class UmsMemberCouponImpl implements UmsMemberCouponService {
+@Service
+public class MemberCouponImpl implements MemberCouponService {
     @DubboReference
     private UmsMemberService umsMemberService;
     @Autowired

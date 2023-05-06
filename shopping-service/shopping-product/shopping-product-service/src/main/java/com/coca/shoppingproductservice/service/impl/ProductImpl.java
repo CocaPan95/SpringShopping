@@ -1,31 +1,29 @@
-package com.coca.shoppingproductservice.impl;
+package com.coca.shoppingproductservice.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.coca.shoppingmodel.domain.order.OmsCartItem;
 import com.coca.shoppingmodel.domain.product.*;
 import com.coca.shoppingmodel.dto.PmsProductParam;
 import com.coca.shoppingmodel.dto.PromotionProduct;
 import com.coca.shoppingmodel.es.EsProduct;
-import com.coca.shoppingproductapi.PmsProductService;
 import com.coca.shoppingproductservice.mapper.*;
 import com.coca.shoppingproductservice.repository.EsProductRepository;
-import org.apache.dubbo.config.annotation.DubboService;
+import com.coca.shoppingproductservice.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@DubboService
-public class PmsProductImpl implements PmsProductService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(PmsProductImpl.class);
+@Service
+public class ProductImpl implements ProductService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductImpl.class);
     @Autowired
     private PmsProductMapper productMapper;
     @Autowired
