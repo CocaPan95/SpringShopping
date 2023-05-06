@@ -134,9 +134,9 @@ public class OrderImpl implements OrderService {
             orderItemList.add(orderItem);
         }
         //判断购物车中商品是否都有库存
-//        if (!hasStock(cartPromotionItemList)) {
-//            Asserts.fail("库存不足，无法下单");
-//        }
+        if (!hasStock(cartPromotionItemList)) {
+            Asserts.fail("库存不足，无法下单");
+        }
         if (orderParam.getCouponId() == null) {
             for (OmsOrderItem orderItem : orderItemList) {
                 orderItem.setCouponAmount(new BigDecimal(0));
@@ -239,7 +239,7 @@ public class OrderImpl implements OrderService {
             orderItem.setOrderSn(order.getOrderSn());
         }
         orderItemDao.insertList(orderItemList);
-        Asserts.fail("111111111111");
+        //Asserts.fail("111111111111");
         //如果使用优惠券，更新优惠券状态
         if (orderParam.getCouponId() != null) {
             umsMemberCouponService.UpdateCouponStatus(orderParam.getCouponId(), currentMember.getId(), 1);
