@@ -2,11 +2,8 @@ package com.coca.shoppingadmin.controller;
 
 import com.coca.shoppingmodel.api.CommonResult;
 import com.coca.shoppingmodel.dto.PmsProductParam;
-import com.coca.shoppingmodel.es.EsProduct;
-import com.coca.shoppingproductapi.EsProductService;
 import com.coca.shoppingproductapi.PmsProductService;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 

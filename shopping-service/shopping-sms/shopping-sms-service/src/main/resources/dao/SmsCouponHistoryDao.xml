@@ -49,4 +49,11 @@
             AND NOW() > c.end_time
         </if>
     </select>
+    <update id="getCouponByMember">
+        update sms_coupon
+        set count=count-1,
+            receive_count=receive_count+1
+        where code=#{code}
+            and count>0
+    </update>
 </mapper>

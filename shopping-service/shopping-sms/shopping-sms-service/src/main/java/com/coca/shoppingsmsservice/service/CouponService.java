@@ -1,10 +1,9 @@
-package com.coca.shoppingsmsapi;
+package com.coca.shoppingsmsservice.service;
 
 import com.coca.shoppingmodel.dto.SmsCouponParam;
 
-public interface SmsCouponHistoryService {
-    void updateCouponStatus(Long couponId, Long memberId, Integer useStatus);
-
+public interface CouponService {
+    //创建新的优惠券
     int createCoupon(SmsCouponParam param);
 
     //优惠券秒杀
