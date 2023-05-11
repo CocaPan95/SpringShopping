@@ -1,5 +1,6 @@
 package com.coca.shoppingproductservice.service;
 
+import com.coca.shoppingmodel.dto.PmsPortalProductDetail;
 import com.coca.shoppingmodel.dto.PmsProductParam;
 import com.coca.shoppingmodel.dto.PromotionProduct;
 import org.springframework.transaction.annotation.Isolation;
@@ -18,4 +19,5 @@ public interface ProductService {
     int updateNewStatus(List<Long> ids, Integer newStatus);
     int updateDeleteStatus(List<Long> ids, Integer deleteStatus);
     List<PromotionProduct> getPromotionProductList(List<Long> productIdList);
+    PmsPortalProductDetail getProductDetail(Long productId);
 }

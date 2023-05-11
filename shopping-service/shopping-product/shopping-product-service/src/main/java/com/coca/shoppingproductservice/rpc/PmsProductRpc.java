@@ -1,6 +1,7 @@
 package com.coca.shoppingproductservice.rpc;
 
 
+import com.coca.shoppingmodel.dto.PmsPortalProductDetail;
 import com.coca.shoppingmodel.dto.PmsProductParam;
 import com.coca.shoppingmodel.dto.PromotionProduct;
 import com.coca.shoppingproductapi.PmsProductService;
@@ -51,5 +52,8 @@ public class PmsProductRpc implements PmsProductService {
     public List<PromotionProduct> getPromotionProductList(List<Long> productIdList) {
         return productService.getPromotionProductList(productIdList);
     }
-
+    @Override
+    public PmsPortalProductDetail getProductDetail(Long productId){
+        return productService.getProductDetail(productId);
+    }
 }

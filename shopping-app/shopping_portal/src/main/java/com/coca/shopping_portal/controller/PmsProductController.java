@@ -2,21 +2,22 @@ package com.coca.shopping_portal.controller;
 
 import com.coca.shoppingmodel.api.CommonPage;
 import com.coca.shoppingmodel.api.CommonResult;
+import com.coca.shoppingmodel.dto.PmsPortalProductDetail;
 import com.coca.shoppingmodel.es.EsProduct;
 import com.coca.shoppingproductapi.PmsEsProductService;
+import com.coca.shoppingproductapi.PmsProductService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/product")
 public class PmsProductController {
     @DubboReference
     private PmsEsProductService productService;
+    @DubboReference
+    private PmsProductService pmsProductService;
 
     @RequestMapping(value = "/search/simple", method = RequestMethod.GET)
     @ResponseBody
@@ -43,5 +44,13 @@ public class PmsProductController {
     @ResponseBody
     public CommonResult importAll(){
         return CommonResult.success(productService.importAll()) ;
+    }
+
+   // @ApiOperation("获取前台商品详情")
+    @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<PmsPortalProductDetail> detail(@PathVariable Long id) {
+        PmsPortalProductDetail productDetail = pmsProductService.getProductDetail(id);
+        return CommonResult.success(productDetail);
     }
 }
