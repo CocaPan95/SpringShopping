@@ -12,16 +12,17 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.8</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <version>2.7.8</version><!-- lookup parent from repository -->
     </parent>
 
     <modules>
+        <module>shopping-app</module>
         <module>shopping-auth</module>
         <module>shopping-common</module>
         <module>shopping-gateway</module>
         <module>shopping-model</module>
-
+        <module>shopping-service</module>
+        <module>shopping-mbg</module>
     </modules>
 
     <properties>
@@ -234,7 +235,7 @@
                                 <!--定义镜像构建行为-->
                                 <build>
                                     <!--定义基础镜像-->
-                                    <from>openjdk:8</from>
+                                    <from>java:8</from>
                                     <args>
                                         <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
                                     </args>

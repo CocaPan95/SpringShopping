@@ -4,7 +4,7 @@ spring:
   application:
     name: shopping-user-service
   datasource:
-    url: jdbc:mysql://10.1.8.200:3306/ums?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+    url: jdbc:mysql://10.1.8.34:3306/ums?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
 server:
   port: 8085
 dubbo:
