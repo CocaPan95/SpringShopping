@@ -4,4 +4,4 @@ spring:
   application:
     name: shopping-auth
 server:
-  port: 8401
+  port: 8301

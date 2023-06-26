@@ -6,7 +6,7 @@ spring:
   datasource:
     url: jdbc:mysql://10.1.8.34:3306/oms?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
 server:
-  port: 8087
+  port: 8104
 dubbo:
   application:
     name: shopping-order-service
