@@ -1,11 +1,14 @@
 package com.coca.shoppingsmsservice.rpc;
 
+import com.coca.shoppingmodel.domain.sms.SmsCoupon;
 import com.coca.shoppingmodel.dto.SmsCouponParam;
 import com.coca.shoppingsmsapi.SmsCouponHistoryService;
 import com.coca.shoppingsmsservice.service.CouponHistoryService;
 import com.coca.shoppingsmsservice.service.CouponService;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 
 @DubboService
@@ -25,5 +28,9 @@ public class SmsCouponHistoryRpc implements SmsCouponHistoryService {
 
     public boolean getCouponByMember(String code, Long MemberId) {
         return couponService.getCouponByMember(code, MemberId);
+    }
+
+    public List<SmsCoupon> getAvailableCouponList(Long productId, Long productCategoryId){
+        return couponHistoryService.getAvailableCouponList(productId,productCategoryId);
     }
 }

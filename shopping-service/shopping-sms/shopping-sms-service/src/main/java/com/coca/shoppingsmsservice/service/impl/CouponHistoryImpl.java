@@ -1,9 +1,12 @@
 package com.coca.shoppingsmsservice.service.impl;
 
+import com.coca.shoppingmodel.domain.sms.SmsCoupon;
 import com.coca.shoppingmodel.domain.sms.SmsCouponHistory;
 import com.coca.shoppingmodel.domain.sms.SmsCouponHistoryExample;
+import com.coca.shoppingsmsservice.mapper.SmsCouponHistoryDao;
 import com.coca.shoppingsmsservice.mapper.SmsCouponHistoryMapper;
 import com.coca.shoppingsmsservice.service.CouponHistoryService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -16,6 +19,8 @@ public class CouponHistoryImpl implements CouponHistoryService {
     @Autowired
     private SmsCouponHistoryMapper couponHistoryMapper;
 
+    @Autowired
+    private SmsCouponHistoryDao couponHistoryDao;
     /**
      * 将优惠券信息更改为指定状态
      *
@@ -36,5 +41,9 @@ public class CouponHistoryImpl implements CouponHistoryService {
             couponHistory.setUseStatus(useStatus);
             couponHistoryMapper.updateByPrimaryKeySelective(couponHistory);
         }
+    }
+
+    public List<SmsCoupon> getAvailableCouponList(Long productId, Long productCategoryId) {
+        return couponHistoryDao.getAvailableCouponList(productId,productCategoryId);
     }
 }

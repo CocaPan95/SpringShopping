@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface PortalProductDao {
     List<PromotionProduct> getPromotionProductList(@Param("ids") List<Long> ids);
-    List<SmsCoupon> getAvailableCouponList(@Param("productId") Long productId, @Param("productCategoryId")Long productCategoryId);
 }

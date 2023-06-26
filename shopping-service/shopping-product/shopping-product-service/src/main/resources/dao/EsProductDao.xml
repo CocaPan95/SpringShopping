@@ -9,7 +9,6 @@
             <result column="value" property="value" jdbcType="VARCHAR"/>
             <result column="type" property="type"/>
             <result column="name" property="name"/>
-            <result column="name" property="name"/>
         </collection>
     </resultMap>
     <select id="getAllEsProductList" resultMap="esProductListMap">

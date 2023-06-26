@@ -15,4 +15,5 @@ public interface SmsCouponHistoryDao {
     List<SmsCoupon> getCouponList(@Param("memberId") Long memberId, @Param("useStatus")Integer useStatus);
 
     Integer getCouponByMember(@Param("memberId") Long memberId,@Param("code")String code);
+    List<SmsCoupon> getAvailableCouponList(@Param("productId") Long productId, @Param("productCategoryId")Long productCategoryId);
 }

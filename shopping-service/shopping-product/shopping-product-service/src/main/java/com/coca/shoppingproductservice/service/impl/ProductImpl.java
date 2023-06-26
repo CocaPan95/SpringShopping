@@ -11,6 +11,8 @@ import com.coca.shoppingmodel.es.EsProduct;
 import com.coca.shoppingproductservice.mapper.*;
 import com.coca.shoppingproductservice.repository.EsProductRepository;
 import com.coca.shoppingproductservice.service.ProductService;
+import com.coca.shoppingsmsapi.SmsCouponHistoryService;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +61,8 @@ public class ProductImpl implements ProductService {
     private PmsBrandMapper brandMapper;
     @Autowired
     private PmsProductAttributeMapper productAttributeMapper;
-
+    @DubboReference
+    private SmsCouponHistoryService couponHistoryService;
 
     @Override
     public int create(PmsProductParam productParam) {
@@ -222,7 +225,7 @@ public class ProductImpl implements ProductService {
             result.setProductFullReductionList(pmsProductFullReductionList);
         }
         //获取商品可用优惠券
-        result.setCouponList(portalProductDao.getAvailableCouponList(products.getId(),products.getProductCategoryId()));
+        result.setCouponList(couponHistoryService.getAvailableCouponList(products.getId(), products.getProductCategoryId()));
         return result;
     }
 
