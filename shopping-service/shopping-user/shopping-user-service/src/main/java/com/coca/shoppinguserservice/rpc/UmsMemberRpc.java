@@ -1,9 +1,9 @@
 package com.coca.shoppinguserservice.rpc;
 
-import com.coca.shoppingmodel.domain.user.UmsMember;
 import com.coca.shoppingmodel.dto.UserDto;
-import com.coca.shoppinguserapi.UmsMemberService;
-import com.coca.shoppinguserservice.service.MemberService;
+import com.coca.shoppingmodel.entity.ums.UmsMember;
+import com.coca.shoppinguserapi.IUmsMemberRpcService;
+import com.coca.shoppinguserservice.service.IUmsMemberService;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @DubboService
-public class UmsMemberRpc implements UmsMemberService {
+public class UmsMemberRpc implements IUmsMemberRpcService {
     @Autowired
-    private MemberService memberService;
+    private IUmsMemberService memberService;
 
     @Override
     public UserDto loadUserByUsername(String username) {

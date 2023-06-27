@@ -1,20 +1,28 @@
 package com.coca.shoppinguserservice.rpc;
 
-import com.coca.shoppingmodel.domain.user.*;
 import com.coca.shoppingmodel.dto.UmsAdminParam;
 import com.coca.shoppingmodel.dto.UpdateAdminPasswordParam;
 import com.coca.shoppingmodel.dto.UserDto;
-import com.coca.shoppinguserapi.UmsAdminService;
-import com.coca.shoppinguserservice.service.AdminService;
+import com.coca.shoppingmodel.entity.ums.UmsAdmin;
+import com.coca.shoppingmodel.entity.ums.UmsResource;
+import com.coca.shoppingmodel.entity.ums.UmsRole;
+import com.coca.shoppinguserapi.IUmsAdminRpcService;
+import com.coca.shoppinguserservice.service.*;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @DubboService
-public class UmsAdminRpc implements UmsAdminService {
+public class UmsAdminRpc implements IUmsAdminRpcService {
     @Autowired
-    private AdminService adminService;
+    private IUmsAdminService adminService;
+    @Autowired
+    private IUmsAdminLoginLogService adminLoginLogService;
+    @Autowired
+    private IUmsResourceService resourceService;
+    @Autowired
+    private IUmsRoleService roleService;
 
     @Override
     public UmsAdmin getAdminByUsername(String username) {
@@ -26,14 +34,9 @@ public class UmsAdminRpc implements UmsAdminService {
         return adminService.register(umsAdminParam);
     }
 
-    /**
-     * 添加登录记录
-     *
-     * @param username 用户名
-     */
     @Override
     public void insertLoginLog(String username) {
-        adminService.insertLoginLog(username);
+        adminLoginLogService.insertLoginLog(username);
     }
 
     @Override
@@ -45,7 +48,6 @@ public class UmsAdminRpc implements UmsAdminService {
     public List<UmsAdmin> list(String keyword, Integer pageSize, Integer pageNum) {
         return adminService.list(keyword,pageSize,pageNum);
     }
-
     @Override
     public int update(Long id, UmsAdmin admin) {
         return adminService.update(id,admin);
@@ -58,17 +60,17 @@ public class UmsAdminRpc implements UmsAdminService {
 
     @Override
     public int updateRole(Long adminId, List<Long> roleIds) {
-        return adminService.updateRole(adminId,roleIds);
+        return roleService.updateRole(adminId,roleIds);
     }
 
     @Override
     public List<UmsRole> getRoleList(Long adminId) {
-        return adminService.getRoleList(adminId);
+        return roleService.getRoleList(adminId);
     }
 
     @Override
     public List<UmsResource> getResourceList(Long adminId) {
-        return adminService.getResourceList(adminId);
+        return resourceService.getResourceList(adminId);
     }
 
     @Override

@@ -8,9 +8,9 @@ import com.coca.shoppingcommon.constant.AuthConstant;
 import com.coca.shoppingcommon.exception.Asserts;
 import com.coca.shoppingmodel.api.CommonResult;
 import com.coca.shoppingmodel.api.ResultCode;
-import com.coca.shoppingmodel.domain.user.UmsMember;
 import com.coca.shoppingmodel.dto.UserDto;
-import com.coca.shoppinguserapi.UmsMemberService;
+import com.coca.shoppingmodel.entity.ums.UmsMember;
+import com.coca.shoppinguserapi.IUmsMemberRpcService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class MemberImpl implements MemberService {
     private HttpServletRequest request;
 
     @DubboReference
-    private UmsMemberService umsMemberService;
+    private IUmsMemberRpcService umsMemberService;
 
     @Override
     public CommonResult login(String username, String password) {

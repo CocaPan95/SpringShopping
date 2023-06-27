@@ -4,7 +4,7 @@ import com.coca.shoppingadmin.service.AdminService;
 import com.coca.shoppingmodel.api.CommonResult;
 import com.coca.shoppingmodel.dto.UmsAdminLoginParam;
 import com.coca.shoppingmodel.dto.UserDto;
-import com.coca.shoppinguserapi.UmsAdminService;
+import com.coca.shoppinguserapi.IUmsAdminRpcService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin")
 public class UmsAdminController {
     @DubboReference
-    private UmsAdminService umsAdminService;
+    private IUmsAdminRpcService umsAdminService;
 
     @Autowired
     private AdminService adminService;

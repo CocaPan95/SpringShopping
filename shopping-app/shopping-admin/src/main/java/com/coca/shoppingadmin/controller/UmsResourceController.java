@@ -1,7 +1,7 @@
 package com.coca.shoppingadmin.controller;
 
 import com.coca.shoppingmodel.api.CommonResult;
-import com.coca.shoppinguserapi.UmsResourceService;
+import com.coca.shoppinguserapi.IUmsResourceRpcService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ import java.util.Map;
 @RequestMapping("/resource")
 public class UmsResourceController {
     @DubboReference
-    private UmsResourceService umsResourceService;
+    private IUmsResourceRpcService umsResourceService;
     @RequestMapping(value = "/initResourceRolesMap", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult initResourceRolesMap() {

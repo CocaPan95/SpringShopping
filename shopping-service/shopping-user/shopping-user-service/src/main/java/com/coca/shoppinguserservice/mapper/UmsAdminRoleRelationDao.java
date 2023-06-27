@@ -1,8 +1,8 @@
 package com.coca.shoppinguserservice.mapper;
 
-import com.coca.shoppingmodel.domain.user.UmsAdminRoleRelation;
-import com.coca.shoppingmodel.domain.user.UmsResource;
-import com.coca.shoppingmodel.domain.user.UmsRole;
+import com.coca.shoppingmodel.entity.ums.UmsAdminRoleRelation;
+import com.coca.shoppingmodel.entity.ums.UmsResource;
+import com.coca.shoppingmodel.entity.ums.UmsRole;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

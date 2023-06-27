@@ -3,7 +3,7 @@ package com.coca.shopping_portal.controller;
 import com.coca.shopping_portal.service.MemberService;
 import com.coca.shoppingmodel.api.CommonResult;
 import com.coca.shoppingmodel.dto.UserDto;
-import com.coca.shoppinguserapi.UmsMemberService;
+import com.coca.shoppinguserapi.IUmsMemberRpcService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UmsMemberController {
 
     @DubboReference
-    private UmsMemberService umsMemberService;
+    private IUmsMemberRpcService umsMemberService;
 
     @Autowired
     private MemberService memberService;

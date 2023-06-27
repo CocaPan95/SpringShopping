@@ -1,7 +1,8 @@
 package com.coca.shoppingmodel.dto;
 
-import com.coca.shoppingmodel.domain.user.UmsIntegrationConsumeSetting;
-import com.coca.shoppingmodel.domain.user.UmsMemberReceiveAddress;
+
+import com.coca.shoppingmodel.entity.ums.UmsIntegrationConsumeSetting;
+import com.coca.shoppingmodel.entity.ums.UmsMemberReceiveAddress;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

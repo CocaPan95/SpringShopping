@@ -8,9 +8,9 @@ import com.coca.shoppingcommon.constant.AuthConstant;
 import com.coca.shoppingcommon.exception.Asserts;
 import com.coca.shoppingmodel.api.CommonResult;
 import com.coca.shoppingmodel.api.ResultCode;
-import com.coca.shoppingmodel.domain.user.UmsAdmin;
 import com.coca.shoppingmodel.dto.UserDto;
-import com.coca.shoppinguserapi.UmsAdminService;
+import com.coca.shoppingmodel.entity.ums.UmsAdmin;
+import com.coca.shoppinguserapi.IUmsAdminRpcService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class AdminImpl implements AdminService {
     @Autowired
     private HttpServletRequest request;
     @DubboReference
-    private UmsAdminService umsAdminService;
+    private IUmsAdminRpcService umsAdminService;
 
     @Override
     public CommonResult login(String username, String password) {

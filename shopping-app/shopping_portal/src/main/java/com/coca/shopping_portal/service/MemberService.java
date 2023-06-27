@@ -1,7 +1,7 @@
 package com.coca.shopping_portal.service;
 
 import com.coca.shoppingmodel.api.CommonResult;
-import com.coca.shoppingmodel.domain.user.UmsMember;
+import com.coca.shoppingmodel.entity.ums.UmsMember;
 
 public interface MemberService {
     /**
