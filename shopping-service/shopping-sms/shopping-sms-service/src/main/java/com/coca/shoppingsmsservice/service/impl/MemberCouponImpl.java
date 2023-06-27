@@ -9,7 +9,7 @@ import com.coca.shoppingmodel.dto.SmsCouponHistoryDetail;
 import com.coca.shoppingsmsservice.mapper.SmsCouponHistoryDao;
 import com.coca.shoppingsmsservice.mapper.SmsCouponHistoryMapper;
 import com.coca.shoppingsmsservice.service.MemberCouponService;
-import com.coca.shoppinguserapi.UmsMemberService;
+import com.coca.shoppinguserapi.IUmsMemberRpcService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ import java.util.List;
 @Service
 public class MemberCouponImpl implements MemberCouponService {
     @DubboReference
-    private UmsMemberService umsMemberService;
+    private IUmsMemberRpcService umsMemberService;
     @Autowired
     private SmsCouponHistoryMapper couponHistoryMapper;
     @Autowired

@@ -10,10 +10,10 @@ import com.coca.shoppingmodel.domain.product.PmsSkuStock;
 import com.coca.shoppingmodel.domain.sms.SmsCoupon;
 import com.coca.shoppingmodel.domain.sms.SmsCouponProductCategoryRelation;
 import com.coca.shoppingmodel.domain.sms.SmsCouponProductRelation;
-import com.coca.shoppingmodel.domain.user.UmsIntegrationConsumeSetting;
-import com.coca.shoppingmodel.domain.user.UmsMember;
-import com.coca.shoppingmodel.domain.user.UmsMemberReceiveAddress;
 import com.coca.shoppingmodel.dto.*;
+import com.coca.shoppingmodel.entity.ums.UmsIntegrationConsumeSetting;
+import com.coca.shoppingmodel.entity.ums.UmsMember;
+import com.coca.shoppingmodel.entity.ums.UmsMemberReceiveAddress;
 import com.coca.shoppingorderservice.component.CancelOrderSender;
 import com.coca.shoppingorderservice.mapper.*;
 import com.coca.shoppingorderservice.service.CartItemService;
@@ -22,9 +22,9 @@ import com.coca.shoppingproductapi.PmsSkuStockService;
 import com.coca.shoppingsmsapi.SmsCouponHistoryService;
 import com.coca.shoppingsmsapi.SmsPromotionService;
 import com.coca.shoppingsmsapi.UmsMemberCouponService;
-import com.coca.shoppinguserapi.UmsIntegrationConsumeSettingService;
-import com.coca.shoppinguserapi.UmsMemberReceiveAddressService;
-import com.coca.shoppinguserapi.UmsMemberService;
+import com.coca.shoppinguserapi.IUmsIntegrationConsumeSettingRpcService;
+import com.coca.shoppinguserapi.IUmsMemberReceiveAddressRpcService;
+import com.coca.shoppinguserapi.IUmsMemberRpcService;
 import com.github.pagehelper.PageHelper;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.dubbo.config.annotation.DubboReference;
@@ -46,13 +46,13 @@ public class OrderImpl implements OrderService {
     @Autowired
     private CartItemService cartItemService;
     @DubboReference
-    private UmsMemberService umsMemberService;
+    private IUmsMemberRpcService umsMemberService;
     @DubboReference
-    private UmsMemberReceiveAddressService umsMemberReceiveAddressService;
+    private IUmsMemberReceiveAddressRpcService umsMemberReceiveAddressService;
     @DubboReference
     private UmsMemberCouponService umsMemberCouponService;
     @DubboReference
-    private UmsIntegrationConsumeSettingService integrationConsumeSettingService;
+    private IUmsIntegrationConsumeSettingRpcService integrationConsumeSettingService;
     @DubboReference
     private PmsSkuStockService skuStockService;
     @DubboReference

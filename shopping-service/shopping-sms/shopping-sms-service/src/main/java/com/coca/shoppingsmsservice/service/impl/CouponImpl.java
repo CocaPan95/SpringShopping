@@ -3,11 +3,11 @@ package com.coca.shoppingsmsservice.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import com.coca.shoppingcommon.exception.Asserts;
 import com.coca.shoppingmodel.domain.sms.*;
-import com.coca.shoppingmodel.domain.user.UmsMember;
 import com.coca.shoppingmodel.dto.SmsCouponParam;
+import com.coca.shoppingmodel.entity.ums.UmsMember;
 import com.coca.shoppingsmsservice.mapper.*;
 import com.coca.shoppingsmsservice.service.CouponService;
-import com.coca.shoppinguserapi.UmsMemberService;
+import com.coca.shoppinguserapi.IUmsMemberRpcService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,7 @@ public class CouponImpl implements CouponService {
     @Autowired
     private SmsCouponHistoryDao couponHistoryDao;
     @DubboReference
-    private UmsMemberService umsMemberService;
+    private IUmsMemberRpcService umsMemberService;
 
     @Transactional
     public int createCoupon(SmsCouponParam param) {

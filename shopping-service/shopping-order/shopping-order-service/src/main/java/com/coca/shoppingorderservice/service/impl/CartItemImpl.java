@@ -3,12 +3,12 @@ package com.coca.shoppingorderservice.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import com.coca.shoppingmodel.domain.order.OmsCartItem;
 import com.coca.shoppingmodel.domain.order.OmsCartItemExample;
-import com.coca.shoppingmodel.domain.user.UmsMember;
 import com.coca.shoppingmodel.dto.CartPromotionItem;
+import com.coca.shoppingmodel.entity.ums.UmsMember;
 import com.coca.shoppingorderservice.mapper.OmsCartItemMapper;
 import com.coca.shoppingorderservice.service.CartItemService;
 import com.coca.shoppingsmsapi.SmsPromotionService;
-import com.coca.shoppinguserapi.UmsMemberService;
+import com.coca.shoppinguserapi.IUmsMemberRpcService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class CartItemImpl implements CartItemService {
     @Autowired
     private OmsCartItemMapper cartItemMapper;
     @DubboReference
-    private UmsMemberService umsMemberService;
+    private IUmsMemberRpcService umsMemberService;
     @DubboReference
     private SmsPromotionService smsPromotionService;
     @Override
