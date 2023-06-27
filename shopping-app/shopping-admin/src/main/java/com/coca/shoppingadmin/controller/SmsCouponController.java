@@ -1,7 +1,6 @@
 package com.coca.shoppingadmin.controller;
 
 import com.coca.shoppingmodel.api.CommonResult;
-import com.coca.shoppingmodel.domain.user.UmsMember;
 import com.coca.shoppingmodel.dto.SmsCouponParam;
 import com.coca.shoppingsmsapi.SmsCouponHistoryService;
 import org.apache.dubbo.config.annotation.DubboReference;

@@ -1,8 +1,7 @@
 package com.coca.shoppingadmin.component;
 
-import com.coca.shoppinguserapi.UmsResourceService;
+import com.coca.shoppinguserapi.IUmsResourceRpcService;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -14,7 +13,7 @@ import javax.annotation.PostConstruct;
 @Component
 public class ResourceRoleRulesHolder {
     @DubboReference
-    private UmsResourceService resourceService;
+    private IUmsResourceRpcService resourceService;
 
     @PostConstruct
     public void initResourceRolesMap(){

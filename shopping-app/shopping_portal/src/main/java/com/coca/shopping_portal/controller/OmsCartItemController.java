@@ -3,7 +3,7 @@ package com.coca.shopping_portal.controller;
 import com.coca.shopping_portal.service.MemberService;
 import com.coca.shoppingmodel.api.CommonResult;
 import com.coca.shoppingmodel.domain.order.OmsCartItem;
-import com.coca.shoppingmodel.domain.user.UmsMember;
+import com.coca.shoppingmodel.entity.ums.UmsMember;
 import com.coca.shoppingorderapi.OmsCartItemService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
