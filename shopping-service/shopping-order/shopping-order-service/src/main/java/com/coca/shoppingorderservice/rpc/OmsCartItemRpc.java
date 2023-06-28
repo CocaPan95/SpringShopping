@@ -1,18 +1,19 @@
 package com.coca.shoppingorderservice.rpc;
 
-import com.coca.shoppingmodel.domain.order.OmsCartItem;
 import com.coca.shoppingmodel.dto.CartPromotionItem;
-import com.coca.shoppingorderapi.OmsCartItemService;
-import com.coca.shoppingorderservice.service.CartItemService;
+import com.coca.shoppingmodel.entity.oms.OmsCartItem;
+import com.coca.shoppingorderapi.IOmsCartItemRpcService;
+import com.coca.shoppingorderservice.service.IOmsCartItemService;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @DubboService
-public class OmsCartItemRpc implements OmsCartItemService {
+public class OmsCartItemRpc implements IOmsCartItemRpcService {
+
     @Autowired
-    private CartItemService cartItemService;
+    private IOmsCartItemService cartItemService;
 
     @Override
     public List<CartPromotionItem> GetCartPromotionItemList(Long memberId, List<Long> cartItemIds) {

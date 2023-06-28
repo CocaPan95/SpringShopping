@@ -1,7 +1,7 @@
 package com.coca.shoppingsmsservice.mapper;
 
-import com.coca.shoppingmodel.domain.sms.SmsCoupon;
 import com.coca.shoppingmodel.dto.SmsCouponHistoryDetail;
+import com.coca.shoppingmodel.entity.sms.SmsCoupon;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

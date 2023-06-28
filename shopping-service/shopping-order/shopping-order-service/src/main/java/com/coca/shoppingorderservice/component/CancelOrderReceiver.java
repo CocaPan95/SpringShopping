@@ -1,6 +1,6 @@
 package com.coca.shoppingorderservice.component;
 
-import com.coca.shoppingorderapi.OmsOrderService;
+import com.coca.shoppingorderservice.service.IOmsOrderService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +17,8 @@ import org.springframework.stereotype.Component;
 //@RabbitListener(queues = "mall.order.cancel")
 public class CancelOrderReceiver {
     private static Logger LOGGER = LoggerFactory.getLogger(CancelOrderReceiver.class);
-    @DubboReference
-    private OmsOrderService omsOrderService;
+    @Autowired
+    private IOmsOrderService omsOrderService;
 
     @RabbitHandler
     public void handle(Long orderId){

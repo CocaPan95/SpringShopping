@@ -1,10 +1,10 @@
 package com.coca.shoppingsmsapi;
 
-import com.coca.shoppingmodel.domain.order.OmsCartItem;
 import com.coca.shoppingmodel.dto.CartPromotionItem;
+import com.coca.shoppingmodel.entity.oms.OmsCartItem;
 
 import java.util.List;
 
-public interface SmsPromotionService {
+public interface ISmsPromotionRpcService {
     List<CartPromotionItem> calcCartPromotion(List<OmsCartItem> cartItemList);
 }

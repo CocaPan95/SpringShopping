@@ -1,8 +1,8 @@
 package com.coca.shoppingmodel.dto;
 
-import com.coca.shoppingmodel.domain.sms.SmsCoupon;
-import com.coca.shoppingmodel.domain.sms.SmsCouponProductCategoryRelation;
-import com.coca.shoppingmodel.domain.sms.SmsCouponProductRelation;
+import com.coca.shoppingmodel.entity.sms.SmsCoupon;
+import com.coca.shoppingmodel.entity.sms.SmsCouponProductCategoryRelation;
+import com.coca.shoppingmodel.entity.sms.SmsCouponProductRelation;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

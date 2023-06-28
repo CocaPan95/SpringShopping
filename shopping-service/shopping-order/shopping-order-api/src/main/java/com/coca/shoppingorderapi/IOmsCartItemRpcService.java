@@ -1,11 +1,11 @@
 package com.coca.shoppingorderapi;
 
-import com.coca.shoppingmodel.domain.order.OmsCartItem;
 import com.coca.shoppingmodel.dto.CartPromotionItem;
+import com.coca.shoppingmodel.entity.oms.OmsCartItem;
 
 import java.util.List;
 
-public interface OmsCartItemService {
+public interface IOmsCartItemRpcService {
     //获取包含优惠活动的购物车列表
     List<CartPromotionItem> GetCartPromotionItemList(Long memberId, List<Long> cartItemIds);
 

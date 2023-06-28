@@ -1,9 +1,10 @@
 package com.coca.shoppingmodel.dto;
 
-import com.coca.shoppingmodel.domain.sms.SmsCoupon;
-import com.coca.shoppingmodel.domain.sms.SmsCouponHistory;
-import com.coca.shoppingmodel.domain.sms.SmsCouponProductCategoryRelation;
-import com.coca.shoppingmodel.domain.sms.SmsCouponProductRelation;
+
+import com.coca.shoppingmodel.entity.sms.SmsCoupon;
+import com.coca.shoppingmodel.entity.sms.SmsCouponHistory;
+import com.coca.shoppingmodel.entity.sms.SmsCouponProductCategoryRelation;
+import com.coca.shoppingmodel.entity.sms.SmsCouponProductRelation;
 
 import java.io.Serializable;
 import java.util.List;

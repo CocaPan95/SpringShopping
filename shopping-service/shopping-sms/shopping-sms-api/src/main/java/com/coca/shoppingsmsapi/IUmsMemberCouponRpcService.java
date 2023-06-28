@@ -5,7 +5,7 @@ import com.coca.shoppingmodel.dto.SmsCouponHistoryDetail;
 
 import java.util.List;
 
-public interface UmsMemberCouponService {
+public interface IUmsMemberCouponRpcService {
     /**
      * 根据购物车信息获取可用优惠券
      */

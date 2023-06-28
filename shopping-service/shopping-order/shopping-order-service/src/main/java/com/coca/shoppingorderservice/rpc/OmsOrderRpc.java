@@ -2,17 +2,17 @@ package com.coca.shoppingorderservice.rpc;
 
 import com.coca.shoppingmodel.api.CommonPage;
 import com.coca.shoppingmodel.dto.*;
-import com.coca.shoppingorderapi.OmsOrderService;
-import com.coca.shoppingorderservice.service.OrderService;
+import com.coca.shoppingorderapi.IOmsOrderRpcService;
+import com.coca.shoppingorderservice.service.IOmsOrderService;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 
 @DubboService
-public class OmsOrderRpc implements OmsOrderService {
+public class OmsOrderRpc implements IOmsOrderRpcService {
     @Autowired
-    private OrderService orderService;
+    private IOmsOrderService orderService;
 
     @Override
     //购物车信息生成确认订单

@@ -1,7 +1,8 @@
 package com.coca.shoppingmodel.dto;
 
-import com.coca.shoppingmodel.domain.order.OmsOrder;
-import com.coca.shoppingmodel.domain.order.OmsOrderItem;
+
+import com.coca.shoppingmodel.entity.oms.OmsOrder;
+import com.coca.shoppingmodel.entity.oms.OmsOrderItem;
 
 import java.io.Serializable;
 import java.util.List;

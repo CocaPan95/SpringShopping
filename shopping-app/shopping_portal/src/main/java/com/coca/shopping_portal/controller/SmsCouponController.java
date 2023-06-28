@@ -3,7 +3,7 @@ package com.coca.shopping_portal.controller;
 import com.coca.shopping_portal.service.MemberService;
 import com.coca.shoppingmodel.api.CommonResult;
 import com.coca.shoppingmodel.entity.ums.UmsMember;
-import com.coca.shoppingsmsapi.SmsCouponHistoryService;
+import com.coca.shoppingsmsapi.ISmsCouponRpcService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/coupon")
 public class SmsCouponController {
-    @DubboReference(retries = -1)
-    private SmsCouponHistoryService couponHistoryService;
+    @DubboReference
+    private ISmsCouponRpcService couponHistoryService;
 
     @Autowired
     private MemberService memberService;

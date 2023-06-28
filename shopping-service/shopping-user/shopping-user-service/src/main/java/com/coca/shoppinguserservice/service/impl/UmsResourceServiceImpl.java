@@ -3,12 +3,14 @@ package com.coca.shoppinguserservice.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.coca.shoppingcommon.constant.AuthConstant;
 import com.coca.shoppingcommon.service.RedisService;
+import com.coca.shoppingmodel.entity.ums.UmsAdminRoleRelation;
 import com.coca.shoppingmodel.entity.ums.UmsResource;
 import com.coca.shoppingmodel.entity.ums.UmsRole;
 import com.coca.shoppingmodel.entity.ums.UmsRoleResourceRelation;
 import com.coca.shoppinguserservice.mapper.UmsAdminRoleRelationMapper;
 import com.coca.shoppinguserservice.mapper.UmsResourceMapper;
 import com.coca.shoppinguserservice.mapper.UmsRoleMapper;
+import com.coca.shoppinguserservice.mapper.UmsRoleResourceRelationMapper;
 import com.coca.shoppinguserservice.service.IUmsResourceService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,7 @@ public class UmsResourceServiceImpl extends ServiceImpl<UmsResourceMapper, UmsRe
     @Autowired
     private UmsRoleMapper roleMapper;
     @Autowired
-    private UmsAdminRoleRelationMapper adminRoleRelationMapper;
+    private UmsRoleResourceRelationMapper roleResourceRelationMapper;
 
     @Override
     public List<UmsResource> getResourceList(Long adminId) {
@@ -50,7 +52,7 @@ public class UmsResourceServiceImpl extends ServiceImpl<UmsResourceMapper, UmsRe
         Map<String,List<String>> resourceRoleMap = new TreeMap<>();
         List<UmsResource> resourceList = baseMapper.selectList(new QueryWrapper<>());
         List<UmsRole> roleList = roleMapper.selectList(new QueryWrapper<>());
-        List<UmsRoleResourceRelation> relationList = adminRoleRelationMapper.selectList(new QueryWrapper());
+        List<UmsRoleResourceRelation> relationList = roleResourceRelationMapper.selectList(new QueryWrapper());
         for (UmsResource resource : resourceList) {
             Set<Long> roleIds = relationList.stream().filter(item -> item.getResourceId().equals(resource.getId())).map(UmsRoleResourceRelation::getRoleId).collect(Collectors.toSet());
             List<String> roleNames = roleList.stream().filter(item -> roleIds.contains(item.getId())).map(item -> item.getId() + "_" + item.getName()).collect(Collectors.toList());

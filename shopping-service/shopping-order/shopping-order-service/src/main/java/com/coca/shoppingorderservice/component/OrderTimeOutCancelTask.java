@@ -1,6 +1,6 @@
 package com.coca.shoppingorderservice.component;
 
-import com.coca.shoppingorderapi.OmsOrderService;
+import com.coca.shoppingorderservice.service.IOmsOrderService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderTimeOutCancelTask {
     private Logger LOGGER = LoggerFactory.getLogger(OrderTimeOutCancelTask.class);
-    @DubboReference
-    private OmsOrderService portalOrderService;
+    @Autowired
+    private IOmsOrderService portalOrderService;
 
     /**
      * cron表达式：Seconds Minutes Hours DayofMonth Month DayofWeek [Year]

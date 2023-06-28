@@ -2,6 +2,6 @@ package com.coca.shoppingsmsapi;
 
 import com.coca.shoppingmodel.dto.PmsPortalProductDetail;
 
-public interface SmsFlashPromotionService {
+public interface ISmsFlashPromotionRpcService {
     PmsPortalProductDetail getFlashPromotionProduct(Long productId);
 }

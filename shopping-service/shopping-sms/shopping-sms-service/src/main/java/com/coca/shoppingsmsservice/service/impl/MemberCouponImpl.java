@@ -1,11 +1,12 @@
 package com.coca.shoppingsmsservice.service.impl;
 
-import com.coca.shoppingmodel.domain.sms.SmsCouponHistory;
-import com.coca.shoppingmodel.domain.sms.SmsCouponHistoryExample;
-import com.coca.shoppingmodel.domain.sms.SmsCouponProductCategoryRelation;
-import com.coca.shoppingmodel.domain.sms.SmsCouponProductRelation;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.coca.shoppingmodel.dto.CartPromotionItem;
 import com.coca.shoppingmodel.dto.SmsCouponHistoryDetail;
+import com.coca.shoppingmodel.entity.sms.SmsCoupon;
+import com.coca.shoppingmodel.entity.sms.SmsCouponHistory;
+import com.coca.shoppingmodel.entity.sms.SmsCouponProductCategoryRelation;
+import com.coca.shoppingmodel.entity.sms.SmsCouponProductRelation;
 import com.coca.shoppingsmsservice.mapper.SmsCouponHistoryDao;
 import com.coca.shoppingsmsservice.mapper.SmsCouponHistoryMapper;
 import com.coca.shoppingsmsservice.service.MemberCouponService;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,7 +33,7 @@ public class MemberCouponImpl implements MemberCouponService {
 
     @Override
     public List<SmsCouponHistoryDetail> listCart(Long MemberId, List<CartPromotionItem> cartItemList, Integer type) {
-        Date now=new Date();
+        LocalDateTime now=LocalDateTime.now();
         //获取该用户所有优惠券
         List<SmsCouponHistoryDetail> allList=smsCouponHistoryDao.getDetailList(MemberId);
         //根据优惠券使用类型来判断优惠券是否可用
@@ -40,13 +42,13 @@ public class MemberCouponImpl implements MemberCouponService {
         for(SmsCouponHistoryDetail couponHistoryDetail:allList){
             Integer useType=couponHistoryDetail.getCoupon().getUseType();
             BigDecimal minPoint=couponHistoryDetail.getCoupon().getMinPoint();
-            Date endTime=couponHistoryDetail.getCoupon().getEndTime();
+            LocalDateTime endTime=couponHistoryDetail.getCoupon().getEndTime();
             if(useType.equals(0)){
                 //全场通用
                 //判断是否满足优惠起点
                 //计算购物车商品的总价
                 BigDecimal totalAmount=calcTotalAmount(cartItemList);
-                if(now.before(endTime)&&totalAmount.subtract(minPoint).intValue()>=0){
+                if(now.isBefore(endTime)&&totalAmount.subtract(minPoint).intValue()>=0){
                     enableList.add(couponHistoryDetail);
                 }else{
                     disableList.add(couponHistoryDetail);
@@ -59,7 +61,7 @@ public class MemberCouponImpl implements MemberCouponService {
                     productCategoryIds.add(categoryRelation.getProductCategoryId());
                 }
                 BigDecimal totalAmount = calcTotalAmountByproductCategoryId(cartItemList,productCategoryIds);
-                if(now.before(endTime)&&totalAmount.intValue()>0&&totalAmount.subtract(minPoint).intValue()>=0){
+                if(now.isBefore(endTime)&&totalAmount.intValue()>0&&totalAmount.subtract(minPoint).intValue()>=0){
                     enableList.add(couponHistoryDetail);
                 }else{
                     disableList.add(couponHistoryDetail);
@@ -72,7 +74,7 @@ public class MemberCouponImpl implements MemberCouponService {
                     productIds.add(productRelation.getProductId());
                 }
                 BigDecimal totalAmount = calcTotalAmountByProductId(cartItemList,productIds);
-                if(now.before(endTime)&&totalAmount.intValue()>0&&totalAmount.subtract(minPoint).intValue()>=0){
+                if(now.isBefore(endTime)&&totalAmount.intValue()>0&&totalAmount.subtract(minPoint).intValue()>=0){
                     enableList.add(couponHistoryDetail);
                 }else{
                     disableList.add(couponHistoryDetail);
@@ -89,15 +91,15 @@ public class MemberCouponImpl implements MemberCouponService {
     public void UpdateCouponStatus(Long couponId, Long memberId, Integer useStatus){
         if (couponId == null) return;
         //查询第一张优惠券
-        SmsCouponHistoryExample example = new SmsCouponHistoryExample();
-        example.createCriteria().andMemberIdEqualTo(memberId)
-                .andCouponIdEqualTo(couponId).andUseStatusEqualTo(useStatus == 0 ? 1 : 0);
-        List<SmsCouponHistory> couponHistoryList = couponHistoryMapper.selectByExample(example);
+        QueryWrapper<SmsCouponHistory> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("member_id",memberId);
+        queryWrapper.eq("use_status",useStatus == 0 ? 1 : 0);
+        List<SmsCouponHistory> couponHistoryList = couponHistoryMapper.selectList(queryWrapper);
         if (!CollectionUtils.isEmpty(couponHistoryList)) {
             SmsCouponHistory couponHistory = couponHistoryList.get(0);
-            couponHistory.setUseTime(new Date());
+            couponHistory.setUseTime(LocalDateTime.now());
             couponHistory.setUseStatus(useStatus);
-            couponHistoryMapper.updateByPrimaryKeySelective(couponHistory);
+            couponHistoryMapper.updateById(couponHistory);
         }
     }
     private BigDecimal calcTotalAmount(List<CartPromotionItem> cartItemList){

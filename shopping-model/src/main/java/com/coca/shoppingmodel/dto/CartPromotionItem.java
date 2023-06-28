@@ -1,6 +1,7 @@
 package com.coca.shoppingmodel.dto;
 
-import com.coca.shoppingmodel.domain.order.OmsCartItem;
+
+import com.coca.shoppingmodel.entity.oms.OmsCartItem;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

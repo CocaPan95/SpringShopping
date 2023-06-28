@@ -7,8 +7,7 @@ import com.coca.shoppingmodel.dto.ConfirmOrderResult;
 import com.coca.shoppingmodel.dto.OmsOrderDetail;
 import com.coca.shoppingmodel.dto.OrderParam;
 import com.coca.shoppingmodel.entity.ums.UmsMember;
-import com.coca.shoppingmodel.es.EsProduct;
-import com.coca.shoppingorderapi.OmsOrderService;
+import com.coca.shoppingorderapi.IOmsOrderRpcService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +21,7 @@ import java.util.Map;
 @RequestMapping("/order")
 public class OmsOrderController {
     @DubboReference(retries = -1)
-    private OmsOrderService omsOrderService;
+    private IOmsOrderRpcService omsOrderService;
 
     @Autowired
     private MemberService memberService;

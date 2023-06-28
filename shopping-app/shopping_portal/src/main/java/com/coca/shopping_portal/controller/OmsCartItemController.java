@@ -2,9 +2,9 @@ package com.coca.shopping_portal.controller;
 
 import com.coca.shopping_portal.service.MemberService;
 import com.coca.shoppingmodel.api.CommonResult;
-import com.coca.shoppingmodel.domain.order.OmsCartItem;
+import com.coca.shoppingmodel.entity.oms.OmsCartItem;
 import com.coca.shoppingmodel.entity.ums.UmsMember;
-import com.coca.shoppingorderapi.OmsCartItemService;
+import com.coca.shoppingorderapi.IOmsCartItemRpcService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/cart")
 public class OmsCartItemController {
     @DubboReference
-    private OmsCartItemService cartItemService;
+    private IOmsCartItemRpcService cartItemService;
     @Autowired
     private MemberService memberService;
     @RequestMapping(value = "/add", method = RequestMethod.POST)

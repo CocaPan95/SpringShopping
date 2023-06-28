@@ -1,10 +1,9 @@
 package com.coca.shoppingsmsservice.rpc;
 
-import com.coca.shoppingmodel.domain.sms.SmsCoupon;
 import com.coca.shoppingmodel.dto.SmsCouponParam;
-import com.coca.shoppingsmsapi.SmsCouponHistoryService;
-import com.coca.shoppingsmsservice.service.CouponHistoryService;
-import com.coca.shoppingsmsservice.service.CouponService;
+import com.coca.shoppingmodel.entity.sms.SmsCoupon;
+import com.coca.shoppingsmsapi.ISmsCouponRpcService;
+import com.coca.shoppingsmsservice.service.ISmsCouponService;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,14 +11,12 @@ import java.util.List;
 
 
 @DubboService
-public class SmsCouponHistoryRpc implements SmsCouponHistoryService {
+public class SmsCouponHistoryRpc implements ISmsCouponRpcService {
     @Autowired
-    private CouponHistoryService couponHistoryService;
-    @Autowired
-    private CouponService couponService;
+    private ISmsCouponService couponService;
 
     public void updateCouponStatus(Long couponId, Long memberId, Integer useStatus) {
-        couponHistoryService.updateCouponStatus(couponId, memberId, useStatus);
+        couponService.updateCouponStatus(couponId, memberId, useStatus);
     }
 
     public int createCoupon(SmsCouponParam param) {
@@ -31,6 +28,6 @@ public class SmsCouponHistoryRpc implements SmsCouponHistoryService {
     }
 
     public List<SmsCoupon> getAvailableCouponList(Long productId, Long productCategoryId){
-        return couponHistoryService.getAvailableCouponList(productId,productCategoryId);
+        return couponService.getAvailableCouponList(productId,productCategoryId);
     }
 }

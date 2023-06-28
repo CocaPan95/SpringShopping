@@ -2,7 +2,7 @@ package com.coca.shoppingsmsservice.rpc;
 
 import com.coca.shoppingmodel.dto.CartPromotionItem;
 import com.coca.shoppingmodel.dto.SmsCouponHistoryDetail;
-import com.coca.shoppingsmsapi.UmsMemberCouponService;
+import com.coca.shoppingsmsapi.IUmsMemberCouponRpcService;
 import com.coca.shoppingsmsservice.service.MemberCouponService;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @DubboService
-public class SmsMemberCouponRpc implements UmsMemberCouponService {
+public class SmsMemberCouponRpc implements IUmsMemberCouponRpcService {
 
     @Autowired
     private MemberCouponService memberCouponService;

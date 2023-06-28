@@ -1,11 +1,11 @@
 package com.coca.shoppingsmsapi;
 
-import com.coca.shoppingmodel.domain.sms.SmsCoupon;
 import com.coca.shoppingmodel.dto.SmsCouponParam;
+import com.coca.shoppingmodel.entity.sms.SmsCoupon;
 
 import java.util.List;
 
-public interface SmsCouponHistoryService {
+public interface ISmsCouponRpcService {
     void updateCouponStatus(Long couponId, Long memberId, Integer useStatus);
 
     int createCoupon(SmsCouponParam param);

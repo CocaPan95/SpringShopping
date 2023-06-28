@@ -8,7 +8,7 @@ import com.coca.shoppingmodel.dto.OrderParam;
 import java.util.List;
 import java.util.Map;
 
-public interface OmsOrderService {
+public interface IOmsOrderRpcService {
     //购物车生成确认单
     ConfirmOrderResult generateConfirmOrder(Long MemberId,List<Long> ids);
 

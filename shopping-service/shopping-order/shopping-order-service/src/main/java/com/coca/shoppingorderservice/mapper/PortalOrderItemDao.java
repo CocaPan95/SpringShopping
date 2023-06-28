@@ -1,6 +1,6 @@
 package com.coca.shoppingorderservice.mapper;
 
-import com.coca.shoppingmodel.domain.order.OmsOrderItem;
+import com.coca.shoppingmodel.entity.oms.OmsOrderItem;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
