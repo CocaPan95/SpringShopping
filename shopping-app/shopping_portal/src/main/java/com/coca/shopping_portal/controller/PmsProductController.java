@@ -4,8 +4,8 @@ import com.coca.shoppingmodel.api.CommonPage;
 import com.coca.shoppingmodel.api.CommonResult;
 import com.coca.shoppingmodel.dto.PmsPortalProductDetail;
 import com.coca.shoppingmodel.es.EsProduct;
-import com.coca.shoppingproductapi.PmsEsProductService;
-import com.coca.shoppingproductapi.PmsProductService;
+import com.coca.shoppingproductapi.IPmsEsProductRpcService;
+import com.coca.shoppingproductapi.IPmsProductRpcService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/product")
 public class PmsProductController {
     @DubboReference
-    private PmsEsProductService productService;
+    private IPmsEsProductRpcService productService;
     @DubboReference
-    private PmsProductService pmsProductService;
+    private IPmsProductRpcService pmsProductService;
 
     @RequestMapping(value = "/search/simple", method = RequestMethod.GET)
     @ResponseBody

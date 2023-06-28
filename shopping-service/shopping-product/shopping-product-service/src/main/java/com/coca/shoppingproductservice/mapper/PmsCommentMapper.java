@@ -1,37 +1,16 @@
 package com.coca.shoppingproductservice.mapper;
 
-import com.coca.shoppingmodel.domain.product.PmsComment;
-import com.coca.shoppingmodel.domain.product.PmsCommentExample;
-import org.apache.ibatis.annotations.Param;
+import com.coca.shoppingmodel.entity.pms.PmsComment;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import java.util.List;
+/**
+ * <p>
+ * 商品评价表 Mapper 接口
+ * </p>
+ *
+ * @author coca
+ * @since 2023-06-27
+ */
+public interface PmsCommentMapper extends BaseMapper<PmsComment> {
 
-public interface PmsCommentMapper {
-    long countByExample(PmsCommentExample example);
-
-    int deleteByExample(PmsCommentExample example);
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(PmsComment row);
-
-    int insertSelective(PmsComment row);
-
-    List<PmsComment> selectByExampleWithBLOBs(PmsCommentExample example);
-
-    List<PmsComment> selectByExample(PmsCommentExample example);
-
-    PmsComment selectByPrimaryKey(Long id);
-
-    int updateByExampleSelective(@Param("row") PmsComment row, @Param("example") PmsCommentExample example);
-
-    int updateByExampleWithBLOBs(@Param("row") PmsComment row, @Param("example") PmsCommentExample example);
-
-    int updateByExample(@Param("row") PmsComment row, @Param("example") PmsCommentExample example);
-
-    int updateByPrimaryKeySelective(PmsComment row);
-
-    int updateByPrimaryKeyWithBLOBs(PmsComment row);
-
-    int updateByPrimaryKey(PmsComment row);
 }

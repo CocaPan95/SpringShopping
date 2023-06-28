@@ -1,31 +1,16 @@
 package com.coca.shoppingproductservice.mapper;
 
-import com.coca.shoppingmodel.domain.product.PmsProductOperateLog;
-import com.coca.shoppingmodel.domain.product.PmsProductOperateLogExample;
-import org.apache.ibatis.annotations.Param;
+import com.coca.shoppingmodel.entity.pms.PmsProductOperateLog;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import java.util.List;
+/**
+ * <p>
+ *  Mapper 接口
+ * </p>
+ *
+ * @author coca
+ * @since 2023-06-27
+ */
+public interface PmsProductOperateLogMapper extends BaseMapper<PmsProductOperateLog> {
 
-public interface PmsProductOperateLogMapper {
-    long countByExample(PmsProductOperateLogExample example);
-
-    int deleteByExample(PmsProductOperateLogExample example);
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(PmsProductOperateLog row);
-
-    int insertSelective(PmsProductOperateLog row);
-
-    List<PmsProductOperateLog> selectByExample(PmsProductOperateLogExample example);
-
-    PmsProductOperateLog selectByPrimaryKey(Long id);
-
-    int updateByExampleSelective(@Param("row") PmsProductOperateLog row, @Param("example") PmsProductOperateLogExample example);
-
-    int updateByExample(@Param("row") PmsProductOperateLog row, @Param("example") PmsProductOperateLogExample example);
-
-    int updateByPrimaryKeySelective(PmsProductOperateLog row);
-
-    int updateByPrimaryKey(PmsProductOperateLog row);
 }

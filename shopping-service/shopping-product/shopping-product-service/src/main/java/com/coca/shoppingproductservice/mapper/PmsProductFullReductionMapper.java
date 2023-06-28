@@ -1,31 +1,16 @@
 package com.coca.shoppingproductservice.mapper;
 
-import com.coca.shoppingmodel.domain.product.PmsProductFullReduction;
-import com.coca.shoppingmodel.domain.product.PmsProductFullReductionExample;
-import org.apache.ibatis.annotations.Param;
+import com.coca.shoppingmodel.entity.pms.PmsProductFullReduction;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import java.util.List;
+/**
+ * <p>
+ * 产品满减表(只针对同商品) Mapper 接口
+ * </p>
+ *
+ * @author coca
+ * @since 2023-06-27
+ */
+public interface PmsProductFullReductionMapper extends BaseMapper<PmsProductFullReduction> {
 
-public interface PmsProductFullReductionMapper {
-    long countByExample(PmsProductFullReductionExample example);
-
-    int deleteByExample(PmsProductFullReductionExample example);
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(PmsProductFullReduction row);
-
-    int insertSelective(PmsProductFullReduction row);
-
-    List<PmsProductFullReduction> selectByExample(PmsProductFullReductionExample example);
-
-    PmsProductFullReduction selectByPrimaryKey(Long id);
-
-    int updateByExampleSelective(@Param("row") PmsProductFullReduction row, @Param("example") PmsProductFullReductionExample example);
-
-    int updateByExample(@Param("row") PmsProductFullReduction row, @Param("example") PmsProductFullReductionExample example);
-
-    int updateByPrimaryKeySelective(PmsProductFullReduction row);
-
-    int updateByPrimaryKey(PmsProductFullReduction row);
 }

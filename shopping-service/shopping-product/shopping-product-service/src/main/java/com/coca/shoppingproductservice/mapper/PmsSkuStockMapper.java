@@ -1,31 +1,16 @@
 package com.coca.shoppingproductservice.mapper;
 
-import com.coca.shoppingmodel.domain.product.PmsSkuStock;
-import com.coca.shoppingmodel.domain.product.PmsSkuStockExample;
-import org.apache.ibatis.annotations.Param;
+import com.coca.shoppingmodel.entity.pms.PmsSkuStock;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import java.util.List;
+/**
+ * <p>
+ * sku的库存 Mapper 接口
+ * </p>
+ *
+ * @author coca
+ * @since 2023-06-27
+ */
+public interface PmsSkuStockMapper extends BaseMapper<PmsSkuStock> {
 
-public interface PmsSkuStockMapper {
-    long countByExample(PmsSkuStockExample example);
-
-    int deleteByExample(PmsSkuStockExample example);
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(PmsSkuStock row);
-
-    int insertSelective(PmsSkuStock row);
-
-    List<PmsSkuStock> selectByExample(PmsSkuStockExample example);
-
-    PmsSkuStock selectByPrimaryKey(Long id);
-
-    int updateByExampleSelective(@Param("row") PmsSkuStock row, @Param("example") PmsSkuStockExample example);
-
-    int updateByExample(@Param("row") PmsSkuStock row, @Param("example") PmsSkuStockExample example);
-
-    int updateByPrimaryKeySelective(PmsSkuStock row);
-
-    int updateByPrimaryKey(PmsSkuStock row);
 }

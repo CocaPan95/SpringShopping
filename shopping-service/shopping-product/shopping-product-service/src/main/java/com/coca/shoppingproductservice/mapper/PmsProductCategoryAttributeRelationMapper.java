@@ -1,31 +1,16 @@
 package com.coca.shoppingproductservice.mapper;
 
-import com.coca.shoppingmodel.domain.product.PmsProductCategoryAttributeRelation;
-import com.coca.shoppingmodel.domain.product.PmsProductCategoryAttributeRelationExample;
-import org.apache.ibatis.annotations.Param;
+import com.coca.shoppingmodel.entity.pms.PmsProductCategoryAttributeRelation;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import java.util.List;
+/**
+ * <p>
+ * 产品的分类和属性的关系表，用于设置分类筛选条件（只支持一级分类） Mapper 接口
+ * </p>
+ *
+ * @author coca
+ * @since 2023-06-27
+ */
+public interface PmsProductCategoryAttributeRelationMapper extends BaseMapper<PmsProductCategoryAttributeRelation> {
 
-public interface PmsProductCategoryAttributeRelationMapper {
-    long countByExample(PmsProductCategoryAttributeRelationExample example);
-
-    int deleteByExample(PmsProductCategoryAttributeRelationExample example);
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(PmsProductCategoryAttributeRelation row);
-
-    int insertSelective(PmsProductCategoryAttributeRelation row);
-
-    List<PmsProductCategoryAttributeRelation> selectByExample(PmsProductCategoryAttributeRelationExample example);
-
-    PmsProductCategoryAttributeRelation selectByPrimaryKey(Long id);
-
-    int updateByExampleSelective(@Param("row") PmsProductCategoryAttributeRelation row, @Param("example") PmsProductCategoryAttributeRelationExample example);
-
-    int updateByExample(@Param("row") PmsProductCategoryAttributeRelation row, @Param("example") PmsProductCategoryAttributeRelationExample example);
-
-    int updateByPrimaryKeySelective(PmsProductCategoryAttributeRelation row);
-
-    int updateByPrimaryKey(PmsProductCategoryAttributeRelation row);
 }

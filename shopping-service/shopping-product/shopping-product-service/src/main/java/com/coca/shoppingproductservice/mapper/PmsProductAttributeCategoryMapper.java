@@ -1,31 +1,16 @@
 package com.coca.shoppingproductservice.mapper;
 
-import com.coca.shoppingmodel.domain.product.PmsProductAttributeCategory;
-import com.coca.shoppingmodel.domain.product.PmsProductAttributeCategoryExample;
-import org.apache.ibatis.annotations.Param;
+import com.coca.shoppingmodel.entity.pms.PmsProductAttributeCategory;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import java.util.List;
+/**
+ * <p>
+ * 产品属性分类表 Mapper 接口
+ * </p>
+ *
+ * @author coca
+ * @since 2023-06-27
+ */
+public interface PmsProductAttributeCategoryMapper extends BaseMapper<PmsProductAttributeCategory> {
 
-public interface PmsProductAttributeCategoryMapper {
-    long countByExample(PmsProductAttributeCategoryExample example);
-
-    int deleteByExample(PmsProductAttributeCategoryExample example);
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(PmsProductAttributeCategory row);
-
-    int insertSelective(PmsProductAttributeCategory row);
-
-    List<PmsProductAttributeCategory> selectByExample(PmsProductAttributeCategoryExample example);
-
-    PmsProductAttributeCategory selectByPrimaryKey(Long id);
-
-    int updateByExampleSelective(@Param("row") PmsProductAttributeCategory row, @Param("example") PmsProductAttributeCategoryExample example);
-
-    int updateByExample(@Param("row") PmsProductAttributeCategory row, @Param("example") PmsProductAttributeCategoryExample example);
-
-    int updateByPrimaryKeySelective(PmsProductAttributeCategory row);
-
-    int updateByPrimaryKey(PmsProductAttributeCategory row);
 }

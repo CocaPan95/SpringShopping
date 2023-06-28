@@ -1,31 +1,16 @@
 package com.coca.shoppingsmsservice.mapper;
 
-import com.coca.shoppingmodel.domain.sms.SmsCouponProductCategoryRelation;
-import com.coca.shoppingmodel.domain.sms.SmsCouponProductCategoryRelationExample;
-import org.apache.ibatis.annotations.Param;
+import com.coca.shoppingmodel.entity.sms.SmsCouponProductCategoryRelation;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import java.util.List;
+/**
+ * <p>
+ * 优惠券和产品分类关系表 Mapper 接口
+ * </p>
+ *
+ * @author coca
+ * @since 2023-06-27
+ */
+public interface SmsCouponProductCategoryRelationMapper extends BaseMapper<SmsCouponProductCategoryRelation> {
 
-public interface SmsCouponProductCategoryRelationMapper {
-    long countByExample(SmsCouponProductCategoryRelationExample example);
-
-    int deleteByExample(SmsCouponProductCategoryRelationExample example);
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(SmsCouponProductCategoryRelation row);
-
-    int insertSelective(SmsCouponProductCategoryRelation row);
-
-    List<SmsCouponProductCategoryRelation> selectByExample(SmsCouponProductCategoryRelationExample example);
-
-    SmsCouponProductCategoryRelation selectByPrimaryKey(Long id);
-
-    int updateByExampleSelective(@Param("row") SmsCouponProductCategoryRelation row, @Param("example") SmsCouponProductCategoryRelationExample example);
-
-    int updateByExample(@Param("row") SmsCouponProductCategoryRelation row, @Param("example") SmsCouponProductCategoryRelationExample example);
-
-    int updateByPrimaryKeySelective(SmsCouponProductCategoryRelation row);
-
-    int updateByPrimaryKey(SmsCouponProductCategoryRelation row);
 }

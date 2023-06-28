@@ -1,6 +1,6 @@
 package com.coca.shoppingmodel.dto;
 
-import com.coca.shoppingmodel.domain.product.*;
+import com.coca.shoppingmodel.entity.pms.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

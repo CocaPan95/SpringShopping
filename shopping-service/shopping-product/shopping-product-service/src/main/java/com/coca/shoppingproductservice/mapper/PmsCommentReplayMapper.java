@@ -1,31 +1,16 @@
 package com.coca.shoppingproductservice.mapper;
 
-import com.coca.shoppingmodel.domain.product.PmsCommentReplay;
-import com.coca.shoppingmodel.domain.product.PmsCommentReplayExample;
-import org.apache.ibatis.annotations.Param;
+import com.coca.shoppingmodel.entity.pms.PmsCommentReplay;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import java.util.List;
+/**
+ * <p>
+ * 产品评价回复表 Mapper 接口
+ * </p>
+ *
+ * @author coca
+ * @since 2023-06-27
+ */
+public interface PmsCommentReplayMapper extends BaseMapper<PmsCommentReplay> {
 
-public interface PmsCommentReplayMapper {
-    long countByExample(PmsCommentReplayExample example);
-
-    int deleteByExample(PmsCommentReplayExample example);
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(PmsCommentReplay row);
-
-    int insertSelective(PmsCommentReplay row);
-
-    List<PmsCommentReplay> selectByExample(PmsCommentReplayExample example);
-
-    PmsCommentReplay selectByPrimaryKey(Long id);
-
-    int updateByExampleSelective(@Param("row") PmsCommentReplay row, @Param("example") PmsCommentReplayExample example);
-
-    int updateByExample(@Param("row") PmsCommentReplay row, @Param("example") PmsCommentReplayExample example);
-
-    int updateByPrimaryKeySelective(PmsCommentReplay row);
-
-    int updateByPrimaryKey(PmsCommentReplay row);
 }

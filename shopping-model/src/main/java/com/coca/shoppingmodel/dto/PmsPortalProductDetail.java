@@ -1,7 +1,7 @@
 package com.coca.shoppingmodel.dto;
 
-import com.coca.shoppingmodel.domain.product.*;
-import com.coca.shoppingmodel.domain.sms.SmsCoupon;
+import com.coca.shoppingmodel.entity.pms.*;
+import com.coca.shoppingmodel.entity.sms.SmsCoupon;
 import lombok.Data;
 
 import java.util.List;

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Generator {
     public static void main(String[] args) throws Exception {
-        FastAutoGenerator.create("jdbc:mysql://10.1.8.34:3306/ums?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false","root","123456")
+        FastAutoGenerator.create("jdbc:mysql://10.1.8.34:3306/oms?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false","root","123456")
                 .globalConfig(builder -> {
                     builder.author("coca")
                             .fileOverride()
@@ -22,7 +22,7 @@ public class Generator {
                 })
                 .packageConfig(builder -> {
                     builder.parent("com.coca")
-                            .moduleName("shoppinguserservice");
+                            .moduleName("shoppingorderservice");
 
                 })
                 .execute();

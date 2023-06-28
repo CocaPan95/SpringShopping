@@ -1,32 +1,16 @@
 package com.coca.shoppingsmsservice.mapper;
 
+import com.coca.shoppingmodel.entity.sms.SmsCouponHistory;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import com.coca.shoppingmodel.domain.sms.SmsCouponHistory;
-import com.coca.shoppingmodel.domain.sms.SmsCouponHistoryExample;
-import org.apache.ibatis.annotations.Param;
+/**
+ * <p>
+ * 优惠券使用、领取历史表 Mapper 接口
+ * </p>
+ *
+ * @author coca
+ * @since 2023-06-27
+ */
+public interface SmsCouponHistoryMapper extends BaseMapper<SmsCouponHistory> {
 
-import java.util.List;
-
-public interface SmsCouponHistoryMapper {
-    long countByExample(SmsCouponHistoryExample example);
-
-    int deleteByExample(SmsCouponHistoryExample example);
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(SmsCouponHistory row);
-
-    int insertSelective(SmsCouponHistory row);
-
-    List<SmsCouponHistory> selectByExample(SmsCouponHistoryExample example);
-
-    SmsCouponHistory selectByPrimaryKey(Long id);
-
-    int updateByExampleSelective(@Param("row") SmsCouponHistory row, @Param("example") SmsCouponHistoryExample example);
-
-    int updateByExample(@Param("row") SmsCouponHistory row, @Param("example") SmsCouponHistoryExample example);
-
-    int updateByPrimaryKeySelective(SmsCouponHistory row);
-
-    int updateByPrimaryKey(SmsCouponHistory row);
 }

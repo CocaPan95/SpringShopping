@@ -1,9 +1,10 @@
 package com.coca.shoppingmodel.dto;
 
-import com.coca.shoppingmodel.domain.product.PmsProduct;
-import com.coca.shoppingmodel.domain.product.PmsProductFullReduction;
-import com.coca.shoppingmodel.domain.product.PmsProductLadder;
-import com.coca.shoppingmodel.domain.product.PmsSkuStock;
+
+import com.coca.shoppingmodel.entity.pms.PmsProduct;
+import com.coca.shoppingmodel.entity.pms.PmsProductFullReduction;
+import com.coca.shoppingmodel.entity.pms.PmsProductLadder;
+import com.coca.shoppingmodel.entity.pms.PmsSkuStock;
 
 import java.io.Serializable;
 import java.util.List;

@@ -4,8 +4,8 @@ package com.coca.shoppingproductservice.rpc;
 import com.coca.shoppingmodel.dto.PmsPortalProductDetail;
 import com.coca.shoppingmodel.dto.PmsProductParam;
 import com.coca.shoppingmodel.dto.PromotionProduct;
-import com.coca.shoppingproductapi.PmsProductService;
-import com.coca.shoppingproductservice.service.ProductService;
+import com.coca.shoppingproductapi.IPmsProductRpcService;
+import com.coca.shoppingproductservice.service.IPmsProductService;
 import org.apache.dubbo.config.annotation.DubboService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +14,9 @@ import java.util.List;
 
 
 @DubboService
-public class PmsProductRpc implements PmsProductService {
+public class PmsProductRpc implements IPmsProductRpcService {
     @Autowired
-    private ProductService productService;
+    private IPmsProductService productService;
 
     @Override
     public int create(PmsProductParam productParam){

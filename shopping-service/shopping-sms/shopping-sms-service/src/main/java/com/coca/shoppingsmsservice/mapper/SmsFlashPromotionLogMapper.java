@@ -1,32 +1,16 @@
 package com.coca.shoppingsmsservice.mapper;
 
+import com.coca.shoppingmodel.entity.sms.SmsFlashPromotionLog;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import com.coca.shoppingmodel.domain.sms.SmsFlashPromotionLog;
-import com.coca.shoppingmodel.domain.sms.SmsFlashPromotionLogExample;
-import org.apache.ibatis.annotations.Param;
+/**
+ * <p>
+ * 限时购通知记录 Mapper 接口
+ * </p>
+ *
+ * @author coca
+ * @since 2023-06-27
+ */
+public interface SmsFlashPromotionLogMapper extends BaseMapper<SmsFlashPromotionLog> {
 
-import java.util.List;
-
-public interface SmsFlashPromotionLogMapper {
-    long countByExample(SmsFlashPromotionLogExample example);
-
-    int deleteByExample(SmsFlashPromotionLogExample example);
-
-    int deleteByPrimaryKey(Integer id);
-
-    int insert(SmsFlashPromotionLog row);
-
-    int insertSelective(SmsFlashPromotionLog row);
-
-    List<SmsFlashPromotionLog> selectByExample(SmsFlashPromotionLogExample example);
-
-    SmsFlashPromotionLog selectByPrimaryKey(Integer id);
-
-    int updateByExampleSelective(@Param("row") SmsFlashPromotionLog row, @Param("example") SmsFlashPromotionLogExample example);
-
-    int updateByExample(@Param("row") SmsFlashPromotionLog row, @Param("example") SmsFlashPromotionLogExample example);
-
-    int updateByPrimaryKeySelective(SmsFlashPromotionLog row);
-
-    int updateByPrimaryKey(SmsFlashPromotionLog row);
 }

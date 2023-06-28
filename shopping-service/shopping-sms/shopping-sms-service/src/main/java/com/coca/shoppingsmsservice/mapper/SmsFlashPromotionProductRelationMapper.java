@@ -1,32 +1,16 @@
 package com.coca.shoppingsmsservice.mapper;
 
+import com.coca.shoppingmodel.entity.sms.SmsFlashPromotionProductRelation;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import com.coca.shoppingmodel.domain.sms.SmsFlashPromotionProductRelation;
-import com.coca.shoppingmodel.domain.sms.SmsFlashPromotionProductRelationExample;
-import org.apache.ibatis.annotations.Param;
+/**
+ * <p>
+ * 商品限时购与商品关系表 Mapper 接口
+ * </p>
+ *
+ * @author coca
+ * @since 2023-06-27
+ */
+public interface SmsFlashPromotionProductRelationMapper extends BaseMapper<SmsFlashPromotionProductRelation> {
 
-import java.util.List;
-
-public interface SmsFlashPromotionProductRelationMapper {
-    long countByExample(SmsFlashPromotionProductRelationExample example);
-
-    int deleteByExample(SmsFlashPromotionProductRelationExample example);
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(SmsFlashPromotionProductRelation row);
-
-    int insertSelective(SmsFlashPromotionProductRelation row);
-
-    List<SmsFlashPromotionProductRelation> selectByExample(SmsFlashPromotionProductRelationExample example);
-
-    SmsFlashPromotionProductRelation selectByPrimaryKey(Long id);
-
-    int updateByExampleSelective(@Param("row") SmsFlashPromotionProductRelation row, @Param("example") SmsFlashPromotionProductRelationExample example);
-
-    int updateByExample(@Param("row") SmsFlashPromotionProductRelation row, @Param("example") SmsFlashPromotionProductRelationExample example);
-
-    int updateByPrimaryKeySelective(SmsFlashPromotionProductRelation row);
-
-    int updateByPrimaryKey(SmsFlashPromotionProductRelation row);
 }

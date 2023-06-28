@@ -1,31 +1,16 @@
 package com.coca.shoppingproductservice.mapper;
 
-import com.coca.shoppingmodel.domain.product.PmsProductAttributeValue;
-import com.coca.shoppingmodel.domain.product.PmsProductAttributeValueExample;
-import org.apache.ibatis.annotations.Param;
+import com.coca.shoppingmodel.entity.pms.PmsProductAttributeValue;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import java.util.List;
+/**
+ * <p>
+ * 存储产品参数信息的表 Mapper 接口
+ * </p>
+ *
+ * @author coca
+ * @since 2023-06-27
+ */
+public interface PmsProductAttributeValueMapper extends BaseMapper<PmsProductAttributeValue> {
 
-public interface PmsProductAttributeValueMapper {
-    long countByExample(PmsProductAttributeValueExample example);
-
-    int deleteByExample(PmsProductAttributeValueExample example);
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(PmsProductAttributeValue row);
-
-    int insertSelective(PmsProductAttributeValue row);
-
-    List<PmsProductAttributeValue> selectByExample(PmsProductAttributeValueExample example);
-
-    PmsProductAttributeValue selectByPrimaryKey(Long id);
-
-    int updateByExampleSelective(@Param("row") PmsProductAttributeValue row, @Param("example") PmsProductAttributeValueExample example);
-
-    int updateByExample(@Param("row") PmsProductAttributeValue row, @Param("example") PmsProductAttributeValueExample example);
-
-    int updateByPrimaryKeySelective(PmsProductAttributeValue row);
-
-    int updateByPrimaryKey(PmsProductAttributeValue row);
 }

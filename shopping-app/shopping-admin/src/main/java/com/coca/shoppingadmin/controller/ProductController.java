@@ -2,7 +2,7 @@ package com.coca.shoppingadmin.controller;
 
 import com.coca.shoppingmodel.api.CommonResult;
 import com.coca.shoppingmodel.dto.PmsProductParam;
-import com.coca.shoppingproductapi.PmsProductService;
+import com.coca.shoppingproductapi.IPmsProductRpcService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import java.util.List;
 public class ProductController {
 
     @DubboReference
-    private PmsProductService productService;
+    private IPmsProductRpcService productService;
 
     //新增
     @RequestMapping(value = "/create", method = RequestMethod.POST)
