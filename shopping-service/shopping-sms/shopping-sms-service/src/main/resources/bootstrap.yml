@@ -17,4 +17,7 @@ seata:
     name: shopping-sms-service
 logging:
   level:
-    root: INFO
+    com:
+      coca:
+        shoppingsmsservice:
+          mapper: debug

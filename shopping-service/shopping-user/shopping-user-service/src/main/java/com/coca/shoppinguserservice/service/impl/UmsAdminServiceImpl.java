@@ -3,6 +3,7 @@ package com.coca.shoppinguserservice.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.BCrypt;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.coca.shoppingcommon.service.RedisService;
 import com.coca.shoppingmodel.dto.UmsAdminParam;
@@ -65,8 +66,8 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
         umsAdmin.setCreateTime(java.time.LocalDateTime.now());
         umsAdmin.setStatus(1);
         //查询是否有相同用户名的用户
-        QueryWrapper<UmsAdmin> wrapper = new QueryWrapper<UmsAdmin>();
-        wrapper.eq("username", umsAdminParam.getUsername());
+        LambdaQueryWrapper<UmsAdmin> wrapper = new LambdaQueryWrapper<UmsAdmin>();
+        wrapper.eq(UmsAdmin::getUsername, umsAdminParam.getUsername());
         List<UmsAdmin> umsAdminList = baseMapper.selectList(wrapper);
         if (umsAdminList.size() > 0) {
             return null;
@@ -98,11 +99,11 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
     @Override
     public List<UmsAdmin> list(String keyword, Integer pageSize, Integer pageNum) {
         PageHelper.startPage(pageNum, pageSize);
-        QueryWrapper<UmsAdmin> wrapper = new QueryWrapper<UmsAdmin>();
+        LambdaQueryWrapper<UmsAdmin> wrapper = new LambdaQueryWrapper<UmsAdmin>();
         if (!StringUtils.isEmpty(keyword)) {
-            wrapper.like("username",keyword)
+            wrapper.like(UmsAdmin::getUsername,keyword)
                     .or()
-                    .like("nike_name",keyword);
+                    .like(UmsAdmin::getNickName,keyword);
         }
         return baseMapper.selectList(wrapper);
     }
@@ -146,8 +147,8 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
                 || StrUtil.isEmpty(param.getNewPassword())) {
             return -1;
         }
-        QueryWrapper<UmsAdmin> wrapper = new QueryWrapper<>();
-        wrapper.eq("username",param.getUsername());
+        LambdaQueryWrapper<UmsAdmin> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(UmsAdmin::getUsername,param.getUsername());
         List<UmsAdmin> adminList = baseMapper.selectList(wrapper);
         if (CollUtil.isEmpty(adminList)) {
             return -2;

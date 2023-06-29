@@ -16,4 +16,7 @@ seata:
     name: shopping-user-service
 logging:
   level:
-    root: INFO
+    com:
+      coca:
+        shoppinguserservice:
+          mapper: debug
