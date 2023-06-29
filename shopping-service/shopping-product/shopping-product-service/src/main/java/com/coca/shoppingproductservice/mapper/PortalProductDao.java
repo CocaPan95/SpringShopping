@@ -1,6 +1,5 @@
 package com.coca.shoppingproductservice.mapper;
 
-import com.coca.shoppingmodel.domain.sms.SmsCoupon;
 import com.coca.shoppingmodel.dto.PromotionProduct;
 import org.apache.ibatis.annotations.Param;
 

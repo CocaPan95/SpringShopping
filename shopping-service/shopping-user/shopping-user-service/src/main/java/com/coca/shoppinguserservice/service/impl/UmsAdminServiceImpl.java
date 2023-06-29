@@ -10,10 +10,7 @@ import com.coca.shoppingmodel.dto.UpdateAdminPasswordParam;
 import com.coca.shoppingmodel.dto.UserDto;
 import com.coca.shoppingmodel.entity.ums.UmsAdmin;
 import com.coca.shoppingmodel.entity.ums.UmsRole;
-import com.coca.shoppinguserservice.mapper.UmsAdminLoginLogMapper;
 import com.coca.shoppinguserservice.mapper.UmsAdminMapper;
-import com.coca.shoppinguserservice.mapper.UmsAdminRoleRelationDao;
-import com.coca.shoppinguserservice.mapper.UmsAdminRoleRelationMapper;
 import com.coca.shoppinguserservice.service.IUmsAdminService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.coca.shoppinguserservice.service.IUmsRoleService;
@@ -53,7 +50,7 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
     @Override
     public UmsAdmin getAdminByUsername(String username) {
         QueryWrapper<UmsAdmin> wrapper = new QueryWrapper<UmsAdmin>();
-        wrapper.eq("user_name", username);
+        wrapper.eq("username", username);
         List<UmsAdmin> adminList = baseMapper.selectList(wrapper);
         if (adminList != null && adminList.size() > 0) {
             return adminList.get(0);
@@ -69,7 +66,7 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
         umsAdmin.setStatus(1);
         //查询是否有相同用户名的用户
         QueryWrapper<UmsAdmin> wrapper = new QueryWrapper<UmsAdmin>();
-        wrapper.eq("user_name", umsAdminParam.getUsername());
+        wrapper.eq("username", umsAdminParam.getUsername());
         List<UmsAdmin> umsAdminList = baseMapper.selectList(wrapper);
         if (umsAdminList.size() > 0) {
             return null;
@@ -103,7 +100,7 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
         PageHelper.startPage(pageNum, pageSize);
         QueryWrapper<UmsAdmin> wrapper = new QueryWrapper<UmsAdmin>();
         if (!StringUtils.isEmpty(keyword)) {
-            wrapper.like("user_name",keyword)
+            wrapper.like("username",keyword)
                     .or()
                     .like("nike_name",keyword);
         }

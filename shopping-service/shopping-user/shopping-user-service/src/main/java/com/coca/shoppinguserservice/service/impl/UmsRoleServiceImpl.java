@@ -25,11 +25,12 @@ import java.util.List;
 public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleMapper, UmsRole> implements IUmsRoleService {
     @Autowired
     private UmsAdminRoleRelationMapper adminRoleRelationMapper;
+    @Autowired
+    private UmsRoleMapper roleMapper;
+
     @Override
     public List<UmsRole> getRoleList(Long adminId) {
-        QueryWrapper<UmsRole> wrapper = new QueryWrapper<>();
-        wrapper.eq("admin_id", adminId);
-        return baseMapper.selectList(wrapper);
+        return roleMapper.getRoleList(adminId);
     }
     @Override
     public int updateRole(Long adminId, List<Long> roleIds) {

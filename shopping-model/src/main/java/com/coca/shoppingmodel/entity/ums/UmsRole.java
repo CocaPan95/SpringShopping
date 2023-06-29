@@ -3,6 +3,7 @@ package com.coca.shoppingmodel.entity.ums;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -19,7 +20,7 @@ public class UmsRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
@@ -109,13 +110,13 @@ public class UmsRole implements Serializable {
     @Override
     public String toString() {
         return "UmsRole{" +
-        "id=" + id +
-        ", name=" + name +
-        ", description=" + description +
-        ", adminCount=" + adminCount +
-        ", createTime=" + createTime +
-        ", status=" + status +
-        ", sort=" + sort +
-        "}";
+                "id=" + id +
+                ", name=" + name +
+                ", description=" + description +
+                ", adminCount=" + adminCount +
+                ", createTime=" + createTime +
+                ", status=" + status +
+                ", sort=" + sort +
+                "}";
     }
 }

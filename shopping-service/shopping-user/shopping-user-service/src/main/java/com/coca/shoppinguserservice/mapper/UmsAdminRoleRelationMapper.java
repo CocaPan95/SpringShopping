@@ -2,6 +2,11 @@ package com.coca.shoppinguserservice.mapper;
 
 import com.coca.shoppingmodel.entity.ums.UmsAdminRoleRelation;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.coca.shoppingmodel.entity.ums.UmsResource;
+import com.coca.shoppingmodel.entity.ums.UmsRole;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>

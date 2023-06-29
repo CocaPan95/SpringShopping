@@ -4,7 +4,7 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
     <!--应用名称-->
-    <property name="APP_NAME" value="shopping-user-service"/>
+    <property name="APP_NAME" value="shoppingUserService"/>
     <!--日志文件保存路径-->
     <property name="LOG_FILE_PATH" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/logs}"/>
     <contextName>${APP_NAME}</contextName>
@@ -21,13 +21,15 @@
     <!--输出到logstash的appender-->
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <!--可以访问的logstash日志收集端口-->
-        <destination>10.1.8.200:4560</destination>
-        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
+        <destination>10.1.8.34:4560</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
+            <customFields>{"appname":"${APP_NAME}"}</customFields>
+        </encoder>
     </appender>
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="FILE"/>
-        <appender-ref ref="LOGSTASH"/>
+<!--        <appender-ref ref="FILE"/>-->
+<!--        <appender-ref ref="LOGSTASH"/>-->
     </root>
 </configuration>
 
