@@ -1,5 +1,6 @@
 package com.coca.shoppinguserservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.coca.shoppingmodel.entity.ums.UmsMemberReceiveAddress;
@@ -25,16 +26,16 @@ public class UmsMemberReceiveAddressServiceImpl extends ServiceImpl<UmsMemberRec
 
     @Override
     public List<UmsMemberReceiveAddress> GetMemberReceiveAddressList(Long memberId){
-        QueryWrapper<UmsMemberReceiveAddress> wrapper = new QueryWrapper<>();
-        wrapper.eq("member_id", memberId);
+        LambdaQueryWrapper<UmsMemberReceiveAddress> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(UmsMemberReceiveAddress::getMemberId, memberId);
         return baseMapper.selectList(wrapper);
     }
 
     @Override
     public UmsMemberReceiveAddress getItem(Long MemberId,Long id) {
-        QueryWrapper<UmsMemberReceiveAddress> wrapper = new QueryWrapper<>();
-        wrapper.eq("member_id", MemberId);
-        wrapper.eq("id", id);
+        LambdaQueryWrapper<UmsMemberReceiveAddress> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(UmsMemberReceiveAddress::getMemberId, MemberId);
+        wrapper.eq(UmsMemberReceiveAddress::getId, id);
         List<UmsMemberReceiveAddress> addressList = baseMapper.selectList(wrapper);
         if(!CollectionUtils.isEmpty(addressList)){
             return addressList.get(0);

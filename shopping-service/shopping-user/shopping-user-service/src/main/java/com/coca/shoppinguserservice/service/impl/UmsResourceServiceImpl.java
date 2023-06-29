@@ -1,5 +1,6 @@
 package com.coca.shoppinguserservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.coca.shoppingcommon.constant.AuthConstant;
 import com.coca.shoppingcommon.service.RedisService;
@@ -42,9 +43,7 @@ public class UmsResourceServiceImpl extends ServiceImpl<UmsResourceMapper, UmsRe
 
     @Override
     public List<UmsResource> getResourceList(Long adminId) {
-        QueryWrapper<UmsResource> wrapper = new QueryWrapper<>();
-        wrapper.eq("admin_id", adminId);
-        return baseMapper.selectList(wrapper);
+        return roleMapper.getResourceList(adminId);
     }
 
     @Override

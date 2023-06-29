@@ -3,6 +3,7 @@ package com.coca.shoppingorderservice.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.coca.shoppingcommon.exception.Asserts;
 import com.coca.shoppingcommon.service.RedisService;
@@ -284,10 +285,10 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
     @Override
     //取消订单
     public void cancelOrder(Long orderId) {
-        QueryWrapper<OmsOrder> queryWrapper=new QueryWrapper<OmsOrder>();
-        queryWrapper.eq("id",orderId);
-        queryWrapper.eq("status",0);
-        queryWrapper.eq("delete_status",0);
+        LambdaQueryWrapper<OmsOrder> queryWrapper=new LambdaQueryWrapper<OmsOrder>();
+        queryWrapper.eq(OmsOrder::getId,orderId);
+        queryWrapper.eq(OmsOrder::getStatus,0);
+        queryWrapper.eq(OmsOrder::getDeleteStatus,0);
         List<OmsOrder> cancelOrderList = baseMapper.selectList(queryWrapper);
         if (CollUtil.isNotEmpty(cancelOrderList)) {
             return;
@@ -296,8 +297,8 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
         if (cancelOrder != null) {
             cancelOrder.setStatus(4);
             baseMapper.updateById(cancelOrder);
-            QueryWrapper<OmsOrderItem> orderItemQueryWrapper=new QueryWrapper<OmsOrderItem>();
-            orderItemQueryWrapper.eq("order_id",cancelOrder.getId());
+            LambdaQueryWrapper<OmsOrderItem> orderItemQueryWrapper=new LambdaQueryWrapper<OmsOrderItem>();
+            orderItemQueryWrapper.eq(OmsOrderItem::getOrderId,cancelOrder.getId());
             List<OmsOrderItem> omsOrderItems = orderItemMapper.selectList(orderItemQueryWrapper);
             //解除订单商品库存锁定
             if (!CollectionUtils.isEmpty(omsOrderItems)) {
@@ -365,14 +366,14 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
             status = null;
         }
         PageHelper.startPage(pageNum,pageSize);
-        QueryWrapper<OmsOrder> orderQueryWrapper=new QueryWrapper<>();
-        orderQueryWrapper.eq("delete_status",0);
-        orderQueryWrapper.eq("member_id",MemberId);
+        LambdaQueryWrapper<OmsOrder> orderQueryWrapper=new LambdaQueryWrapper<>();
+        orderQueryWrapper.eq(OmsOrder::getDeleteStatus,0);
+        orderQueryWrapper.eq(OmsOrder::getMemberId,MemberId);
 
         if(status!=null){
-            orderQueryWrapper.eq("status",status);
+            orderQueryWrapper.eq(OmsOrder::getStatus,status);
         }
-        orderQueryWrapper.orderByDesc("create_time");
+        orderQueryWrapper.orderByDesc(OmsOrder::getCreateTime);
         List<OmsOrder> orderList = baseMapper.selectList(orderQueryWrapper);
         CommonPage<OmsOrder> orderPage = CommonPage.restPage(orderList);
         //设置分页信息
@@ -386,8 +387,8 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
         }
         //设置数据信息
         List<Long> orderIds = orderList.stream().map(OmsOrder::getId).collect(Collectors.toList());
-        QueryWrapper<OmsOrderItem> orderItemQueryWrapper=new QueryWrapper<>();
-        orderItemQueryWrapper.in("order_id",orderIds);
+        LambdaQueryWrapper<OmsOrderItem> orderItemQueryWrapper=new LambdaQueryWrapper<>();
+        orderItemQueryWrapper.in(OmsOrderItem::getOrderId,orderIds);
         List<OmsOrderItem> orderItemList = orderItemMapper.selectList(orderItemQueryWrapper);
         List<OmsOrderDetail> orderDetailList = new ArrayList<>();
         for (OmsOrder omsOrder : orderList) {
@@ -404,8 +405,8 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
     @Override
     public OmsOrderDetail detail(Long orderId) {
         OmsOrder omsOrder = baseMapper.selectById(orderId);
-        QueryWrapper<OmsOrderItem> orderItemQueryWrapper=new QueryWrapper<>();
-        orderItemQueryWrapper.eq("order_id",orderId);
+        LambdaQueryWrapper<OmsOrderItem> orderItemQueryWrapper=new LambdaQueryWrapper<>();
+        orderItemQueryWrapper.eq(OmsOrderItem::getOrderId,orderId);
         List<OmsOrderItem> orderItemList = orderItemMapper.selectList(orderItemQueryWrapper);
         OmsOrderDetail orderDetail = new OmsOrderDetail();
         BeanUtil.copyProperties(omsOrder,orderDetail);

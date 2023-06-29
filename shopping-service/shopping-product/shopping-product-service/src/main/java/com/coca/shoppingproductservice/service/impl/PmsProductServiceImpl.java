@@ -2,6 +2,7 @@ package com.coca.shoppingproductservice.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.coca.shoppingcommon.exception.Asserts;
 import com.coca.shoppingmodel.dto.PmsPortalProductDetail;
@@ -94,25 +95,25 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         product.setId(id);
         baseMapper.updateById(product);
         //会员价格
-        QueryWrapper<PmsMemberPrice> memberPriceQueryWrapperwrapper = new QueryWrapper<>();
-        memberPriceQueryWrapperwrapper.eq("product_id", id);
+        LambdaQueryWrapper<PmsMemberPrice> memberPriceQueryWrapperwrapper = new LambdaQueryWrapper<>();
+        memberPriceQueryWrapperwrapper.eq(PmsMemberPrice::getProductId, id);
         memberPriceMapper.delete(memberPriceQueryWrapperwrapper);
         relateAndInsertList(memberPriceMapper, productParam.getMemberPriceList(), id);
         //阶梯价格
-        QueryWrapper<PmsProductLadder> productLadderQueryWrapper = new QueryWrapper<>();
-        productLadderQueryWrapper.eq("product_id", id);
+        LambdaQueryWrapper<PmsProductLadder> productLadderQueryWrapper = new LambdaQueryWrapper<>();
+        productLadderQueryWrapper.eq(PmsProductLadder::getProductId, id);
         productLadderMapper.delete(productLadderQueryWrapper);
         relateAndInsertList(productLadderMapper, productParam.getProductLadderList(), id);
         //满减价格
-        QueryWrapper<PmsProductFullReduction> pmsProductFullReductionQueryWrapper = new QueryWrapper<>();
-        pmsProductFullReductionQueryWrapper.eq("product_id", id);
+        LambdaQueryWrapper<PmsProductFullReduction> pmsProductFullReductionQueryWrapper = new LambdaQueryWrapper<>();
+        pmsProductFullReductionQueryWrapper.eq(PmsProductFullReduction::getProductId, id);
         productFullReductionMapper.delete(pmsProductFullReductionQueryWrapper);
         relateAndInsertList(productFullReductionMapper, productParam.getProductFullReductionList(), id);
         //修改sku库存信息
         handleUpdateSkuStockList(id, productParam);
         //修改商品参数,添加自定义商品规格
-        QueryWrapper<PmsProductAttributeValue> productAttributeValueQueryWrapper = new QueryWrapper<>();
-        productAttributeValueQueryWrapper.eq("product_id", id);
+        LambdaQueryWrapper<PmsProductAttributeValue> productAttributeValueQueryWrapper = new LambdaQueryWrapper<>();
+        productAttributeValueQueryWrapper.eq(PmsProductAttributeValue::getProductId, id);
         productAttributeValueMapper.delete(productAttributeValueQueryWrapper);
 
         relateAndInsertList(productAttributeValueMapper, productParam.getProductAttributeValueList(), id);
@@ -208,30 +209,30 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         PmsBrand brands = brandMapper.selectById(products.getBrandId());
         result.setBrand(brands);
         //查询属性信息
-        QueryWrapper<PmsProductAttribute> productAttributeQueryWrapper = new QueryWrapper<>();
-        productAttributeQueryWrapper.eq("product_attribute_category_id", products.getProductAttributeCategoryId());
+        LambdaQueryWrapper<PmsProductAttribute> productAttributeQueryWrapper = new LambdaQueryWrapper<>();
+        productAttributeQueryWrapper.eq(PmsProductAttribute::getProductAttributeCategoryId, products.getProductAttributeCategoryId());
         List<PmsProductAttribute> productAttributes = productAttributeMapper.selectList(productAttributeQueryWrapper);
         result.setProductAttributeList(productAttributes);
         //查询属性值相关信息
-        QueryWrapper<PmsProductAttributeValue> productAttributeValueQueryWrapper = new QueryWrapper<>();
-        productAttributeValueQueryWrapper.eq("product_id", products.getId());
+        LambdaQueryWrapper<PmsProductAttributeValue> productAttributeValueQueryWrapper = new LambdaQueryWrapper<>();
+        productAttributeValueQueryWrapper.eq(PmsProductAttributeValue::getProductId, products.getId());
         List<PmsProductAttributeValue> pmsProductAttributeValues = productAttributeValueMapper.selectList(productAttributeValueQueryWrapper);
         result.setProductAttributeValueList(pmsProductAttributeValues);
         //获取产品库存信息
-        QueryWrapper<PmsSkuStock> skuStockQueryWrapper = new QueryWrapper<>();
-        skuStockQueryWrapper.eq("product_id", products.getId());
+        LambdaQueryWrapper<PmsSkuStock> skuStockQueryWrapper = new LambdaQueryWrapper<>();
+        skuStockQueryWrapper.eq(PmsSkuStock::getProductId, products.getId());
         List<PmsSkuStock> skuStockList = skuStockMapper.selectList(skuStockQueryWrapper);
         result.setSkuStockList(skuStockList);
         //获取阶梯价格
-        QueryWrapper<PmsProductLadder> productLadderQueryWrapper = new QueryWrapper<>();
-        productLadderQueryWrapper.eq("product_id", products.getId());
+        LambdaQueryWrapper<PmsProductLadder> productLadderQueryWrapper = new LambdaQueryWrapper<>();
+        productLadderQueryWrapper.eq(PmsProductLadder::getProductId, products.getId());
         List<PmsProductLadder> productLadderList = productLadderMapper.selectList(productLadderQueryWrapper);
         if (CollectionUtil.isNotEmpty(productLadderList)) {
             result.setProductLadderList(productLadderList);
         }
         //商品满减价格设置
-        QueryWrapper<PmsProductFullReduction> pmsProductFullReductionQueryWrapper = new QueryWrapper<>();
-        pmsProductFullReductionQueryWrapper.eq("product_id", products.getId());
+        LambdaQueryWrapper<PmsProductFullReduction> pmsProductFullReductionQueryWrapper = new LambdaQueryWrapper<>();
+        pmsProductFullReductionQueryWrapper.eq(PmsProductFullReduction::getProductId, products.getId());
         List<PmsProductFullReduction> pmsProductFullReductionList = productFullReductionMapper.selectList(pmsProductFullReductionQueryWrapper);
         if (CollectionUtil.isNotEmpty(pmsProductFullReductionList)) {
             result.setProductFullReductionList(pmsProductFullReductionList);
@@ -246,14 +247,14 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         List<PmsSkuStock> currSkuList = productParam.getSkuStockList();
         //当前没有sku直接删除
         if (CollUtil.isEmpty(currSkuList)) {
-            QueryWrapper<PmsSkuStock> skuStockQueryWrapper = new QueryWrapper<>();
-            skuStockQueryWrapper.eq("product_id", id);
+            LambdaQueryWrapper<PmsSkuStock> skuStockQueryWrapper = new LambdaQueryWrapper<>();
+            skuStockQueryWrapper.eq(PmsSkuStock::getProductId, id);
             skuStockMapper.delete(skuStockQueryWrapper);
             return;
         }
         //获取初始sku信息
-        QueryWrapper<PmsSkuStock> skuStockQueryWrapper = new QueryWrapper<>();
-        skuStockQueryWrapper.eq("product_id", id);
+        LambdaQueryWrapper<PmsSkuStock> skuStockQueryWrapper = new LambdaQueryWrapper<>();
+        skuStockQueryWrapper.eq(PmsSkuStock::getProductId, id);
         List<PmsSkuStock> oriStuList = skuStockMapper.selectList(skuStockQueryWrapper);
         //获取新增sku信息
         List<PmsSkuStock> insertSkuList = currSkuList.stream().filter(item -> item.getId() == null).collect(Collectors.toList());

@@ -1,5 +1,6 @@
 package com.coca.shoppinguserservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.coca.shoppingmodel.entity.ums.UmsAdminRoleRelation;
 import com.coca.shoppingmodel.entity.ums.UmsRole;
@@ -36,8 +37,8 @@ public class UmsRoleServiceImpl extends ServiceImpl<UmsRoleMapper, UmsRole> impl
     public int updateRole(Long adminId, List<Long> roleIds) {
         int count = roleIds == null ? 0 : roleIds.size();
         //先删除原来的关系
-        QueryWrapper<UmsAdminRoleRelation> wrapper = new QueryWrapper<>();
-        wrapper.eq("admin_id", adminId);
+        LambdaQueryWrapper<UmsAdminRoleRelation> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(UmsAdminRoleRelation::getAdminId, adminId);
         adminRoleRelationMapper.delete(wrapper);
         //建立新关系
         if (!CollectionUtils.isEmpty(roleIds)) {

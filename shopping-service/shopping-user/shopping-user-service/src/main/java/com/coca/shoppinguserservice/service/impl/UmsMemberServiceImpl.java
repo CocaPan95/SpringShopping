@@ -2,6 +2,7 @@ package com.coca.shoppinguserservice.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.coca.shoppingcommon.service.RedisService;
 import com.coca.shoppingmodel.dto.UserDto;
@@ -50,8 +51,8 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
 
     @Override
     public UmsMember getByUsername(String username) {
-        QueryWrapper<UmsMember> wrapper = new QueryWrapper<>();
-        wrapper.eq("username", username);
+        LambdaQueryWrapper<UmsMember> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(UmsMember::getUsername, username);
         List<UmsMember> memberList = baseMapper.selectList(wrapper);
         if (!CollectionUtils.isEmpty(memberList)) {
             return memberList.get(0);

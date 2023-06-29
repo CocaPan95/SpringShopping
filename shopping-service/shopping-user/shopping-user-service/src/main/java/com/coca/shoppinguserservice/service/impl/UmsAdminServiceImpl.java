@@ -50,8 +50,8 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
 
     @Override
     public UmsAdmin getAdminByUsername(String username) {
-        QueryWrapper<UmsAdmin> wrapper = new QueryWrapper<UmsAdmin>();
-        wrapper.eq("username", username);
+        LambdaQueryWrapper<UmsAdmin> wrapper = new LambdaQueryWrapper<UmsAdmin>();
+        wrapper.eq(UmsAdmin::getUsername, username);
         List<UmsAdmin> adminList = baseMapper.selectList(wrapper);
         if (adminList != null && adminList.size() > 0) {
             return adminList.get(0);

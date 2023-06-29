@@ -2,6 +2,7 @@ package com.coca.shoppingsmsservice.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.coca.shoppingcommon.exception.Asserts;
 import com.coca.shoppingmodel.dto.SmsCouponParam;
@@ -71,8 +72,8 @@ public class SmsCouponServiceImpl extends ServiceImpl<SmsCouponMapper, SmsCoupon
     public boolean getCouponByMember(String code, Long MemberId) {
         //获取当前登录用户
         UmsMember member = umsMemberService.getById(MemberId);
-        QueryWrapper<SmsCoupon> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("code",code);
+        LambdaQueryWrapper<SmsCoupon> queryWrapper=new LambdaQueryWrapper<>();
+        queryWrapper.eq(SmsCoupon::getCode,code);
         List<SmsCoupon> couponList = baseMapper.selectList(queryWrapper);
         if (CollUtil.isEmpty(couponList)) {
             Asserts.fail("优惠券不存在！");
@@ -85,9 +86,9 @@ public class SmsCouponServiceImpl extends ServiceImpl<SmsCouponMapper, SmsCoupon
             Asserts.fail("优惠券抢光了！");
         }
 
-        QueryWrapper<SmsCouponHistory> couponHistoryQueryWrapper=new QueryWrapper<>();
-        couponHistoryQueryWrapper.eq("code",code);
-        couponHistoryQueryWrapper.eq("member_id",MemberId);
+        LambdaQueryWrapper<SmsCouponHistory> couponHistoryQueryWrapper=new LambdaQueryWrapper<>();
+        couponHistoryQueryWrapper.eq(SmsCouponHistory::getCouponCode,code);
+        couponHistoryQueryWrapper.eq(SmsCouponHistory::getMemberId,MemberId);
         List<SmsCouponHistory> couponHistoryList = couponHistoryMapper.selectList(couponHistoryQueryWrapper);
         if (couponHistoryList.stream().count() >= coupon.getPerLimit()) {
             Asserts.fail("优惠券领取超出限制！");
@@ -111,9 +112,9 @@ public class SmsCouponServiceImpl extends ServiceImpl<SmsCouponMapper, SmsCoupon
     public void updateCouponStatus(Long couponId, Long memberId, Integer useStatus) {
         if (couponId == null) return;
         //查询第一张优惠券
-        QueryWrapper<SmsCouponHistory> couponHistoryQueryWrapper = new QueryWrapper<>();
-        couponHistoryQueryWrapper.eq("member_id", memberId);
-        couponHistoryQueryWrapper.eq("use_status", useStatus == 0 ? 1 : 0);
+        LambdaQueryWrapper<SmsCouponHistory> couponHistoryQueryWrapper = new LambdaQueryWrapper<>();
+        couponHistoryQueryWrapper.eq(SmsCouponHistory::getMemberId, memberId);
+        couponHistoryQueryWrapper.eq(SmsCouponHistory::getUseStatus, useStatus == 0 ? 1 : 0);
         List<SmsCouponHistory> couponHistoryList = couponHistoryMapper.selectList(couponHistoryQueryWrapper);
         LocalDateTime now=LocalDateTime.now();
         if (!CollectionUtils.isEmpty(couponHistoryList)) {

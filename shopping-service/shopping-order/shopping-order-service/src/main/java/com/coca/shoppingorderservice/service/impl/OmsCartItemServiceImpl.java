@@ -2,6 +2,7 @@ package com.coca.shoppingorderservice.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.coca.shoppingmodel.dto.CartPromotionItem;
 import com.coca.shoppingmodel.entity.oms.OmsCartItem;
@@ -56,8 +57,8 @@ public class OmsCartItemServiceImpl extends ServiceImpl<OmsCartItemMapper, OmsCa
 
     @Override
     public List<OmsCartItem> GetOmsCartItemList(Long memberId) {
-        QueryWrapper<OmsCartItem> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("member_id", memberId);
+        LambdaQueryWrapper<OmsCartItem> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(OmsCartItem::getMemberId, memberId);
         return baseMapper.selectList(queryWrapper);
     }
 
@@ -81,12 +82,12 @@ public class OmsCartItemServiceImpl extends ServiceImpl<OmsCartItemMapper, OmsCa
     }
 
     private OmsCartItem getCartItem(OmsCartItem cartItem) {
-        QueryWrapper<OmsCartItem> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("member_id", cartItem.getMemberId());
-        queryWrapper.eq("product_id", cartItem.getProductId());
-        queryWrapper.eq("delete_status", 0);
+        LambdaQueryWrapper<OmsCartItem> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(OmsCartItem::getMemberId, cartItem.getMemberId());
+        queryWrapper.eq(OmsCartItem::getProductId, cartItem.getProductId());
+        queryWrapper.eq(OmsCartItem::getDeleteStatus, 0);
         if (cartItem.getProductSkuId() != null) {
-            queryWrapper.eq("product_sku_id", cartItem.getProductSkuId());
+            queryWrapper.eq(OmsCartItem::getProductSkuId, cartItem.getProductSkuId());
         }
         List<OmsCartItem> cartItemList = baseMapper.selectList(queryWrapper);
         if (!CollectionUtils.isEmpty(cartItemList)) {

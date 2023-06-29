@@ -1,5 +1,6 @@
 package com.coca.shoppingsmsservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.coca.shoppingmodel.dto.CartPromotionItem;
 import com.coca.shoppingmodel.dto.SmsCouponHistoryDetail;
@@ -89,9 +90,9 @@ public class MemberCouponImpl implements MemberCouponService {
     public void UpdateCouponStatus(Long couponId, Long memberId, Integer useStatus){
         if (couponId == null) return;
         //查询第一张优惠券
-        QueryWrapper<SmsCouponHistory> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("member_id",memberId);
-        queryWrapper.eq("use_status",useStatus == 0 ? 1 : 0);
+        LambdaQueryWrapper<SmsCouponHistory> queryWrapper=new LambdaQueryWrapper<>();
+        queryWrapper.eq(SmsCouponHistory::getMemberId,memberId);
+        queryWrapper.eq(SmsCouponHistory::getUseStatus,useStatus == 0 ? 1 : 0);
         List<SmsCouponHistory> couponHistoryList = couponHistoryMapper.selectList(queryWrapper);
         if (!CollectionUtils.isEmpty(couponHistoryList)) {
             SmsCouponHistory couponHistory = couponHistoryList.get(0);
