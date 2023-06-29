@@ -41,31 +41,19 @@ import java.util.stream.Collectors;
 public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProduct> implements IPmsProductService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PmsProductServiceImpl.class);
     @Autowired
-    private PmsMemberPriceDao memberPriceDao;
-    @Autowired
-    private PmsProductLadderDao productLadderDao;
-    @Autowired
-    private PmsProductFullReductionDao productFullReductionDao;
-    @Autowired
-    private PmsSkuStockDao skuStockDao;
-    @Autowired
-    private PmsProductAttributeValueDao productAttributeValueDao;
-    @Autowired
     private PmsMemberPriceMapper memberPriceMapper;
     @Autowired
     private PmsProductLadderMapper productLadderMapper;
     @Autowired
-    private PmsSkuStockMapper skuStockMapper;
-    @Autowired
     private PmsProductFullReductionMapper productFullReductionMapper;
+    @Autowired
+    private PmsSkuStockMapper skuStockMapper;
     @Autowired
     private PmsProductAttributeValueMapper productAttributeValueMapper;
     @Autowired
     private EsProductRepository productRepository;
     @Autowired
     private EsProductDao productDao;
-    @Autowired
-    private PortalProductDao portalProductDao;
     @Autowired
     private PmsBrandMapper brandMapper;
     @Autowired
@@ -82,17 +70,17 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         Long productId = product.getId();
 
         //会员价格
-        relateAndInsertList(memberPriceDao, productParam.getMemberPriceList(), productId);
+        relateAndInsertList(memberPriceMapper, productParam.getMemberPriceList(), productId);
         //阶梯价格
-        relateAndInsertList(productLadderDao, productParam.getProductLadderList(), productId);
+        relateAndInsertList(productLadderMapper, productParam.getProductLadderList(), productId);
         //满减价格
-        relateAndInsertList(productFullReductionDao, productParam.getProductFullReductionList(), productId);
+        relateAndInsertList(productFullReductionMapper, productParam.getProductFullReductionList(), productId);
         //处理sku的编码
         handleSkuStockCode(productParam.getSkuStockList(), productId);
         //添加sku库存信息
-        relateAndInsertList(skuStockDao, productParam.getSkuStockList(), productId);
+        relateAndInsertList(skuStockMapper, productParam.getSkuStockList(), productId);
         //添加商品参数,添加自定义商品规格
-        relateAndInsertList(productAttributeValueDao, productParam.getProductAttributeValueList(), productId);
+        relateAndInsertList(productAttributeMapper, productParam.getProductAttributeValueList(), productId);
         List<EsProduct> esProductList = productDao.getAllEsProductList(productId);
         productRepository.saveAll(esProductList);
         return 1;
@@ -109,17 +97,17 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         QueryWrapper<PmsMemberPrice> memberPriceQueryWrapperwrapper = new QueryWrapper<>();
         memberPriceQueryWrapperwrapper.eq("product_id", id);
         memberPriceMapper.delete(memberPriceQueryWrapperwrapper);
-        relateAndInsertList(memberPriceDao, productParam.getMemberPriceList(), id);
+        relateAndInsertList(memberPriceMapper, productParam.getMemberPriceList(), id);
         //阶梯价格
         QueryWrapper<PmsProductLadder> productLadderQueryWrapper = new QueryWrapper<>();
         productLadderQueryWrapper.eq("product_id", id);
         productLadderMapper.delete(productLadderQueryWrapper);
-        relateAndInsertList(productLadderDao, productParam.getProductLadderList(), id);
+        relateAndInsertList(productLadderMapper, productParam.getProductLadderList(), id);
         //满减价格
         QueryWrapper<PmsProductFullReduction> pmsProductFullReductionQueryWrapper = new QueryWrapper<>();
         pmsProductFullReductionQueryWrapper.eq("product_id", id);
         productFullReductionMapper.delete(pmsProductFullReductionQueryWrapper);
-        relateAndInsertList(productFullReductionDao, productParam.getProductFullReductionList(), id);
+        relateAndInsertList(productFullReductionMapper, productParam.getProductFullReductionList(), id);
         //修改sku库存信息
         handleUpdateSkuStockList(id, productParam);
         //修改商品参数,添加自定义商品规格
@@ -127,7 +115,7 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         productAttributeValueQueryWrapper.eq("product_id", id);
         productAttributeValueMapper.delete(productAttributeValueQueryWrapper);
 
-        relateAndInsertList(productAttributeValueDao, productParam.getProductAttributeValueList(), id);
+        relateAndInsertList(productAttributeValueMapper, productParam.getProductAttributeValueList(), id);
         List<EsProduct> esProductList = productDao.getAllEsProductList(id);
         EsProduct esProduct = productRepository.findById(id).get();
         productRepository.delete(esProduct);
@@ -203,7 +191,7 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
      */
     @Override
     public List<PromotionProduct> getPromotionProductList(List<Long> productIdList) {
-        return portalProductDao.getPromotionProductList(productIdList);
+        return baseMapper.getPromotionProductList(productIdList);
     }
 
 
@@ -278,7 +266,7 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         handleSkuStockCode(updateSkuList, id);
         //新增sku
         if (CollUtil.isNotEmpty(insertSkuList)) {
-            relateAndInsertList(skuStockDao, insertSkuList, id);
+            relateAndInsertList(skuStockMapper, insertSkuList, id);
         }
         //删除sku
         if (CollUtil.isNotEmpty(removeSkuList)) {

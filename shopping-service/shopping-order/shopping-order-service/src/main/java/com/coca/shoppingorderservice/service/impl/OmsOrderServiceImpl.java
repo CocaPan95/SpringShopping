@@ -80,11 +80,7 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
     @Autowired
     private OmsOrderItemMapper orderItemMapper;
     @Autowired
-    private PortalOrderItemDao orderItemDao;
-    @Autowired
     private CancelOrderSender cancelOrderSender;
-    @Autowired
-    private PortalOrderDao portalOrderDao;
     @Value("${redis.key.orderId}")
     private String REDIS_KEY_ORDER_ID;
     @Value("${redis.database}")
@@ -248,7 +244,7 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
             orderItem.setOrderId(order.getId());
             orderItem.setOrderSn(order.getOrderSn());
         }
-        orderItemDao.insertList(orderItemList);
+        orderItemMapper.insertList(orderItemList);
         //Asserts.fail("111111111111");
         //如果使用优惠券，更新优惠券状态
         if (orderParam.getCouponId() != null) {
@@ -280,8 +276,8 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
         order.setPayType(payType);
         baseMapper.updateById(order);
         //恢复所有下单商品的锁定库存，扣减真实库存
-        OmsOrderDetail orderDetail = portalOrderDao.getDetail(orderId);
-        int count = portalOrderDao.updateSkuStock(orderDetail.getOrderItemList());
+        OmsOrderDetail orderDetail = baseMapper.getDetail(orderId);
+        int count = baseMapper.updateSkuStock(orderDetail.getOrderItemList());
         return count;
     }
 
@@ -305,7 +301,7 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
             List<OmsOrderItem> omsOrderItems = orderItemMapper.selectList(orderItemQueryWrapper);
             //解除订单商品库存锁定
             if (!CollectionUtils.isEmpty(omsOrderItems)) {
-                portalOrderDao.releaseSkuStockLock(omsOrderItems);
+                baseMapper.releaseSkuStockLock(omsOrderItems);
             }
             //修改优惠券使用状态
             couponHistoryService.updateCouponStatus(cancelOrder.getCouponId(), cancelOrder.getMemberId(), 0);
@@ -323,7 +319,7 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
         Integer count=0;
         OmsOrderSetting orderSetting = orderSettingMapper.selectOne(new QueryWrapper<>());
         //查询超时、未支付的订单及订单详情
-        List<OmsOrderDetail> timeOutOrders = portalOrderDao.getTimeOutOrders(orderSetting.getNormalOrderOvertime());
+        List<OmsOrderDetail> timeOutOrders = baseMapper.getTimeOutOrders(orderSetting.getNormalOrderOvertime());
         if (CollectionUtils.isEmpty(timeOutOrders)) {
             return count;
         }
@@ -332,10 +328,10 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
         for (OmsOrderDetail timeOutOrder : timeOutOrders) {
             ids.add(timeOutOrder.getId());
         }
-        portalOrderDao.updateOrderStatus(ids, 4);
+        baseMapper.updateOrderStatus(ids, 4);
         for (OmsOrderDetail timeOutOrder : timeOutOrders) {
             //解除订单商品库存锁定
-            portalOrderDao.releaseSkuStockLock(timeOutOrder.getOrderItemList());
+            baseMapper.releaseSkuStockLock(timeOutOrder.getOrderItemList());
             //修改优惠券使用状态
             couponHistoryService.updateCouponStatus(timeOutOrder.getCouponId(), timeOutOrder.getMemberId(), 0);
             //返还使用积分

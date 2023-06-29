@@ -3,6 +3,7 @@ package com.coca.shoppingmodel.entity.pms;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -19,7 +20,7 @@ public class PmsProductLadder implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     private Long productId;
@@ -83,11 +84,11 @@ public class PmsProductLadder implements Serializable {
     @Override
     public String toString() {
         return "PmsProductLadder{" +
-        "id=" + id +
-        ", productId=" + productId +
-        ", count=" + count +
-        ", discount=" + discount +
-        ", price=" + price +
-        "}";
+                "id=" + id +
+                ", productId=" + productId +
+                ", count=" + count +
+                ", discount=" + discount +
+                ", price=" + price +
+                "}";
     }
 }

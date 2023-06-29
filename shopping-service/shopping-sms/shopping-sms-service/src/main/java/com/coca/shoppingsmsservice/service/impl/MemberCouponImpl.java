@@ -7,7 +7,6 @@ import com.coca.shoppingmodel.entity.sms.SmsCoupon;
 import com.coca.shoppingmodel.entity.sms.SmsCouponHistory;
 import com.coca.shoppingmodel.entity.sms.SmsCouponProductCategoryRelation;
 import com.coca.shoppingmodel.entity.sms.SmsCouponProductRelation;
-import com.coca.shoppingsmsservice.mapper.SmsCouponHistoryDao;
 import com.coca.shoppingsmsservice.mapper.SmsCouponHistoryMapper;
 import com.coca.shoppingsmsservice.service.MemberCouponService;
 import com.coca.shoppinguserapi.IUmsMemberRpcService;
@@ -28,14 +27,13 @@ public class MemberCouponImpl implements MemberCouponService {
     private IUmsMemberRpcService umsMemberService;
     @Autowired
     private SmsCouponHistoryMapper couponHistoryMapper;
-    @Autowired
-    private SmsCouponHistoryDao smsCouponHistoryDao;
+
 
     @Override
     public List<SmsCouponHistoryDetail> listCart(Long MemberId, List<CartPromotionItem> cartItemList, Integer type) {
         LocalDateTime now=LocalDateTime.now();
         //获取该用户所有优惠券
-        List<SmsCouponHistoryDetail> allList=smsCouponHistoryDao.getDetailList(MemberId);
+        List<SmsCouponHistoryDetail> allList=couponHistoryMapper.getDetailList(MemberId);
         //根据优惠券使用类型来判断优惠券是否可用
         List<SmsCouponHistoryDetail> enableList = new ArrayList<>();
         List<SmsCouponHistoryDetail> disableList = new ArrayList<>();

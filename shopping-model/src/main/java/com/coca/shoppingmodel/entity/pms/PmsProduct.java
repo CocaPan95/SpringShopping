@@ -3,6 +3,7 @@ package com.coca.shoppingmodel.entity.pms;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -20,7 +21,7 @@ public class PmsProduct implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     private Long brandId;
@@ -535,48 +536,48 @@ public class PmsProduct implements Serializable {
     @Override
     public String toString() {
         return "PmsProduct{" +
-        "id=" + id +
-        ", brandId=" + brandId +
-        ", productCategoryId=" + productCategoryId +
-        ", feightTemplateId=" + feightTemplateId +
-        ", productAttributeCategoryId=" + productAttributeCategoryId +
-        ", name=" + name +
-        ", pic=" + pic +
-        ", productSn=" + productSn +
-        ", deleteStatus=" + deleteStatus +
-        ", publishStatus=" + publishStatus +
-        ", newStatus=" + newStatus +
-        ", recommandStatus=" + recommandStatus +
-        ", verifyStatus=" + verifyStatus +
-        ", sort=" + sort +
-        ", sale=" + sale +
-        ", price=" + price +
-        ", promotionPrice=" + promotionPrice +
-        ", giftGrowth=" + giftGrowth +
-        ", giftPoint=" + giftPoint +
-        ", usePointLimit=" + usePointLimit +
-        ", subTitle=" + subTitle +
-        ", description=" + description +
-        ", originalPrice=" + originalPrice +
-        ", stock=" + stock +
-        ", lowStock=" + lowStock +
-        ", unit=" + unit +
-        ", weight=" + weight +
-        ", previewStatus=" + previewStatus +
-        ", serviceIds=" + serviceIds +
-        ", keywords=" + keywords +
-        ", note=" + note +
-        ", albumPics=" + albumPics +
-        ", detailTitle=" + detailTitle +
-        ", detailDesc=" + detailDesc +
-        ", detailHtml=" + detailHtml +
-        ", detailMobileHtml=" + detailMobileHtml +
-        ", promotionStartTime=" + promotionStartTime +
-        ", promotionEndTime=" + promotionEndTime +
-        ", promotionPerLimit=" + promotionPerLimit +
-        ", promotionType=" + promotionType +
-        ", brandName=" + brandName +
-        ", productCategoryName=" + productCategoryName +
-        "}";
+                "id=" + id +
+                ", brandId=" + brandId +
+                ", productCategoryId=" + productCategoryId +
+                ", feightTemplateId=" + feightTemplateId +
+                ", productAttributeCategoryId=" + productAttributeCategoryId +
+                ", name=" + name +
+                ", pic=" + pic +
+                ", productSn=" + productSn +
+                ", deleteStatus=" + deleteStatus +
+                ", publishStatus=" + publishStatus +
+                ", newStatus=" + newStatus +
+                ", recommandStatus=" + recommandStatus +
+                ", verifyStatus=" + verifyStatus +
+                ", sort=" + sort +
+                ", sale=" + sale +
+                ", price=" + price +
+                ", promotionPrice=" + promotionPrice +
+                ", giftGrowth=" + giftGrowth +
+                ", giftPoint=" + giftPoint +
+                ", usePointLimit=" + usePointLimit +
+                ", subTitle=" + subTitle +
+                ", description=" + description +
+                ", originalPrice=" + originalPrice +
+                ", stock=" + stock +
+                ", lowStock=" + lowStock +
+                ", unit=" + unit +
+                ", weight=" + weight +
+                ", previewStatus=" + previewStatus +
+                ", serviceIds=" + serviceIds +
+                ", keywords=" + keywords +
+                ", note=" + note +
+                ", albumPics=" + albumPics +
+                ", detailTitle=" + detailTitle +
+                ", detailDesc=" + detailDesc +
+                ", detailHtml=" + detailHtml +
+                ", detailMobileHtml=" + detailMobileHtml +
+                ", promotionStartTime=" + promotionStartTime +
+                ", promotionEndTime=" + promotionEndTime +
+                ", promotionPerLimit=" + promotionPerLimit +
+                ", promotionType=" + promotionType +
+                ", brandName=" + brandName +
+                ", productCategoryName=" + productCategoryName +
+                "}";
     }
 }

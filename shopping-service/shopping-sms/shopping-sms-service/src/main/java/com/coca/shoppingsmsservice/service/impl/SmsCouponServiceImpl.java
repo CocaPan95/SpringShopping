@@ -42,8 +42,7 @@ public class SmsCouponServiceImpl extends ServiceImpl<SmsCouponMapper, SmsCoupon
     private SmsCouponProductCategoryRelationMapper couponProductCategoryRelationMapper;
     @Autowired
     private SmsCouponProductRelationMapper couponProductRelationMapper;
-    @Autowired
-    private SmsCouponHistoryDao couponHistoryDao;
+
     @DubboReference
     private IUmsMemberRpcService umsMemberService;
 
@@ -94,7 +93,7 @@ public class SmsCouponServiceImpl extends ServiceImpl<SmsCouponMapper, SmsCoupon
             Asserts.fail("优惠券领取超出限制！");
         }
         LocalDateTime now=LocalDateTime.now();
-        if (couponHistoryDao.getCouponByMember(MemberId, code) > 0) {
+        if (couponHistoryMapper.getCouponByMember(MemberId, code) > 0) {
             SmsCouponHistory smsCouponHistory = new SmsCouponHistory();
             smsCouponHistory.setCouponId(coupon.getId());
             smsCouponHistory.setCouponCode(code);
@@ -126,6 +125,6 @@ public class SmsCouponServiceImpl extends ServiceImpl<SmsCouponMapper, SmsCoupon
     }
 
     public List<SmsCoupon> getAvailableCouponList(Long productId, Long productCategoryId) {
-        return couponHistoryDao.getAvailableCouponList(productId,productCategoryId);
+        return couponHistoryMapper.getAvailableCouponList(productId,productCategoryId);
     }
 }
