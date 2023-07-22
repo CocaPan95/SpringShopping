@@ -3,6 +3,7 @@ package com.coca.shoppingmodel.entity.pms;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -18,17 +19,20 @@ public class PmsProductAttributeValue implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     private Long productId;
 
     private Long productAttributeId;
 
+    private String productAttributeName;
+    private Integer productAttributeType;
     /**
      * 手动添加规格或参数的值，参数单值，规格有多个时以逗号隔开
      */
     private String value;
+
 
 
     public Long getId() {
@@ -55,6 +59,22 @@ public class PmsProductAttributeValue implements Serializable {
         this.productAttributeId = productAttributeId;
     }
 
+    public String getProductAttributeName() {
+        return productAttributeName;
+    }
+
+    public void setProductAttributeName(String productAttributeName) {
+        this.productAttributeName = productAttributeName;
+    }
+
+    public Integer getProductAttributeType() {
+        return productAttributeType;
+    }
+
+    public void setProductAttributeType(Integer productAttributeType) {
+        this.productAttributeType = productAttributeType;
+    }
+
     public String getValue() {
         return value;
     }
@@ -66,10 +86,10 @@ public class PmsProductAttributeValue implements Serializable {
     @Override
     public String toString() {
         return "PmsProductAttributeValue{" +
-        "id=" + id +
-        ", productId=" + productId +
-        ", productAttributeId=" + productAttributeId +
-        ", value=" + value +
-        "}";
+                "id=" + id +
+                ", productId=" + productId +
+                ", productAttributeId=" + productAttributeId +
+                ", value=" + value +
+                "}";
     }
 }
