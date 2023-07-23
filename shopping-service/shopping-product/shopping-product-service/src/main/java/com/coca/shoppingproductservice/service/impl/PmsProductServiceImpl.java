@@ -28,6 +28,7 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -80,11 +81,27 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         handleSkuStockCode(productParam.getSkuStockList(), productId);
         //添加sku库存信息
         relateAndInsertList(skuStockMapper, productParam.getSkuStockList(), productId);
+        //处理商品详情
+        handleProductAttribute(productParam.getProductAttributeValueList(), productId);
         //添加商品参数,添加自定义商品规格
         relateAndInsertList(productAttributeMapper, productParam.getProductAttributeValueList(), productId);
         List<EsProduct> esProductList = productDao.getAllEsProductList(productId);
         productRepository.saveAll(esProductList);
         return 1;
+    }
+
+    private void handleProductAttribute(List<PmsProductAttributeValue> productAttributeValueList, Long productId) {
+        List<Long> attrIds = productAttributeValueList.stream().map(t -> t.getProductAttributeId()).collect(Collectors.toList());
+        LambdaQueryWrapper<PmsProductAttribute> attributeLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        attributeLambdaQueryWrapper.in(PmsProductAttribute::getId,attrIds);
+        Map<Long, PmsProductAttribute> longPmsProductAttributeMap = productAttributeMapper.selectList(attributeLambdaQueryWrapper).stream().collect(Collectors.toMap(PmsProductAttribute::getId, t -> t));
+        for (PmsProductAttributeValue item:productAttributeValueList){
+            PmsProductAttribute pmsProductAttribute = longPmsProductAttributeMap.get(item.getProductAttributeId());
+            if (pmsProductAttribute!=null ){
+                item.setProductAttributeName(pmsProductAttribute.getName());
+                item.setProductAttributeType(pmsProductAttribute.getType());
+            }
+        }
     }
 
     @Override

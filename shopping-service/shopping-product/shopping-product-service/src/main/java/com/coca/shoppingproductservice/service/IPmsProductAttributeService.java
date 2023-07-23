@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-06-27
  */
 public interface IPmsProductAttributeService extends IService<PmsProductAttribute> {
-
+    boolean PmsProductAttributeSave(PmsProductAttribute param);
 }
