@@ -1,8 +1,11 @@
 package com.coca.shoppingproductservice.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.coca.shoppingcommon.exception.Asserts;
 import com.coca.shoppingmodel.entity.pms.PmsProductAttribute;
+import com.coca.shoppingmodel.entity.pms.PmsProductAttributeCategory;
 import com.coca.shoppingmodel.entity.pms.PmsProductAttributeValue;
+import com.coca.shoppingproductservice.mapper.PmsProductAttributeCategoryMapper;
 import com.coca.shoppingproductservice.mapper.PmsProductAttributeMapper;
 import com.coca.shoppingproductservice.mapper.PmsProductAttributeValueMapper;
 import com.coca.shoppingproductservice.service.IPmsProductAttributeService;
@@ -27,9 +30,15 @@ public class PmsProductAttributeServiceImpl extends ServiceImpl<PmsProductAttrib
     @Autowired
     private PmsProductAttributeValueMapper productAttributeValueMapper;
 
+    @Autowired
+    private PmsProductAttributeCategoryMapper productAttributeCategoryMapper;
 
     @Override
     public boolean PmsProductAttributeSave(PmsProductAttribute param){
+        PmsProductAttributeCategory pmsProductAttributeCategory = productAttributeCategoryMapper.selectById(param.getProductAttributeCategoryId());
+        if(pmsProductAttributeCategory==null){
+            Asserts.fail("属性分类不存在！");
+        }
         if(param.getId()>0){
             PmsProductAttribute productAttribute=baseMapper.selectById(param.getId());
             if(productAttribute==null){
@@ -47,6 +56,12 @@ public class PmsProductAttributeServiceImpl extends ServiceImpl<PmsProductAttrib
            }
         }
         return false;
+    }
+
+    public List<PmsProductAttribute> GetProductAttributeList(Long productAttributeCategoryId){
+        LambdaQueryWrapper<PmsProductAttribute> productAttributeLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        productAttributeLambdaQueryWrapper.eq(PmsProductAttribute::getProductAttributeCategoryId,productAttributeCategoryId);
+        return baseMapper.selectList(productAttributeLambdaQueryWrapper);
     }
 
 
