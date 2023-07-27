@@ -14,11 +14,6 @@ public class EsProductRpc implements IPmsEsProductRpcService {
     private EsProductService esProductService;
 
     @Override
-    public int importAll() {
-        return esProductService.importAll();
-    }
-
-    @Override
     public CommonPage<EsProduct> search(String keyword, Integer pageNum, Integer pageSize) {
         return esProductService.search(keyword, pageNum, pageSize);
     }

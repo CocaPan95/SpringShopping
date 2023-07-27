@@ -53,8 +53,6 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
     @Autowired
     private PmsProductAttributeValueMapper productAttributeValueMapper;
     @Autowired
-    private EsProductRepository productRepository;
-    @Autowired
     private EsProductDao productDao;
     @Autowired
     private PmsBrandMapper brandMapper;
@@ -85,8 +83,6 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         handleProductAttribute(productParam.getProductAttributeValueList(), productId);
         //添加商品参数,添加自定义商品规格
         relateAndInsertList(productAttributeMapper, productParam.getProductAttributeValueList(), productId);
-        List<EsProduct> esProductList = productDao.getAllEsProductList(productId);
-        productRepository.saveAll(esProductList);
         return 1;
     }
 
@@ -134,10 +130,6 @@ public class PmsProductServiceImpl extends ServiceImpl<PmsProductMapper, PmsProd
         productAttributeValueMapper.delete(productAttributeValueQueryWrapper);
 
         relateAndInsertList(productAttributeValueMapper, productParam.getProductAttributeValueList(), id);
-        List<EsProduct> esProductList = productDao.getAllEsProductList(id);
-        EsProduct esProduct = productRepository.findById(id).get();
-        productRepository.delete(esProduct);
-        productRepository.saveAll(esProductList);
 //        //关联专题
 //        CmsSubjectProductRelationExample subjectProductRelationExample = new CmsSubjectProductRelationExample();
 //        subjectProductRelationExample.createCriteria().andProductIdEqualTo(id);

@@ -43,18 +43,7 @@ public class EsProductImpl implements EsProductService {
     @Autowired
     private ElasticsearchRestTemplate elasticsearchRestTemplate;
 
-    @Override
-    public int importAll() {
-        List<EsProduct> esProductList = productDao.getAllEsProductList(null);
-        Iterable<EsProduct> esProductIterable = productRepository.saveAll(esProductList);
-        Iterator<EsProduct> iterator = esProductIterable.iterator();
-        int result = 0;
-        while (iterator.hasNext()) {
-            result++;
-            iterator.next();
-        }
-        return result;
-    }
+
 
     @Override
     public CommonPage<EsProduct> search(String keyword, Integer pageNum, Integer pageSize){

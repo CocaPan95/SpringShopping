@@ -40,11 +40,7 @@ public class PmsProductController {
         return CommonResult.success(result);
     }
 
-    @RequestMapping(value = "/importAll", method = RequestMethod.GET)
-    @ResponseBody
-    public CommonResult importAll(){
-        return CommonResult.success(productService.importAll()) ;
-    }
+
 
    // @ApiOperation("获取前台商品详情")
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
