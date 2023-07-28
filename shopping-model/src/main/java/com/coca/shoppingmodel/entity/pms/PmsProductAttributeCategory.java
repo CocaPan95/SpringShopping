@@ -3,6 +3,9 @@ package com.coca.shoppingmodel.entity.pms;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 /**
@@ -13,24 +16,29 @@ import java.io.Serializable;
  * @author coca
  * @since 2023-06-27
  */
+@ApiModel("产品属性分类实体类")
 @TableName("pms_product_attribute_category")
 public class PmsProductAttributeCategory implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-      @TableId(value = "id", type = IdType.AUTO)
+    @ApiModelProperty("Id")
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @ApiModelProperty("产品属性分类名称")
     private String name;
 
     /**
      * 属性数量
      */
+    @ApiModelProperty("属性数量")
     private Integer attributeCount;
 
     /**
      * 参数数量
      */
+    @ApiModelProperty("参数数量")
     private Integer paramCount;
 
 
@@ -69,10 +77,10 @@ public class PmsProductAttributeCategory implements Serializable {
     @Override
     public String toString() {
         return "PmsProductAttributeCategory{" +
-        "id=" + id +
-        ", name=" + name +
-        ", attributeCount=" + attributeCount +
-        ", paramCount=" + paramCount +
-        "}";
+                "id=" + id +
+                ", name=" + name +
+                ", attributeCount=" + attributeCount +
+                ", paramCount=" + paramCount +
+                "}";
     }
 }

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.coca.shoppingmodel.dto.PageParam;
 import com.coca.shoppingmodel.entity.pms.PmsProductAttribute;
 import com.coca.shoppingmodel.entity.pms.PmsProductAttributeCategory;
+import com.coca.shoppingproductapi.IPmsProductAttributeRpcService;
 import com.coca.shoppingproductservice.service.IPmsProductAttributeCategoryService;
 import com.coca.shoppingproductservice.service.IPmsProductAttributeService;
 import org.apache.dubbo.config.annotation.DubboService;
@@ -13,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @DubboService
-public class PmsProductAttributeRpc {
+public class PmsProductAttributeRpc implements IPmsProductAttributeRpcService {
 
     @Autowired
     private IPmsProductAttributeCategoryService productAttributeCategoryService;

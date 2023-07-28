@@ -3,6 +3,9 @@ spring:
     active: dev
   application:
     name: shopping-admin
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 server:
   port: 8201
 dubbo:
