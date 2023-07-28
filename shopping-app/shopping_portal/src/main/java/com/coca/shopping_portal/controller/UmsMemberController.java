@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/sso")
 public class UmsMemberController {
+
     @DubboReference
     private IUmsMemberRpcService umsMemberService;
 
