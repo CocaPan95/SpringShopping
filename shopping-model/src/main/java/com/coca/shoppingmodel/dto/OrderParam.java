@@ -1,5 +1,6 @@
 package com.coca.shoppingmodel.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -9,14 +10,14 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class OrderParam implements Serializable {
-    //@ApiModelProperty("收货地址ID")
+    @ApiModelProperty("收货地址ID")
     private Long memberReceiveAddressId;
-    //@ApiModelProperty("优惠券ID")
+    @ApiModelProperty("优惠券ID")
     private Long couponId;
-    //@ApiModelProperty("使用的积分数")
+    @ApiModelProperty("使用的积分数")
     private Integer useIntegration;
-    //@ApiModelProperty("支付方式")
+    @ApiModelProperty("支付方式")
     private Integer payType;
-    //@ApiModelProperty("被选中的购物车商品ID")
+    @ApiModelProperty("被选中的购物车商品ID")
     private List<Long> cartIds;
 }

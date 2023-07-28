@@ -8,6 +8,8 @@ import com.coca.shoppingmodel.dto.OmsOrderDetail;
 import com.coca.shoppingmodel.dto.OrderParam;
 import com.coca.shoppingmodel.entity.ums.UmsMember;
 import com.coca.shoppingorderapi.IOmsOrderRpcService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
+@Api(tags = "订单接口",description = "订单操作分类")
 @Controller
 @RequestMapping("/order")
 public class OmsOrderController {
@@ -26,6 +29,7 @@ public class OmsOrderController {
     @Autowired
     private MemberService memberService;
 
+    @ApiOperation("获取订单列表")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<CommonPage<OmsOrderDetail>> list(@RequestParam(required = false) Integer status,
@@ -36,6 +40,7 @@ public class OmsOrderController {
         return CommonResult.success(result);
     }
 
+    @ApiOperation("获取订单详情")
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<OmsOrderDetail> detail(@RequestParam(required = false) Long orderId) {
@@ -43,6 +48,7 @@ public class OmsOrderController {
         return CommonResult.success(result);
     }
 
+    @ApiOperation("生成确认单")
     @RequestMapping(value = "/generateConfirmOrder", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<ConfirmOrderResult> generateConfirmOrder(@RequestBody List<Long> ids) {
@@ -51,6 +57,7 @@ public class OmsOrderController {
         return CommonResult.success(result);
     }
 
+    @ApiOperation("生成订单")
     @RequestMapping(value = "/generateOrder", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult generateOrder(@RequestBody OrderParam orderParam) {
@@ -60,6 +67,7 @@ public class OmsOrderController {
     }
 
 
+    @ApiOperation("生成订单")
     @RequestMapping(value = "/paySuccess", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult paySuccess(@RequestParam Long orderId, @RequestParam Integer payType) {
@@ -67,6 +75,7 @@ public class OmsOrderController {
         return CommonResult.success(count, "支付成功");
     }
 
+    @ApiOperation("取消订单")
     @RequestMapping(value = "/cancelUserOrder", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult cancelUserOrder(Long orderId) {
@@ -74,6 +83,7 @@ public class OmsOrderController {
         return CommonResult.success(null);
     }
 
+    @ApiOperation("确认收货")
     @RequestMapping(value = "/confirmReceiveOrder", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult confirmReceiveOrder(Long orderId) {
@@ -82,6 +92,7 @@ public class OmsOrderController {
         return CommonResult.success(null);
     }
 
+    @ApiOperation("删除订单")
     @RequestMapping(value = "/deleteOrder", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult deleteOrder(Long orderId) {

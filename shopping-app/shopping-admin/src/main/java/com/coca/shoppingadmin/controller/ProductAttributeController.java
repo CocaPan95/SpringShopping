@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+@Api(tags = "产品属性接口",description = "操作产品属性和属性分类")
 @Controller
 @RequestMapping("/productattribute")
-@Api(tags = "产品属性接口",description = "操作产品属性和属性分类")
 public class ProductAttributeController {
     @DubboReference
     private IPmsProductAttributeRpcService pmsProductAttributeRpcService;

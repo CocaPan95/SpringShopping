@@ -6,11 +6,14 @@ import com.coca.shoppingmodel.dto.PmsPortalProductDetail;
 import com.coca.shoppingmodel.es.EsProduct;
 import com.coca.shoppingproductapi.IPmsEsProductRpcService;
 import com.coca.shoppingproductapi.IPmsProductRpcService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+@Api(tags = "产品信息接口",description = "产品信息分类")
 @Controller
 @RequestMapping("/product")
 public class PmsProductController {
@@ -19,6 +22,7 @@ public class PmsProductController {
     @DubboReference
     private IPmsProductRpcService pmsProductService;
 
+    @ApiOperation("商品信息搜索——简单")
     @RequestMapping(value = "/search/simple", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<CommonPage<EsProduct>> search(@RequestParam(required = false) String keyword,
@@ -28,6 +32,7 @@ public class PmsProductController {
         return CommonResult.success(result);
     }
 
+    @ApiOperation("商品信息搜索——复杂")
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<CommonPage<EsProduct>> search(@RequestParam(required = false) String keyword,
@@ -42,7 +47,7 @@ public class PmsProductController {
 
 
 
-   // @ApiOperation("获取前台商品详情")
+    @ApiOperation("获取前台商品详情")
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<PmsPortalProductDetail> detail(@PathVariable Long id) {

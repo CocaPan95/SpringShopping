@@ -3,6 +3,9 @@ package com.coca.shoppingmodel.entity.oms;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -15,73 +18,89 @@ import java.time.LocalDateTime;
  * @author coca
  * @since 2023-06-28
  */
+@ApiModel("购物车实体类")
 @TableName("oms_cart_item")
 public class OmsCartItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-      @TableId(value = "id", type = IdType.AUTO)
+    @ApiModelProperty("Id")
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @ApiModelProperty("产品Id")
     private Long productId;
 
+    @ApiModelProperty("产品SkuId")
     private Long productSkuId;
 
+    @ApiModelProperty("会员Id")
     private Long memberId;
 
     /**
      * 购买数量
      */
+    @ApiModelProperty("购买数量")
     private Integer quantity;
 
     /**
      * 添加到购物车的价格
      */
+    @ApiModelProperty("添加到购物车的价格")
     private BigDecimal price;
 
     /**
      * 商品主图
      */
+    @ApiModelProperty("商品主图")
     private String productPic;
 
     /**
      * 商品名称
      */
+    @ApiModelProperty("商品名称")
     private String productName;
 
     /**
      * 商品副标题（卖点）
      */
+    @ApiModelProperty("商品副标题（卖点）")
     private String productSubTitle;
 
     /**
      * 商品sku条码
      */
+    @ApiModelProperty("商品sku条码")
     private String productSkuCode;
 
     /**
      * 会员昵称
      */
+    @ApiModelProperty("会员昵称")
     private String memberNickname;
 
     /**
      * 创建时间
      */
+    @ApiModelProperty("创建时间")
     private LocalDateTime createDate;
 
     /**
      * 修改时间
      */
+    @ApiModelProperty("修改时间")
     private LocalDateTime modifyDate;
 
     /**
      * 是否删除
      */
+    @ApiModelProperty("是否删除")
     private Integer deleteStatus;
 
     /**
      * 商品分类
      */
+    @ApiModelProperty("商品分类")
     private Long productCategoryId;
 
     private String productBrand;
@@ -241,24 +260,24 @@ public class OmsCartItem implements Serializable {
     @Override
     public String toString() {
         return "OmsCartItem{" +
-        "id=" + id +
-        ", productId=" + productId +
-        ", productSkuId=" + productSkuId +
-        ", memberId=" + memberId +
-        ", quantity=" + quantity +
-        ", price=" + price +
-        ", productPic=" + productPic +
-        ", productName=" + productName +
-        ", productSubTitle=" + productSubTitle +
-        ", productSkuCode=" + productSkuCode +
-        ", memberNickname=" + memberNickname +
-        ", createDate=" + createDate +
-        ", modifyDate=" + modifyDate +
-        ", deleteStatus=" + deleteStatus +
-        ", productCategoryId=" + productCategoryId +
-        ", productBrand=" + productBrand +
-        ", productSn=" + productSn +
-        ", productAttr=" + productAttr +
-        "}";
+                "id=" + id +
+                ", productId=" + productId +
+                ", productSkuId=" + productSkuId +
+                ", memberId=" + memberId +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", productPic=" + productPic +
+                ", productName=" + productName +
+                ", productSubTitle=" + productSubTitle +
+                ", productSkuCode=" + productSkuCode +
+                ", memberNickname=" + memberNickname +
+                ", createDate=" + createDate +
+                ", modifyDate=" + modifyDate +
+                ", deleteStatus=" + deleteStatus +
+                ", productCategoryId=" + productCategoryId +
+                ", productBrand=" + productBrand +
+                ", productSn=" + productSn +
+                ", productAttr=" + productAttr +
+                "}";
     }
 }
